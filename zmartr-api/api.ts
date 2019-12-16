@@ -25,7 +25,10 @@ app.use(cors({
 app.use(authenticationMiddleware)
 
 const handleError = fn => (req, res, next) => {
-    fn(req, res).catch((error) => next(error));
+    fn(req, res).catch((error) => {
+        console.log(error)
+        next(error)
+    });
 }
 
 app.get('/getTasks', handleError(async (req, res) => {

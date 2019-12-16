@@ -15,7 +15,7 @@ const handleError = fn => (req, res, next) => {
     fn(req,res).catch((error) => next(error));
 }
 
-app.get('/login', handleError(async (req, res) => {
+app.post('/login', handleError(async (req, res) => {
     const email = req.body.email
     const password = req.body.password
     const login = await loginUser(email, password)
