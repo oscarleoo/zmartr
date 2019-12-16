@@ -22,14 +22,14 @@ export default {
     light: colors.red[400]
   },
   text: {
-    primary: '#17252a',
-    secondary: colors.blueGrey[600],
+    primary: '#05386b',
+    h1: "#edf5e1",
     link: colors.blue[600]
   },
   link: colors.blue[800],
   icon: colors.blueGrey[600],
   background: {
-    default: '#F4F6F8',
+    default: '#5cdb95',
     paper: white
   },
   divider: colors.grey[200]

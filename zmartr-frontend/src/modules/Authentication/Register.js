@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { register } from '../../redux/actions/authentication'
+import Page from '../../components/Page';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -71,7 +72,7 @@ const Register = ({ history, register }) => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Page>
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -146,7 +147,7 @@ const Register = ({ history, register }) => {
           </Grid>
         </div>
       </div>
-    </Container>
+    </Page>
   );
 }
 
