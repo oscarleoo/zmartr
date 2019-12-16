@@ -1,0 +1,27 @@
+{
+  "name": "startr-tasks",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "module": "./src/main.js",
+  "scripts": {
+    "start": "nodemon -r esm ./src/api.js",
+    "test": "mocha -r esm --recursive './test' --exit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "esm": "^3.2.25",
+    "express": "4.7.1",
+    "install": "^0.13.0",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.7",
+    "nodemon": "^1.19.4",
+    "npm": "^6.12.1",
+    "save": "^2.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
+  }
+}
