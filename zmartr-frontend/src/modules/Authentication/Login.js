@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { login } from '../../redux/actions/authentication'
-import Page from '../../components/Page';
+import InformationPage from '../../components/Pages/InformationPage';
 
 
 const useStyles = makeStyles(theme => ({
@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -66,7 +65,7 @@ const Login = ({ history, loginUser }) => {
   }
 
   return (
-    <Page>
+    <InformationPage>
       <Container className={classes.formContainer}>
         <CssBaseline />
         <div className={classes.paper}>
@@ -102,7 +101,7 @@ const Login = ({ history, loginUser }) => {
             </div>
         </div>
       </Container>
-    </Page>
+    </InformationPage>
   );
 }
 

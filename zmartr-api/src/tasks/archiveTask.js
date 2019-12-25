@@ -1,6 +1,6 @@
-const axios = require('axios')
+import axios from 'axios'
 
-const archiveTask = (taskId: string) => {
+const archiveTask = (taskId) => {
     return axios.post('http://tasks/archiveTask', { taskId })
 }
 

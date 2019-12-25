@@ -1,6 +1,6 @@
-const axios = require('axios')
+import axios from 'axios'
 
-const login = (email: string, password: string) => {
+const login = (email, password) => {
     return axios.post('http://users/login', { email, password })
 }
 

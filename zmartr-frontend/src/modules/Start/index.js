@@ -1,5 +1,5 @@
 import React from 'react'
-import Page from '../../components/Page'
+import InformationPage from '../../components/Pages/InformationPage'
 import { makeStyles, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
@@ -27,7 +27,7 @@ const Start = () => {
     const classes = useStyles()
 
     return (
-        <Page>
+        <InformationPage>
             <div className={classes.startContainer}>
                 <Typography variant='h1' align='center' className={classes.startHeading}>
                     Welcome to Zmartr
@@ -39,7 +39,7 @@ const Start = () => {
                     Created for entrepreneurs by an entrepreneur
                 </Typography>
             </div>
-        </Page>
+        </InformationPage>
     )
 }
 

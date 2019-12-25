@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import User from '../documents/User'
 
 
-const registerUser = async (firstName, lastName, email, password) => {
+const registerUser = async (email, password) => {
 
     try {
 
@@ -15,7 +15,7 @@ const registerUser = async (firstName, lastName, email, password) => {
         }
 
         const passwordHash = await bcrypt.hash(password, 8)
-        await new User({ firstName, lastName, email, password: passwordHash}).save()
+        await new User({ email, password: passwordHash }).save()
         return 'Registration sucessfull'
 
     } catch (error) {

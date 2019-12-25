@@ -1,18 +1,25 @@
 import { colors } from '@material-ui/core';
 
+// Dark   : #022449
+// Orange : #F27D42
+// DBlue  : #558DCA
+// LBlue  : #96FFFF
+// Gray   : #C8EFF9
+
+
 const white = '#FFFFFF';
 
 export default {
   primary: {
     contrastText: white,
-    dark: colors.indigo[900],
-    main: '#05386b',
+    dark: "#022449",
+    main: '#F27D42',
     light: colors.indigo[100]
   },
   secondary: {
     contrastText: white,
     dark: colors.blue[900],
-    main: '#05386b',
+    main: '#022449',
     light: colors.blue.A400
   },
   error: {
@@ -29,7 +36,7 @@ export default {
   link: colors.blue[800],
   icon: colors.blueGrey[600],
   background: {
-    default: '#5cdb95',
+    default: '#C8EFF9',
     paper: white
   },
   divider: colors.grey[200]

@@ -23,11 +23,9 @@ app.post('/login', handleError(async (req, res) => {
 }))
 
 app.post('/register', handleError(async (req, res) => {
-    const firstName = req.body.firstName
-    const lastName = req.body.lastName
     const email = req.body.email
     const password = req.body.password
-    const register = await registerUser(firstName, lastName, email, password)
+    const register = await registerUser(email, password)
     res.send(register)
 }))
 

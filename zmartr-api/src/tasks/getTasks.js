@@ -1,4 +1,4 @@
-const axios = require('axios')
+import axios from 'axios'
 
 const getTasks = () => {
     return axios.get('http://tasks/tasks')

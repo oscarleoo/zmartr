@@ -1,6 +1,6 @@
-const axios = require('axios')
+import axios from 'axios'
 
-const stopTask = (taskId: string) => {
+const stopTask = (taskId) => {
     return axios.post('http://tasks/stopTask', { taskId })
 }
 

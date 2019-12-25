@@ -1,9 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import LoginIcon from '@material-ui/icons/ExitToApp'
-import { Button } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import logo from '../../static/images/logo-dark.png'
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
@@ -13,38 +12,45 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   topBar: {
-      flex: '0 0 100px',
+      flex: '0 0 80px',
       width: '100%',
       boxShadow: '0 0 0 0',
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      background: theme.palette.background.green,
   },
-  topBarSection: {
-    margin: '0 3%'
+  toolBar: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginLeft: '2%',
+    marginRight: '2%'
+  },
+  actionItems: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  logo: {
+    height: '30px',
+    marginRight: '20px'
   }
 }));
 
 
-const TopBar = () => {
+const TopBar = ({ navigationItems, actionItems }) => {
 
     const classes = useStyles();
 
     return (
-        <div className={classes.topBar}>
-              <div className={classes.topBarSection}>
-                <Typography variant="h6" className={classes.title}>
-                    Zmartr
-                </Typography>
-              </div>
-              <div className={classes.topBarSection}>
-                <Button variant='contained' color='primary' size='large' href='/login'>
-                  <LoginIcon/>
-                  Login
-                </Button>
-              </div>
-        </div>
+      <AppBar position='static' className={classes.topBar}>
+        <Toolbar className={classes.toolBar}>
+          <div className={classes.navigationItems}>
+            <div href='/'><img className={classes.logo} src={logo} /></div>
+            <div>{navigationItems}</div>
+          </div>
+          <div className={classes.actionItems}>{actionItems}</div>
+        </Toolbar>
+      </AppBar>
     )
 
 }

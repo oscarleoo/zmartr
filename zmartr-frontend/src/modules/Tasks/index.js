@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 
-import Page from '../../components/Page'
+import ApplicationPage from '../../components/Pages/ApplicationPage'
 import Selected from './Selected'
 import List from './List'
 
@@ -26,9 +26,9 @@ const Tasks = ({ selectedTask }) => {
     }
 
     return (
-        <Page>
+        <ApplicationPage>
             {renderView()}
-        </Page>
+        </ApplicationPage>
     )
 }
 

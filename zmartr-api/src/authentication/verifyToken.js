@@ -1,6 +1,6 @@
-const axios = require('axios')
+import axios from 'axios'
 
-const verifyToken = (token: string) => {
+const verifyToken = (token) => {
 
     return axios({
         method: 'post',

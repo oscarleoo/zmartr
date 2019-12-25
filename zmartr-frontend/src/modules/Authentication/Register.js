@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { register } from '../../redux/actions/authentication'
-import Page from '../../components/Page';
+import InformationPage from '../../components/Pages/InformationPage';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -51,18 +50,8 @@ const Register = ({ history, register }) => {
   const classes = useStyles();
 
   const state = {
-    firstName: '',
-    lastName: '',
     email: '',
     password: ''
-  }
-
-  const handleFirstNameChange = (event) => {
-    state.firstName = event.target.value
-  }
-
-  const handleLastNameChange = (event) => {
-    state.lastName = event.target.value
   }
 
   const handleEmailChange = (event) => {
@@ -74,11 +63,11 @@ const Register = ({ history, register }) => {
   }
 
   const registerUser = () => {
-      register(state.firstName, state.lastName, state.email, state.password)
+      register(state.email, state.password)
   }
 
   return (
-    <Page>
+    <InformationPage>
       <Container className={classes.formContainer}>
         <CssBaseline />
         <div className={classes.paper}>
@@ -90,30 +79,6 @@ const Register = ({ history, register }) => {
           </Typography>
           <div className={classes.form}>
             <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  name="firstName"
-                  autoComplete="firstName"
-                  onChange={ handleFirstNameChange }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lastName"
-                  onChange={ handleLastNameChange }
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -155,14 +120,14 @@ const Register = ({ history, register }) => {
           </div>
         </div>
       </Container>
-    </Page>
+    </InformationPage>
   );
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        register: (firstName, lastName, email, password) => {
-            dispatch(register(firstName, lastName, email, password))
+        register: (email, password) => {
+            dispatch(register(email, password))
         }
     }
 }

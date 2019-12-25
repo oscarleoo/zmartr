@@ -6,8 +6,8 @@ export const login = (email, password) => {
 }
 
 export const REGISTER = 'REGISTER'
-export const register = (firstName, lastName, email, password) => {
+export const register = (email, password) => {
     return { type: REGISTER, payload: axios({ 
-        method: 'get', url: `/register?email=${email}&password=${password}&firstName=${firstName}&lastName=${lastName}` 
+        method: 'get', url: `/register?email=${email}&password=${password}` 
     }) }
 }

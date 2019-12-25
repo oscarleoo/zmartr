@@ -1,6 +1,6 @@
-import cors = require('cors')
-import express = require('express')
-import bodyParser = require('body-parser')
+import cors from 'cors'
+import express from 'express'
+import bodyParser from 'body-parser'
 
 import login from './authentication/login'
 import register from './authentication/register'
@@ -80,7 +80,7 @@ app.get('/login', handleError(async (req, res) => {
 }))
 
 app.get('/register', handleError(async (req, res) => {
-    const registerResponse = await register(req.query.firstName, req.query.lastName, req.query.email, req.query.password)
+    const registerResponse = await register(req.query.email, req.query.password)
     res.send(registerResponse.data)
 }))
 
