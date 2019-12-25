@@ -36,7 +36,7 @@ export default {
   link: colors.blue[800],
   icon: colors.blueGrey[600],
   background: {
-    default: '#C8EFF9',
+    gray: '#C8EFF9',
     paper: white
   },
   divider: colors.grey[200]

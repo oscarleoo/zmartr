@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     height: '100vh',
     width: '100%',
-    background: theme.palette.background.default
+    background: theme.palette.background.gray
   },
   view: {
     flex: 1,
@@ -40,10 +40,10 @@ const Page = ({ children }) => {
   const createActionItems = () => {
     return (
       <div className={classes.items}>
-        <Button color='primary' focusVisible={false} href='/register'>
+        <Button color='secondary' focusVisible={false} href='/register'>
           Register
         </Button>
-        <Button variant='contained' color='primary' size='large' href='/login'>
+        <Button variant='contained' color='primary' size='large' href='/login' className={classes.login}>
           <LoginIcon/>
           Login
         </Button>

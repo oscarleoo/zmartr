@@ -77,10 +77,10 @@ const Login = ({ history, loginUser }) => {
             </Typography>
             <div className={classes.form}>
             <TextField
-                variant="outlined" margin="normal" required fullWidth id="email" label="Email Address" 
+                variant="filled" margin="normal" required fullWidth id="email" label="Email Address" 
                 name="email" autoComplete="email" autoFocus onChange={ handleEmailChange } />
             <TextField
-                variant="outlined" margin="normal" required fullWidth name="password" label="Password"
+                variant="filled" margin="normal" required fullWidth name="password" label="Password"
                 type="password" id="password" autoComplete="current-password" onChange={ handlePasswordChange } />
             <Button 
                 fullWidth variant="contained" color="primary"

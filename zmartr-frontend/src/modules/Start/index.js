@@ -1,6 +1,7 @@
 import React from 'react'
 import InformationPage from '../../components/Pages/InformationPage'
 import { makeStyles, Typography } from '@material-ui/core'
+import logo from '../../static/images/logo-bright.png'
 
 const useStyles = makeStyles(theme => ({
     startContainer: {
@@ -12,13 +13,21 @@ const useStyles = makeStyles(theme => ({
     },
     startHeading: {
         fontSize: '80px',
-        lineHeight: '90px'
+        lineHeight: '90px',
+        display: 'flex'
     },
     subHeading: {
         fontSize: '40px',
         lineHeight: '50px',
         maxWidth: '650px',
         marginTop: '20px'
+    },
+    note: {
+        marginTop: '20px'
+    },
+    logo: {
+        height: '90px',
+        marginLeft: '20px'
     }
 }))
 
@@ -30,13 +39,13 @@ const Start = () => {
         <InformationPage>
             <div className={classes.startContainer}>
                 <Typography variant='h1' align='center' className={classes.startHeading}>
-                    Welcome to Zmartr
+                    Welcome to <img className={classes.logo} src={logo} />
                 </Typography>
                 <Typography variant='h2' align='center' className={classes.subHeading}>
-                    One of the simplest task managers you will ever find
+                    The simplest task managers you will ever find
                 </Typography>
-                <Typography variant='h5'>
-                    Created for entrepreneurs by an entrepreneur
+                <Typography variant='h5' className={classes.note}>
+                    Created for entrepreneurs by entrepreneurs
                 </Typography>
             </div>
         </InformationPage>

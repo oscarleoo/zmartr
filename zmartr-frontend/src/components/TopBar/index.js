@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
       flex: '0 0 80px',
       width: '100%',
       boxShadow: '0 0 0 0',
-      background: theme.palette.background.green,
+      background: theme.palette.background.gray,
   },
   toolBar: {
     flex: 1,
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   logo: {
-    height: '30px',
+    height: '40px',
     marginRight: '20px'
   }
 }));
@@ -45,7 +45,7 @@ const TopBar = ({ navigationItems, actionItems }) => {
       <AppBar position='static' className={classes.topBar}>
         <Toolbar className={classes.toolBar}>
           <div className={classes.navigationItems}>
-            <div href='/'><img className={classes.logo} src={logo} /></div>
+            <div href='/'><a href='/'><img className={classes.logo} src={logo} /></a></div>
             <div>{navigationItems}</div>
           </div>
           <div className={classes.actionItems}>{actionItems}</div>
