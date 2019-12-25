@@ -37,6 +37,12 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
     background: '#00adb5'
   },
+  formContainer: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 }));
 
 
@@ -73,80 +79,82 @@ const Register = ({ history, register }) => {
 
   return (
     <Page>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Register
-        </Typography>
-        <div className={classes.form}>
-          <Grid container spacing={2}>
-          <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                name="firstName"
-                autoComplete="firstName"
-                onChange={ handleFirstNameChange }
-              />
-            </Grid>
+      <Container className={classes.formContainer}>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Register
+          </Typography>
+          <div className={classes.form}>
+            <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lastName"
-                onChange={ handleLastNameChange }
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                onChange={ handleEmailChange }
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={ handlePasswordChange }
-              />
-            </Grid>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  name="firstName"
+                  autoComplete="firstName"
+                  onChange={ handleFirstNameChange }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lastName"
+                  onChange={ handleLastNameChange }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={ handleEmailChange }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={ handlePasswordChange }
+                />
+              </Grid>
 
-          </Grid>
-          <Button
-            fullWidth variant="contained" color="primary" 
-            className={classes.submit} onClick={registerUser}
-          > Sign Up </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link variant="body2" onClick={ () => history.push('/login') }>
-                Already have an account? Sign in
-              </Link>
             </Grid>
-          </Grid>
+            <Button
+              fullWidth variant="contained" color="primary" 
+              className={classes.submit} onClick={registerUser}
+            > Sign Up </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link variant="body2" onClick={ () => history.push('/login') }>
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </div>
         </div>
-      </div>
+      </Container>
     </Page>
   );
 }

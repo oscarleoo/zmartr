@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import loginUser from './gets/loginUser';
 import registerUser from './posts/registerUser';
 
-const { MONGO_HOST } = process.env;
+const { MONGO_USERNAME, MONGO_PASSWORD } = process.env
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -31,9 +31,10 @@ app.post('/register', handleError(async (req, res) => {
     res.send(register)
 }))
 
-mongoose.connect(
-    `mongodb://${MONGO_HOST}:27017/startr`, 
-    { useNewUrlParser: true, useUnifiedTopology: true 
-})
-    .then(() => { app.listen(80, () => { console.log('Users microservice ready!') }) })
+mongoose.connect(`mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@dcrowd-gk9yg.mongodb.net/zmartr-users?retryWrites=true&w=majority`, { useUnifiedTopology: true })
+    .then(() => {
+        app.listen(80, () => {
+            console.log('Tasks microservice ready');
+        });
+    })
     .catch(err => { console.log(err); });

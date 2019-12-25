@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zmartr-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zmartr-api
+  template:
+    metadata:
+      labels:
+        app: zmartr-api
+    spec:
+      containers:
+      - name: zmartr-api
+        image: zmartr/api
+        imagePullPolicy: "Never"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "125m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 5000
+        env:
+        - name: TASKS_MICROSERVICE
+          value: 'zmartr-tasks-cluster-ip'
+        - name: USERS_MICROSERVICE
+          value: 'zmartr-users-cluster-ip'

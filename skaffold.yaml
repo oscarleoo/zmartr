@@ -1,0 +1,37 @@
+# Skaffold Rust Example
+# https://github.com/shaneutt/dcos-k8s-rust-skaffold-demo
+
+# Great Stuff
+# https://github.com/rust-unofficial/awesome-rust
+
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: zmartr
+build:
+  artifacts:
+  - image: zmartr/frontend
+    context: zmartr-frontend
+  - image: zmartr/api
+    context: zmartr-api
+  - image: zmartr/tasks
+    context: zmartr-tasks
+  - image: zmartr/users
+    context: zmartr-users
+deploy:
+  kubectl:
+    manifests:
+    # Frontend
+    - k8s/frontend/cluster-ip.yaml
+    - k8s/frontend/deployment.yaml
+    - k8s/frontend/ingress.yaml
+    # API
+    - k8s/api/cluster-ip.yaml
+    - k8s/api/deployment.yaml
+    - k8s/api/ingress.yaml
+    # Datasets
+    - k8s/tasks/cluster-ip.yaml
+    - k8s/tasks/deployment.yaml
+    # Users
+    - k8s/users/cluster-ip.yaml
+    - k8s/users/deployment.yaml

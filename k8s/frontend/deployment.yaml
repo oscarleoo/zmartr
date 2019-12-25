@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zmartr-frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zmartr-frontend
+  template:
+    metadata:
+      labels:
+        app: zmartr-frontend
+    spec:
+      containers:
+      - name: zmartr-frontend
+        image: zmartr/frontend
+        imagePullPolicy: "Never"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000

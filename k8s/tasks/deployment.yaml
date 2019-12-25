@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zmartr-tasks-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zmartr-tasks
+  template:
+    metadata:
+      labels:
+        app: zmartr-tasks
+    spec:
+      containers:
+      - name: zmartr-tasks
+        image: zmartr/tasks
+        imagePullPolicy: "Never"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "125m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80
+        env:
+        - name: MONGO_USERNAME
+          value: "dcrowd"
+        - name: MONGO_PASSWORD
+          value: "Wuc0IlUXzxBCEpTK"

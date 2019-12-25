@@ -10,7 +10,7 @@ import finishTask from './posts/finishTask';
 import archiveTask from './posts/archiveTask';
 import orderTasks from './posts/orderTasks';
 
-const { MONGO_HOST } = process.env;
+const { MONGO_USERNAME, MONGO_PASSWORD } = process.env
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -61,6 +61,10 @@ app.post('/createTask', handleError(async (req, res) => {
     res.send(tasks)
 }))
 
-mongoose.connect(`mongodb://${MONGO_HOST}:27017/startr`, {useNewUrlParser: true})
-    .then(() => { app.listen(80, () => { console.log('Tasks microservice ready') }) })
+mongoose.connect(`mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@dcrowd-gk9yg.mongodb.net/zmartr-tasks?retryWrites=true&w=majority`, { useUnifiedTopology: true })
+    .then(() => {
+        app.listen(80, () => {
+            console.log('Tasks microservice ready! :D');
+        });
+    })
     .catch(err => { console.log(err); });

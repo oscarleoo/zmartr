@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     container: {
         height: '100%',
         width: '100%',
-        background: '#3aafa9',
         display: 'flex',
         flexDirection: 'column',
     },
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     actionBar: {
         flex: '0 0 100px',
         margin: '0 5% 0 5%',
-        borderTop: '2px dashed #17252a',
+        borderTop: '2px dashed #05386b',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
@@ -45,7 +44,7 @@ const useStyles = makeStyles(theme => ({
         height: '50px',
         width: '120px',
         background: theme.palette.secondary.main,
-        color: '#2b7a78'
+        color: '#05386b'
     }
 }));
 
