@@ -75,7 +75,7 @@ const Register = ({ history, register }) => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Register
+            Register!
           </Typography>
           <div className={classes.form}>
             <Grid container spacing={2}>
@@ -109,7 +109,7 @@ const Register = ({ history, register }) => {
             <Button
               fullWidth variant="contained" color="primary" 
               className={classes.submit} onClick={registerUser}
-            > Sign Up </Button>
+            >Register</Button>
             <Grid container justify="flex-end">
               <Grid item>
                 <Link variant="body2" onClick={ () => history.push('/login') }>
@@ -124,12 +124,18 @@ const Register = ({ history, register }) => {
   );
 }
 
+// const mapStateToProps = state => {
+//   return {
+//     registration: state.authentication.registration
+//   }
+// }
+
 const mapDispatchToProps = dispatch => {
-    return {
-        register: (email, password) => {
-            dispatch(register(email, password))
-        }
+  return {
+    register: (email, password) => {
+      dispatch(register(email, password))
     }
+  }
 }
 
 export default connect(

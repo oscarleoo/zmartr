@@ -1,8 +1,9 @@
 import { Task } from "../documents/Task"
+import { ObjectId } from "mongodb"
 
-const getTasks = async () => {
+const getTasks = async (userId) => {
 
-    const tasks = await Task.find({ 'actions.type': { $nin: ['Finished', 'Archived'] } })
+    const tasks = await Task.find({ userId: ObjectId(userId), 'actions.type': { $nin: ['Finished', 'Archived'] } })
     const selectedTask = await Task.findOne({ selected: true })
 
     return { list: tasks, selected: selectedTask }

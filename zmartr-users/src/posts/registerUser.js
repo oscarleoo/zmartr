@@ -9,18 +9,18 @@ const registerUser = async (email, password) => {
         const users = await User.find({ email: email }).limit(1)
 
         if (users.length > 0) {
-            return 'User already exists'
+            return { message: { message: 'User already exists', type: 'error' } }
         } else if (password.length < 10) {
-            return 'Password is to short'
+            return { message: { message: 'Password is to short', type: 'error' } }
         }
 
         const passwordHash = await bcrypt.hash(password, 8)
         await new User({ email, password: passwordHash }).save()
-        return 'Registration sucessfull'
+        return { message: { message: 'Registration successful', type: 'success' } }
 
     } catch (error) {
         console.log(error)
-        return 'Failed to register'
+        return { message: { message: 'Failed to register', type: 'error' } }
     }
 
 }

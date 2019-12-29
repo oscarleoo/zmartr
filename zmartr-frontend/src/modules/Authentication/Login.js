@@ -53,7 +53,7 @@ const Login = ({ history, loginUser }) => {
   }
 
   const authenticate = () => {
-    loginUser( state.email, state.password )
+    loginUser(history, state.email, state.password )
   }
 
   const handleEmailChange = (event) => {
@@ -106,9 +106,13 @@ const Login = ({ history, loginUser }) => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        loginUser: (email, password) => dispatch(login(email, password)),
-    }
+  return {
+    loginUser: (history, email, password) => {
+      dispatch(login(email, password)).then(() => {
+        history.push('/')
+      })
+    },
+  }
 }
 
 export default connect(

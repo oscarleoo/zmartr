@@ -21,50 +21,50 @@ const handleError = fn => (req, res, next) => {
 }
 
 app.get('/tasks', handleError(async (req, res) => {
-    const tasks = await getTasks()
+    const tasks = await getTasks(userId)
     res.send(tasks)
 }))
 
 app.post('/startTask', handleError(async (req, res) => {
-    const taskId = req.body.taskId
-    const tasks = await startTask(taskId)
+    const { taskId, userId } = req.body
+    const tasks = await startTask(taskId, userId)
     res.send(tasks)
 }))
 
 app.post('/stopTask', handleError(async (req, res) => {
-    const taskId = req.body.taskId
-    const tasks = await stopTask(taskId)
+    const { taskId, userId } = req.body
+    const tasks = await stopTask(taskId, userId)
     res.send(tasks)
 }))
 
 app.post('/finishTask', handleError(async (req, res) => {
-    const taskId = req.body.taskId
-    const tasks = await finishTask(taskId)
+    const { taskId, userId } = req.body
+    const tasks = await finishTask(taskId, userId)
     res.send(tasks)
 }))
 
 app.post('/archiveTask', handleError(async (req, res) => {
-    const taskId = req.body.taskId
-    const tasks = await archiveTask(taskId)
+    const { taskId, userId } = req.body
+    const tasks = await archiveTask(taskId, userId)
     res.send(tasks)
 }))
 
 app.post('/orderTasks', handleError(async (req, res) => {
-    const taskIds = req.body.taskIds
+    const { taskIds } = req.body
     const message = await orderTasks(taskIds)
     res.send(message)
 }))
 
 app.post('/createTask', handleError(async (req, res) => {
-    const newTask = req.body.newTask
-    const tasks = await createTask(newTask)
+    const { newTask, userId } = req.body
+    const tasks = await createTask(newTask, userId)
     res.send(tasks)
 }))
 
 mongoose.connect(`mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@dcrowd-gk9yg.mongodb.net/zmartr-tasks?retryWrites=true&w=majority`, { useUnifiedTopology: true })
     .then(() => {
         app.listen(80, () => {
-            console.log('Tasks microservice ready! :D');
+            console.log('Tasks microservice ready!');
         });
     })
     .catch(err => { console.log(err); });

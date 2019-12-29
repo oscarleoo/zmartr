@@ -1,9 +1,10 @@
 import React from 'react'
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import { StripeProvider } from 'react-stripe-elements';
+// import { StripeProvider } from 'react-stripe-elements';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme';
 import storage from 'redux-persist/lib/storage'
@@ -16,20 +17,20 @@ const App = () => {
 
   const persistConfig = { key: 'root', storage }
   const persistedReducer = persistReducer(persistConfig, rootReducer)
-  const createStoreWithMiddleware = applyMiddleware(promise,)(createStore);
+  const createStoreWithMiddleware = applyMiddleware(promise, thunk)(createStore);
   const store = createStoreWithMiddleware(persistedReducer)
   const persistor = persistStore(store)
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-        <StripeProvider apiKey="pk_test_nznndKLo23ZGUUVPwKKUZk0C" >
-          <Application />
-        </StripeProvider>
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
+    // <StripeProvider apiKey="pk_test_nznndKLo23ZGUUVPwKKUZk0C" >
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <Application />
+          </ThemeProvider>
+        </PersistGate>
+      </Provider>
+    // </StripeProvider>
   )
 
 }

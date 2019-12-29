@@ -1,8 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const register = (email, password) => {
-    return axios.post('http://users/register', { email, password })
+const { USERS_MICROSERVICE } = process.env;
 
-}
+const register = (email, password) => axios.post(`http://${USERS_MICROSERVICE}/register`, { email, password });
 
-export default register
+export default register;

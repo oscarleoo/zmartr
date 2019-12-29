@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import LoginIcon from '@material-ui/icons/ExitToApp'
 import Button from '@material-ui/core/Button';
 import TopBar from '../TopBar';
+import Message from '../Message';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +24,9 @@ const useStyles = makeStyles(theme => ({
   },
   login: {
     marginLeft: '20px',
+  },
+  loginIcon: {
+    marginRight: '10px'
   }
 }));
 
@@ -44,7 +48,7 @@ const Page = ({ children }) => {
           Register
         </Button>
         <Button variant='contained' color='primary' size='large' href='/login' className={classes.login}>
-          <LoginIcon/>
+          <LoginIcon className={classes.loginIcon}/>
           Login
         </Button>
       </div>
@@ -57,6 +61,7 @@ const Page = ({ children }) => {
       <div className={classes.view}> 
         {children}
       </div>
+      <Message />
     </div>
   );
 };

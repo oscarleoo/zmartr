@@ -1,20 +1,22 @@
-import { 
-    LOGIN, 
-} from '../actions/authentication';
+import { LOGIN, LOGOUT } from '../actions/authentication';
 
 const initialState = {
   user: {},
-  token: '',
-  message: ''
+  token: ''
 }
 
 const authenticationReducer = (state=initialState, action) => {
-  console.log(action)
   switch(action.type) {
     case `${LOGIN}_FULFILLED`: {
       return Object.assign({}, state, {
         token: action.payload.data.token,
-        user: action.payload.data.user
+        user: action.payload.data.user,
+      })
+    }
+    case LOGOUT: {
+      return Object.assign({}, state, {
+        token: '',
+        user: {},
       })
     }
     default: 

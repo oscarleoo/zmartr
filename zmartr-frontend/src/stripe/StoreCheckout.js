@@ -1,13 +1,13 @@
 import React from 'react';
 import { Elements } from 'react-stripe-elements';
-import InjectedCheckoutForm from './CheckoutForm';
+import CheckoutForm from './CheckoutForm';
 
-const MyStoreCheckout = () => {
+const StoreCheckout = () => {
   return (
     <Elements>
-      <InjectedCheckoutForm />
+      <CheckoutForm />
     </Elements>
   );
 };
 
-export default MyStoreCheckout;
+export default StoreCheckout;

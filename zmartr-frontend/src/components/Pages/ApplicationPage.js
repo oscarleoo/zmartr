@@ -1,8 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/styles';
-import LoginIcon from '@material-ui/icons/ExitToApp'
+import React from 'react'
+import { connect} from 'react-redux'
+import { makeStyles } from '@material-ui/styles'
 import Button from '@material-ui/core/Button';
-import TopBar from '../TopBar';
+import TopBar from '../TopBar'
+import { logout } from '../../redux/actions/authentication'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,14 +21,11 @@ const useStyles = makeStyles(theme => ({
   },
   items: {
     display: 'flex',
-  },
-  login: {
-    marginLeft: '20px',
   }
 }));
 
 
-const Page = ({ children }) => {
+const Page = ({ children, logout }) => {
   
   const classes = useStyles();
 
@@ -40,12 +38,8 @@ const Page = ({ children }) => {
   const createActionItems = () => {
     return (
       <div className={classes.items}>
-        <Button color='primary' focusVisible={false} href='/register'>
-          Register
-        </Button>
-        <Button variant='contained' color='primary' size='large' href='/login'>
-          <LoginIcon/>
-          Login
+        <Button color='secondary' onClick={logout}>
+          Logout
         </Button>
       </div>
     )
@@ -61,4 +55,13 @@ const Page = ({ children }) => {
   );
 };
 
-export default Page;
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout())
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Page)

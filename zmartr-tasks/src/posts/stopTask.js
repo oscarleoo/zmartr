@@ -1,11 +1,11 @@
 import { Task } from "../documents/Task"
 import { ObjectId } from 'mongodb'
 
-const stopTask = async (taskId) => {
+const stopTask = async (taskId, userId) => {
 
     await Task.updateMany({}, { selected: false })
     await Task.updateOne(
-        { _id: new ObjectId(taskId) }, 
+        { _id: new ObjectId(taskId), userId: ObjectId(userId) }, 
         { $push: { actions: { type: 'Stopped', date: Date.now() } } },
         { runValidators: true }
     )

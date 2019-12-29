@@ -1,11 +1,11 @@
 import { Task } from "../documents/Task"
 import { ObjectId } from 'mongodb'
 
-const archiveTask = async (taskId) => {
+const archiveTask = async (taskId, userId) => {
 
     await Task.updateMany({}, { selected: false })
     await Task.updateOne(
-        { _id: new ObjectId(taskId) }, 
+        { _id: ObjectId(taskId), userId: ObjectId(userId) }, 
         { $push: { actions: { type: 'Archived', date: Date.now() } } },
         { runValidators: true }
     )
