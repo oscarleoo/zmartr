@@ -1,5 +1,8 @@
 
-export const DISPLAY_MESSAGE = 'DISPLAY_MESSAGE'
-export const displayMessage = (bool) => {
-    return { type: DISPLAY_MESSAGE, payload: bool }
-}
+export const CREATE_MESSAGE = 'CREATE_MESSAGE';
+export const createMessage = (message, type) => ({
+  type: CREATE_MESSAGE, payload: { message, type },
+});
+
+export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';
+export const closeMessage = () => ({ type: CLOSE_MESSAGE });

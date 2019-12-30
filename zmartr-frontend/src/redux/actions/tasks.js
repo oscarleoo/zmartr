@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { createMessage } from './message';
 
 export const GET_TASKS = 'GET_TASKS';
 export const ADD_TASK = 'ADD_TASK';
@@ -23,9 +24,15 @@ export const getTasks = () => (dispatch, getState) => {
 };
 
 export const createTask = (newTask) => (dispatch, getState) => {
-  const { token } = getState().authentication;
-  const headers = { Authorization: `Bearer ${token}` };
-  dispatch(postData('/api/createTask', { newTask }, headers, ADD_TASK));
+  if (newTask.length < 10) {
+    dispatch(createMessage('Task description is to short', 'warning'));
+  } else if (newTask.length > 1000) {
+    dispatch(createMessage('Task description is to long', 'warning'));
+  } else {
+    const { token } = getState().authentication;
+    const headers = { Authorization: `Bearer ${token}` };
+    dispatch(postData('/api/createTask', { newTask }, headers, ADD_TASK));
+  }
 };
 
 export const startTask = (taskId) => (dispatch, getState) => {

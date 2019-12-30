@@ -1,31 +1,42 @@
 import { REGISTER } from '../actions/authentication';
-import { DISPLAY_MESSAGE } from '../actions/message'
+import { CREATE_MESSAGE, CLOSE_MESSAGE } from '../actions/message';
 
 const initialState = {
   message: {
-    open: true,
-    message: 'TestMessage',
-    type: 'warning'
+    open: false,
+    message: '',
+    type: 'warning',
   },
-}
+};
 
-const messageReducer = (state=initialState, action) => {
-  switch(action.type) {
+const messageReducer = (state = initialState, action) => {
+  switch (action.type) {
     case `${REGISTER}_FULFILLED`: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         type: action.payload.data.message.type,
         message: action.payload.data.message.message,
-        open: true
-      })
+        open: true,
+      };
     }
-    case DISPLAY_MESSAGE: {
-      return Object.assign({}, state, {
-        open: action.payload
-      })
+    case CREATE_MESSAGE: {
+      return {
+        ...state,
+        type: action.payload.type,
+        message: action.payload.message,
+        open: true,
+      };
     }
-    default: 
-      return state
+    case CLOSE_MESSAGE: {
+      return {
+        ...state,
+        message: '',
+        open: false,
+      };
+    }
+    default:
+      return state;
   }
-}
+};
 
-export default messageReducer
+export default messageReducer;

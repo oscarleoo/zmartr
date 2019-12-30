@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    background: theme.palette.background.gray,
   },
   listContainer: {
     flex: '1',
@@ -43,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '30px',
     height: '50px',
     width: '120px',
-    background: theme.palette.secondary.main,
-    color: '#05386b',
   },
 }));
 
@@ -70,6 +69,7 @@ const List = ({ tasks, createTask }) => {
           className={classes.input}
           label="New Task"
           variant="outlined"
+          color="secondary"
           id="mui-theme-provider-outlined-input"
           autoComplete="off"
           onChange={handleNewTaskCange}
