@@ -1,9 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const { TASKS_MICROSERVICE } = process.env
+const { TASKS_MICROSERVICE } = process.env;
 
-const stopTask = (taskId) => {
-    return axios.post(`http://${TASKS_MICROSERVICE}/stopTask`, { taskId })
-}
+const stopTask = (taskId, userId) => axios.post(`http://${TASKS_MICROSERVICE}/stopTask`, { taskId, userId });
 
-export default stopTask
+export default stopTask;

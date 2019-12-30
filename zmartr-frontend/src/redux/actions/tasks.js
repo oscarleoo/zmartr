@@ -22,10 +22,10 @@ export const getTasks = () => (dispatch, getState) => {
   dispatch(getData('/api/getTasks', headers, GET_TASKS));
 };
 
-export const addTask = (newTask) => (dispatch, getState) => {
+export const createTask = (newTask) => (dispatch, getState) => {
   const { token } = getState().authentication;
   const headers = { Authorization: `Bearer ${token}` };
-  dispatch(postData('/api/addTask', { newTask }, headers, ADD_TASK));
+  dispatch(postData('/api/createTask', { newTask }, headers, ADD_TASK));
 };
 
 export const startTask = (taskId) => (dispatch, getState) => {

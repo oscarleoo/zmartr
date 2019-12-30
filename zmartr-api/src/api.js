@@ -5,13 +5,13 @@ import bodyParser from 'body-parser';
 import login from './authentication/login';
 import register from './authentication/register';
 import authenticationMiddleware from './middleware/authentication';
-import addTask from './tasks/addTask';
 import getTasks from './tasks/getTasks';
 import startTask from './tasks/startTask';
 import stopTask from './tasks/stopTask';
 import finishTask from './tasks/finishTask';
 import archiveTask from './tasks/archiveTask';
 import orderTasks from './tasks/orderTasks';
+import createTask from './tasks/createTask';
 
 const app = express();
 const port = 5000;
@@ -26,7 +26,6 @@ app.use(authenticationMiddleware);
 
 const handleError = (fn) => (req, res, next) => {
   fn(req, res).catch((error) => {
-    console.log(error);
     next(error);
   });
 };
@@ -40,12 +39,12 @@ app.get('/getTasks', handleError(async (req, res) => {
   }
 }));
 
-app.post('/addTask', handleError(async (req, res) => {
+app.post('/createTask', handleError(async (req, res) => {
   if (req.isAuth === false) {
     res.status(401).send();
   } else {
     const { newTask } = req.body;
-    const tasks = await addTask(newTask, req.userId);
+    const tasks = await createTask(newTask, req.userId);
     res.send(tasks.data);
   }
 }));

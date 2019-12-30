@@ -1,5 +1,10 @@
 {
-    "eslint.workingDirectories": ["./zmartr-api", "./zmartr-frontend", "./zmartr-users"],
+    "eslint.workingDirectories": [
+      "./zmartr-api", 
+      "./zmartr-frontend", 
+      "./zmartr-users", 
+      "./zmartr-tasks"
+    ],
     "editor.tabSize": 2,
     "eslint.validate":[
         "vue",
