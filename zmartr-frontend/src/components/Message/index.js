@@ -72,7 +72,7 @@ const Message = ({ message, close }) => {
         message={(
           <span id="client-snackbar" className={classes.message}>
             <Icon className={clsx(classes.icon, classes.iconVariant)} />
-            {message.message}
+            {message.text}
           </span>
                   )}
         action={[
@@ -87,7 +87,7 @@ const Message = ({ message, close }) => {
 
 Message.propTypes = {
   message: PropTypes.exact({
-    message: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['success', 'error', 'warning', 'info']).isRequired,
     open: PropTypes.bool.isRequired,
   }).isRequired,

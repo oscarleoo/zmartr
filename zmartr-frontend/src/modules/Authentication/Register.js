@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,10 +10,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { register } from '../../redux/actions/authentication'
-import InformationPage from '../../components/Pages/InformationPage';
+import { register } from '../../redux/actions/authentication';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
@@ -29,116 +28,110 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    background: '#00adb5'
   },
   formContainer: {
     flex: 1,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
+  link: {
+    color: theme.palette.secondary.main,
+    cursor: 'pointer',
+  },
 }));
 
 
 const Register = ({ history, register }) => {
-
   const classes = useStyles();
 
   const state = {
     email: '',
-    password: ''
-  }
+    password: '',
+  };
 
   const handleEmailChange = (event) => {
-    state.email = event.target.value
-  }
+    state.email = event.target.value;
+  };
 
   const handlePasswordChange = (event) => {
-    state.password = event.target.value
-  }
+    state.password = event.target.value;
+  };
 
   const registerUser = () => {
-      register(state.email, state.password)
-  }
+    register(state.email, state.password);
+  };
 
   return (
-    <InformationPage>
-      <Container className={classes.formContainer}>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Register!
-          </Typography>
-          <div className={classes.form}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  onChange={ handleEmailChange }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={ handlePasswordChange }
-                />
-              </Grid>
-
+    <Container className={classes.formContainer}>
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Register!
+        </Typography>
+        <form className={classes.form}>
+          <TextField
+            variant="filled"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={handleEmailChange}
+          />
+          <TextField
+            variant="filled"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            onChange={handlePasswordChange}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.submit}
+            onClick={registerUser}
+          >
+            Register
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link variant="body2" onClick={() => history.push('/login')} className={classes.link}>
+                Already have an account? Sign in
+              </Link>
             </Grid>
-            <Button
-              fullWidth variant="contained" color="primary" 
-              className={classes.submit} onClick={registerUser}
-            >Register</Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link variant="body2" onClick={ () => history.push('/login') }>
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </div>
-        </div>
-      </Container>
-    </InformationPage>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
-}
+};
 
-// const mapStateToProps = state => {
-//   return {
-//     registration: state.authentication.registration
-//   }
-// }
-
-const mapDispatchToProps = dispatch => {
-  return {
-    register: (email, password) => {
-      dispatch(register(email, password))
-    }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  register: (email, password) => {
+    dispatch(register(email, password));
+  },
+});
 
 export default connect(
-    null,
-    mapDispatchToProps
-)(Register)
+  null,
+  mapDispatchToProps,
+)(Register);

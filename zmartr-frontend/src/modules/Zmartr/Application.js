@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
-import TopBar from '../TopBar';
+import { BrowserRouter as Router } from 'react-router-dom';
+import TopBar from '../../components/TopBar';
+import ApplicationRoutes from '../../routes/ApplicationRoutes';
 import { logout } from '../../redux/actions/authentication';
-import Message from '../Message';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Page = ({ children, logout }) => {
+const Application = ({ children, logout }) => {
   const classes = useStyles();
 
   const createNavigationItems = () => (
@@ -42,13 +43,14 @@ const Page = ({ children, logout }) => {
   );
 
   return (
-    <div className={classes.root}>
-      <TopBar navigationItems={createNavigationItems()} actionItems={createActionItems()} />
-      <div className={classes.view}>
-        {children}
+    <Router>
+      <div className={classes.root}>
+        <TopBar navigationItems={createNavigationItems()} actionItems={createActionItems()} />
+        <div className={classes.view}>
+          <ApplicationRoutes />
+        </div>
       </div>
-      <Message />
-    </div>
+    </Router>
   );
 };
 
@@ -59,4 +61,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   null,
   mapDispatchToProps,
-)(Page);
+)(Application);

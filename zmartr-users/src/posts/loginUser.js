@@ -6,7 +6,7 @@ import User from '../documents/User';
 const loginUser = async (email, password) => {
   try {
     const user = await User.findOne({ email });
-    if (!user) { return { user: {}, token: '' }; }
+    if (!user) { return { message: { text: 'Wrong username or password', type: 'error' } }; }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
@@ -16,10 +16,9 @@ const loginUser = async (email, password) => {
       user.save();
       return { token, user: { email: user.email } };
     }
-    return { user: {}, token: '' };
+    return { message: { text: 'Wrong username or password', type: 'error' } };
   } catch (error) {
-    console.log(error);
-    return { user: {}, token: '' };
+    return { message: { text: 'Wrong username or password', type: 'error' } };
   }
 };
 

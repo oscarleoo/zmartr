@@ -2,26 +2,31 @@ import { LOGIN, LOGOUT } from '../actions/authentication';
 
 const initialState = {
   user: {},
-  token: ''
-}
+  token: '',
+};
 
-const authenticationReducer = (state=initialState, action) => {
-  switch(action.type) {
+const authenticationReducer = (state = initialState, action) => {
+  switch (action.type) {
     case `${LOGIN}_FULFILLED`: {
-      return Object.assign({}, state, {
-        token: action.payload.data.token,
-        user: action.payload.data.user,
-      })
+      if (action.payload.data.token) {
+        return {
+          ...state,
+          token: action.payload.data.token,
+          user: action.payload.data.user,
+        };
+      }
+      return state;
     }
     case LOGOUT: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         token: '',
         user: {},
-      })
+      };
     }
-    default: 
-      return state
+    default:
+      return state;
   }
-}
+};
 
-export default authenticationReducer
+export default authenticationReducer;

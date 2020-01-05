@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { Link } from 'react-router-dom';
 import logo from '../../static/images/logo-dark.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +45,11 @@ const TopBar = ({ navigationItems, actionItems }) => {
     <AppBar position="static" className={classes.topBar}>
       <Toolbar className={classes.toolBar}>
         <div className={classes.navigationItems}>
-          <div href="/"><a href="/"><img className={classes.logo} src={logo} /></a></div>
+          <div>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <img className={classes.logo} src={logo} alt="logo" />
+            </Link>
+          </div>
           <div>{navigationItems}</div>
         </div>
         <div className={classes.actionItems}>{actionItems}</div>
