@@ -34,7 +34,7 @@ const messageReducer = (state = initialState, action) => {
       return {
         ...state,
         type: action.payload.type,
-        message: action.payload.message,
+        text: action.payload.text,
         open: true,
       };
     }

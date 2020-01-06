@@ -6,28 +6,29 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { createTask } from '../../redux/actions/tasks';
-import TaskDragAndDrop from '../../components/TaskDragAndDrop';
-
-// https://visme.co/blog/website-color-schemes/
-// https://codesandbox.io/s/4qp6vjp319?from-embed
-// https://colorhunt.co/palette/41089
+import TaskDragAndDrop from './TaskDragAndDrop';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    height: '100%',
-    width: '100%',
+    flex: 1,
     display: 'flex',
+    position: 'relative',
     flexDirection: 'column',
     background: theme.palette.background.gray,
+    justifyContent: 'flex-end',
   },
   listContainer: {
-    flex: '1',
-    height: '100%',
+    flex: 1,
     display: 'flex',
     justifyContent: 'center',
     marginTop: '50px',
     marginBottom: '50px',
     overflow: 'scroll',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: '100px',
+    left: 0,
   },
   actionBar: {
     flex: '0 0 100px',

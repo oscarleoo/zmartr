@@ -1,7 +1,7 @@
 
 export const CREATE_MESSAGE = 'CREATE_MESSAGE';
-export const createMessage = (message, type) => ({
-  type: CREATE_MESSAGE, payload: { message, type },
+export const createMessage = (text, type) => ({
+  type: CREATE_MESSAGE, payload: { text, type },
 });
 
 export const CLOSE_MESSAGE = 'CLOSE_MESSAGE';

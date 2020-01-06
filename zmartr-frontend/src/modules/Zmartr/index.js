@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import Application from './Application';
 import About from './About';
 import Message from '../../components/Message';
 
-const useStyles = () => makeStyles({
-  application: {
+const useStyles = makeStyles((theme) => ({
+  test: {
     height: '100vh',
     width: '100%',
   },
-});
+}));
 
 const Zmartr = ({ token }) => {
   const classes = useStyles();
@@ -23,7 +23,7 @@ const Zmartr = ({ token }) => {
   };
 
   return (
-    <div className={classes.application}>
+    <div className={classes.test}>
       {renderApplication()}
       <Message />
     </div>

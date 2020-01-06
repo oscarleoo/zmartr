@@ -1,13 +1,14 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Tasks from '../modules/Tasks';
+import Stats from '../modules/Stats';
 
 const ApplicationRoutes = () => (
-  <div>
-    <Route exact path='/' component={Tasks} />
-    {/* <Route exact path='/stats' component={Stats} />
-    <Route exact path='/profile' component={Profile} /> */}
-  </div>
+  <Switch>
+    <Route exact path="/stats" component={Stats} />
+    <Route exact path="/*" component={Tasks} />
+    {/* <Route exact path='/profile' component={Profile} /> */}
+  </Switch>
 );
 
 export default ApplicationRoutes;

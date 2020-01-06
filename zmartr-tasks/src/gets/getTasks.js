@@ -1,13 +1,8 @@
-import { Task } from "../documents/Task"
-import { ObjectId } from "mongodb"
+import getUserTasks from '../utils/getUserTasks';
 
 const getTasks = async (userId) => {
+  const [tasks, selectedTask] = await getUserTasks(userId);
+  return { list: tasks, selected: selectedTask };
+};
 
-    const tasks = await Task.find({ userId: ObjectId(userId), 'actions.type': { $nin: ['Finished', 'Archived'] } })
-    const selectedTask = await Task.findOne({ selected: true })
-
-    return { list: tasks, selected: selectedTask }
-
-}
-
-export default getTasks
+export default getTasks;

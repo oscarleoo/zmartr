@@ -31,9 +31,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  navigationItems: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   logo: {
     height: '40px',
     marginRight: '20px',
+    marginBottom: '5px',
   },
 }));
 

@@ -1,7 +1,7 @@
 // React + Redux
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 // Material UI
@@ -91,6 +91,7 @@ Message.propTypes = {
     type: PropTypes.oneOf(['success', 'error', 'warning', 'info']).isRequired,
     open: PropTypes.bool.isRequired,
   }).isRequired,
+  close: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

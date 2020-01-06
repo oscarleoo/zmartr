@@ -11,9 +11,9 @@ import promise from 'redux-promise-middleware';
 import theme from './theme';
 import rootReducer from './redux/rootReducer';
 import Zmartr from './modules/Zmartr';
+import { BrowserRouter } from 'react-router-dom';
 
 const App = () => {
-  console.log('App!')
   const persistConfig = { key: 'root', storage };
   const persistedReducer = persistReducer(persistConfig, rootReducer);
   const createStoreWithMiddleware = applyMiddleware(promise, thunk)(createStore);
@@ -25,7 +25,9 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
-          <Zmartr />
+          <BrowserRouter>
+            <Zmartr />
+          </BrowserRouter>
         </ThemeProvider>
       </PersistGate>
     </Provider>

@@ -55,7 +55,7 @@ const Login = ({ history, loginUser }) => {
   };
 
   const authenticate = () => {
-    loginUser(history, state.email, state.password);
+    loginUser(state.email, state.password);
   };
 
   const handleEmailChange = (event) => {
@@ -130,15 +130,7 @@ const Login = ({ history, loginUser }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginUser: (history, email, password) => {
-    dispatch(login(email, password)).then(({ value }) => {
-      console.log(value);
-      if (value.data.token) {
-        console.log('Push it!');
-        history.push('/');
-      }
-    });
-  },
+  loginUser: (email, password) => dispatch(login(email, password)),
 });
 
 export default connect(
