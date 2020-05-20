@@ -2,9 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import login from './authentication/login';
-import register from './authentication/register';
-import authenticationMiddleware from './middleware/authentication';
+import authentication from './middleware/authentication';
 import getTasks from './tasks/getTasks';
 import startTask from './tasks/startTask';
 import stopTask from './tasks/stopTask';
@@ -12,17 +10,22 @@ import finishTask from './tasks/finishTask';
 import archiveTask from './tasks/archiveTask';
 import orderTasks from './tasks/orderTasks';
 import createTask from './tasks/createTask';
+import updateTaskTitle from './tasks/updateTaskTitle';
+import addTagToTask from './tags/addTagToTask';
+import removeTagFromTask from './tags/removeTagFromTask';
+import createTag from './tags/createTag';
 
 const app = express();
 const port = 5000;
 
-app.use(bodyParser.json());
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
 }));
 
-app.use(authenticationMiddleware);
+app.use(authentication);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const handleError = (fn) => (req, res, next) => {
   fn(req, res).catch((error) => {
@@ -30,84 +33,79 @@ const handleError = (fn) => (req, res, next) => {
   });
 };
 
-app.get('/getTasks', handleError(async (req, res) => {
-  if (req.isAuth === false) {
-    res.status(401).send();
-  } else {
-    const tasks = await getTasks(req.userId);
-    res.send(tasks.data);
-  }
+app.get('/api/getTasks', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const tasks = await getTasks(userId);
+  res.send(tasks.data);
 }));
 
-app.post('/createTask', handleError(async (req, res) => {
-  if (req.isAuth === false) {
-    res.status(401).send();
-  } else {
-    const { newTask } = req.body;
-    const tasks = await createTask(newTask, req.userId);
-    res.send(tasks.data);
-  }
+app.post('/api/createTask', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { newTask } = req.body;
+  const tasks = await createTask(newTask, userId);
+  res.send(tasks.data);
 }));
 
-app.post('/startTask', handleError(async (req, res) => {
-  if (req.isAuth === false) {
-    res.status(401).send();
-  } else {
-    const { taskId } = req.body;
-    const tasks = await startTask(taskId, req.userId);
-    res.send(tasks.data);
-  }
+app.post('/api/updateTaskTitle', handleError(async (req, res) => {
+  const { taskId, title } = req.body;
+  const userId = req.user.sub;
+  const tasks = await updateTaskTitle(taskId, title, userId);
+  res.send(tasks.data);
 }));
 
-app.post('/stopTask', handleError(async (req, res) => {
-  if (req.isAuth === false) {
-    res.status(401).send();
-  } else {
-    const { taskId } = req.body;
-    const tasks = await stopTask(taskId, req.userId);
-    res.send(tasks.data);
-  }
+app.post('/api/startTask', handleError(async (req, res) => {
+  const { taskId } = req.body;
+  const userId = req.user.sub;
+  const tasks = await startTask(taskId, userId);
+  res.send(tasks.data);
 }));
 
-app.post('/finishTask', handleError(async (req, res) => {
-  if (req.isAuth === false) {
-    res.status(401).send();
-  } else {
-    const { taskId } = req.body;
-    const tasks = await finishTask(taskId, req.userId);
-    res.send(tasks.data);
-  }
+app.post('/api/stopTask', handleError(async (req, res) => {
+  const { taskId } = req.body;
+  const userId = req.user.sub;
+  const tasks = await stopTask(taskId, userId);
+  res.send(tasks.data);
 }));
 
-app.post('/archiveTask', handleError(async (req, res) => {
-  if (req.isAuth === false) {
-    res.status(401).send();
-  } else {
-    const { taskId } = req.body;
-    const tasks = await archiveTask(taskId, req.userId);
-    res.send(tasks.data);
-  }
+app.post('/api/finishTask', handleError(async (req, res) => {
+  const { taskId } = req.body;
+  const userId = req.user.sub;
+  const tasks = await finishTask(taskId, userId);
+  res.send(tasks.data);
 }));
 
-app.post('/orderTasks', handleError(async (req, res) => {
-  if (req.isAuth === false) {
-    res.status(401).send();
-  } else {
-    const { taskIds } = req.body;
-    const message = await orderTasks(taskIds);
-    res.send(message.data);
-  }
+app.post('/api/archiveTask', handleError(async (req, res) => {
+  const { taskId } = req.body;
+  const userId = req.user.sub;
+  const tasks = await archiveTask(taskId, userId);
+  res.send(tasks.data);
 }));
 
-app.get('/login', handleError(async (req, res) => {
-  const loginResponse = await login(req.query.email, req.query.password);
-  res.send(loginResponse.data);
+app.post('/api/orderTasks', handleError(async (req, res) => {
+  const { taskIds } = req.body;
+  const message = await orderTasks(taskIds);
+  res.send(message.data);
 }));
 
-app.post('/register', handleError(async (req, res) => {
-  const { email, password } = req.body;
-  const registerResponse = await register(email, password);
-  res.send(registerResponse.data);
+app.post('/api/createTag', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { tag, color } = req.body;
+  const tags = await createTag(tag, color, userId);
+  res.send(tags.data);
+}));
+
+app.post('/api/addTagToTask', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { taskId, tagId } = req.body;
+  const tags = await addTagToTask(taskId, tagId, userId);
+  res.send(tags.data);
+}));
+
+app.post('/api/removeTagFromTask', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { taskId, tagId } = req.body;
+  const tags = await removeTagFromTask(taskId, tagId, userId);
+  res.send(tags.data);
 }));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

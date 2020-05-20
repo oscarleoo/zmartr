@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { Task } from '../documents/Task';
+import Task from '../documents/Task';
 
 const orderTasks = async (taskIds) => {
   taskIds.map(async (taskId, index) => {

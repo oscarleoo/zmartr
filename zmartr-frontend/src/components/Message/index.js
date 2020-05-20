@@ -85,14 +85,14 @@ const Message = ({ message, close }) => {
   );
 };
 
-Message.propTypes = {
-  message: PropTypes.exact({
-    text: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['success', 'error', 'warning', 'info']).isRequired,
-    open: PropTypes.bool.isRequired,
-  }).isRequired,
-  close: PropTypes.func.isRequired,
-};
+// Message.propTypes = {
+//   message: PropTypes.exact({
+//     text: PropTypes.string.isRequired,
+//     type: PropTypes.oneOf(['success', 'error', 'warning', 'info']).isRequired,
+//     open: PropTypes.bool.isRequired,
+//   }).isRequired,
+//   close: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
   message: state.message,

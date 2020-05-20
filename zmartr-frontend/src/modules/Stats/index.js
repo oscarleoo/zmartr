@@ -19,7 +19,7 @@ const Stats = () => {
 
   return (
     <div className={classes.statsContainer}>
-      <Grid container spacing={3} className={classes.grid}>
+      <Grid container spacing={3}>
         <Grid
           item
           xs={12}

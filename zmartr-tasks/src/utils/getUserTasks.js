@@ -1,10 +1,13 @@
-import { ObjectId } from 'mongodb';
-import { Task } from '../documents/Task';
+import Task from '../documents/Task';
+import Tag from '../documents/Tag';
 
 
 const getUserTasks = (userId) => Promise.all([
-  Task.find({ userId: ObjectId(userId), 'actions.type': { $nin: ['Finished', 'Archived'] } }).sort({ order: 1 }),
-  Task.findOne({ userId: ObjectId(userId), selected: true }),
+  Task.find({ userId, 'actions.type': { $nin: ['Finished', 'Archived'] } })
+    .sort({ order: 1 })
+    .populate('tags'),
+  Task.findOne({ userId, selected: true }),
+  Tag.find({ userId }),
 ]);
 
 export default getUserTasks;

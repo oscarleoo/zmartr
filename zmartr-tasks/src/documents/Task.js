@@ -1,35 +1,45 @@
-import mongoose, { Schema } from 'mongoose'
-import { ActionSchema } from './ActionSchema'
+import mongoose from 'mongoose';
+import ActionSchema from './ActionSchema';
 
-export const Task = mongoose.model('Task', new mongoose.Schema({
-   
-    title: {
-        type: String,
-        required: true
-    },
+const Task = mongoose.model('Task', new mongoose.Schema({
 
-    userId: {
-        type: Schema.Types.ObjectId,
-        required: true
-    },
+  title: {
+    type: String,
+    required: true,
+  },
 
-    created: {
-        type: Date,
-        required: true
-    },
+  userId: {
+    type: String,
+    required: true,
+  },
 
-    selected: {
-        type: Boolean,
-        default: false
-    },
+  created: {
+    type: Date,
+    required: true,
+  },
 
-    order: {
-        type: Number,
-    },
+  selected: {
+    type: Boolean,
+    default: false,
+  },
 
-    actions: {
-        type: [ActionSchema],
-        default: []
-    }
+  order: {
+    type: Number,
+  },
 
-}))
+  actions: {
+    type: [ActionSchema],
+    default: [],
+  },
+
+  tags: {
+    type: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Tag',
+    }],
+    default: [],
+  },
+
+}));
+
+export default Task;

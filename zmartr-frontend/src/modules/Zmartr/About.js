@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginIcon from '@material-ui/icons/ExitToApp';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import { Link } from 'react-router-dom';
 import TopBar from '../../components/TopBar';
 import AboutRoutes from '../../routes/AboutRoutes';
@@ -38,23 +39,17 @@ const About = () => {
 
   const createActionItems = () => (
     <div className={classes.items}>
-      <Link to="/register" style={{ textDecoration: 'none' }}>
-        <Button color="secondary" size="large" focusVisible={false}>
-            Register
-        </Button>
-      </Link>
       <Link to="/login" style={{ textDecoration: 'none' }}>
-        <Button variant="contained" color="primary" size="large" className={classes.login}>
-          <LoginIcon className={classes.loginIcon} />
-          Login
-        </Button>
+        <Fab color="primary" aria-label="add">
+          <LoginIcon />
+        </Fab>
       </Link>
     </div>
   );
 
   return (
     <div className={classes.root}>
-      <TopBar navigationItems={createNavigationItems()} actionItems={createActionItems()} />
+      <TopBar />
       <div className={classes.view}>
         <AboutRoutes />
       </div>

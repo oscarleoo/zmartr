@@ -2,8 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link } from 'react-router-dom';
-import logo from '../../static/images/logo-dark.png';
+import { TextField, InputAdornment } from '@material-ui/core';
+import { connect } from 'react-redux';
+import SearchIcon from '@material-ui/icons/SearchOutlined';
+import { useAuth0 } from '../../auth0/react-auth0-spa';
+import SideBarItem from './SideBarItem';
+import { updateSearchString } from '../../redux/actions/tasks';
+import logo from '../../static/images/zmartr-logo.png';
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -13,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   topBar: {
-    flex: '0 0 80px',
+    flex: '0 0 48px',
     width: '100%',
     boxShadow: '0 0 0 0',
     background: theme.palette.background.gray,
@@ -23,12 +28,24 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginLeft: '2%',
-    marginRight: '2%',
+    padding: 0,
+    marginLeft: '5%',
+    minHeight: 0,
   },
-  actionItems: {
+  searchField: {
+    height: '30px',
+    width: '300px',
+    background: 'gray',
+    borderColor: '#fff',
+    marginLeft: '20px',
+    '&:hover': {
+      background: '#e0e0e0 !important',
+      transition: 'background 200ms linear',
+      // borderColor: `${theme.palette.primary.main} !important`,
+    },
+  },
+  leftContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   navigationItems: {
@@ -37,31 +54,57 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   logo: {
-    height: '40px',
-    marginRight: '20px',
-    marginBottom: '5px',
+    height: '26px',
   },
 }));
 
 
-const TopBar = ({ navigationItems, actionItems }) => {
+const TopBar = ({ filterTasks }) => {
   const classes = useStyles();
+  const { isAuthenticated, logout } = useAuth0();
+  const handleSearchChange = (event) => { filterTasks(event.target.value); };
 
   return (
-    <AppBar position="static" className={classes.topBar}>
+    <AppBar position="sticky" className={classes.topBar}>
       <Toolbar className={classes.toolBar}>
-        <div className={classes.navigationItems}>
-          <div>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <img className={classes.logo} src={logo} alt="logo" />
-            </Link>
-          </div>
-          <div>{navigationItems}</div>
+        <div className={classes.leftContainer}>
+          <img className={classes.logo} src={logo} alt="logo" />
+          <TextField
+            id="standard-basic"
+            variant="outlined"
+            size="small"
+            onChange={handleSearchChange}
+            InputLabelProps={{
+              className: classes.searchField,
+            }}
+            InputProps={{
+              className: classes.searchField,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
         </div>
-        <div className={classes.actionItems}>{actionItems}</div>
+        {isAuthenticated && (
+          <div className={classes.navigationItems}>
+            <SideBarItem title="Tasks" href="/" />
+            <SideBarItem title="Stats" href="/stats" />
+            <SideBarItem title="Settings" href="/settings" />
+            <SideBarItem title="Logout" href="/logout" onClickFunction={logout} />
+          </div>
+        )}
       </Toolbar>
     </AppBar>
   );
 };
 
-export default TopBar;
+const mapDispatchToProps = (dispatch) => ({
+  filterTasks: (searchString) => (dispatch(updateSearchString(searchString))),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(TopBar);

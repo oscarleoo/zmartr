@@ -1,103 +1,104 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { Typography, Collapse, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import { createTask } from '../../redux/actions/tasks';
 import TaskDragAndDrop from './TaskDragAndDrop';
+import SelectedTask from './SelectedTask';
+import TagsEditor from '../../components/Tags/TagsEditor';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     flex: 1,
     display: 'flex',
-    position: 'relative',
     flexDirection: 'column',
-    background: theme.palette.background.gray,
-    justifyContent: 'flex-end',
-  },
-  listContainer: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: '50px',
-    marginBottom: '50px',
-    overflow: 'scroll',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: '100px',
-    left: 0,
+    background: theme.palette.background.white,
+    justifyContent: 'flex-start',
+    margin: '50px 5%',
   },
   actionBar: {
-    flex: '0 0 100px',
-    margin: '0 5% 0 5%',
-    borderTop: '2px dashed #05386b',
     display: 'flex',
     justifyContent: 'space-between',
+    borderBottom: '1px solid gray',
+    padding: '15px 10px',
+    height: '40px',
+  },
+  addButton: {
+    height: '40px',
+    width: '40px',
+    padding: '0',
+    border: '2px solid gray',
+  },
+  backlog: {
+    justifyContent: 'space-between',
+    textTransform: 'none',
+    padding: 0,
+    width: '100%',
+  },
+  addNewTask: {
+    marginTop: '20px',
+    marginBottom: '20px',
+    marginLeft: '35px',
+    display: 'flex',
     alignItems: 'center',
+    textTransform: 'none',
   },
-  input: {
-    flex: 1,
-  },
-  button: {
-    marginLeft: '30px',
-    height: '50px',
-    width: '120px',
+  addNewTaskText: {
+    marginLeft: '10px',
   },
 }));
 
-const List = ({ tasks, createTask }) => {
+const List = ({ createEmptyTask }) => {
   const classes = useStyles();
-  const state = { newTask: '' };
+  const [open, setOpen] = React.useState(true);
 
-  const handleNewTaskCange = (event) => { state.newTask = event.target.value; };
-  const addNewTask = () => { createTask(state.newTask); };
-  const addNewTaskEnter = (event) => {
-    if (event.keyCode === 13) {
-      createTask(state.newTask);
-    }
+  const handleClick = () => {
+    setOpen(!open);
   };
 
   return (
     <div className={classes.container}>
-      <div className={classes.listContainer}>
-        <TaskDragAndDrop tasks={tasks} />
-      </div>
-      <div className={classes.actionBar}>
-        <TextField
-          className={classes.input}
-          label="New Task"
-          variant="outlined"
-          color="secondary"
-          id="mui-theme-provider-outlined-input"
-          autoComplete="off"
-          onChange={handleNewTaskCange}
-          onKeyDown={addNewTaskEnter}
-        />
+      <Typography variant="h4">Active Task</Typography>
+      <SelectedTask />
+      <Button
+        onClick={handleClick}
+        disableFocusRipple
+        disableRipple
+        style={{ backgroundColor: 'transparent' }}
+        className={classes.backlog}
+      >
+        <Typography variant="h4">Backlog</Typography>
+        {open ? <ExpandLess className={classes.icon} /> : <ExpandMore className={classes.icon} />}
+      </Button>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <TaskDragAndDrop />
         <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={addNewTask}
+          onClick={createEmptyTask}
+          disableRipple
+          className={classes.addNewTask}
         >
-          Add Task
+          <AddIcon />
+          <Typography variant="subtitle1" className={classes.addNewTaskText}>
+            Add new task
+          </Typography>
         </Button>
-      </div>
+      </Collapse>
+      <TagsEditor />
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  tasks: state.tasks.list,
-});
-
 const mapDispatchToProps = (dispatch) => ({
-  createTask: (newTask) => dispatch(createTask(newTask)),
+  createEmptyTask: async () => {
+    dispatch(createTask());
+  },
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(List);

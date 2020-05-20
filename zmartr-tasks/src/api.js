@@ -2,13 +2,16 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
-import createTask from './posts/createTask';
 import getTasks from './gets/getTasks';
 import startTask from './posts/startTask';
 import stopTask from './posts/stopTask';
 import finishTask from './posts/finishTask';
 import archiveTask from './posts/archiveTask';
 import orderTasks from './posts/orderTasks';
+import updateTaskTitle from './posts/updateTaskTitle';
+import addTagToTask from './posts/tags/addTagToTask';
+import removeTagFromTask from './posts/tags/removeTagFromTask';
+import createTag from './posts/tags/createTag';
 
 const { MONGO_USERNAME, MONGO_PASSWORD } = process.env;
 const app = express();
@@ -24,6 +27,12 @@ app.get('/tasks', handleError(async (req, res) => {
   const { userId } = req.query;
   const tasks = await getTasks(userId);
   res.send(tasks);
+}));
+
+app.post('/updateTaskTitle', handleError(async (req, res) => {
+  const { taskId, title, userId } = req.body;
+  const task = await updateTaskTitle(taskId, title, userId);
+  res.send(task);
 }));
 
 app.post('/startTask', handleError(async (req, res) => {
@@ -56,10 +65,22 @@ app.post('/orderTasks', handleError(async (req, res) => {
   res.send(message);
 }));
 
-app.post('/createTask', handleError(async (req, res) => {
-  const { newTask, userId } = req.body;
-  const tasks = await createTask(newTask, userId);
-  res.send(tasks);
+app.post('/createTag', handleError(async (req, res) => {
+  const { tag, color, userId } = req.body;
+  const tags = await createTag(tag, color, userId);
+  res.send(tags);
+}));
+
+app.post('/addTagToTask', handleError(async (req, res) => {
+  const { taskId, tagId, userId } = req.body;
+  const task = await addTagToTask(taskId, tagId, userId);
+  res.send(task);
+}));
+
+app.post('/removeTagFromTask', handleError(async (req, res) => {
+  const { taskId, tagId, userId } = req.body;
+  const task = await removeTagFromTask(taskId, tagId, userId);
+  res.send(task);
 }));
 
 mongoose.connect(`mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@dcrowd-gk9yg.mongodb.net/zmartr-tasks?retryWrites=true&w=majority`, { useUnifiedTopology: true })

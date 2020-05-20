@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import getUserTasks from '../utils/getUserTasks';
 import updateUserTasks from '../utils/updateUserTasks';
-import { Task } from '../documents/Task';
+import Task from '../documents/Task';
 
 const startTask = async (taskId, userId) => {
   await updateUserTasks(userId, taskId, 'Started');
@@ -10,8 +10,8 @@ const startTask = async (taskId, userId) => {
     { selected: true },
   );
 
-  const [tasks, selectedTask] = await getUserTasks(userId);
-  return { list: tasks, selected: selectedTask };
+  const [tasks, selectedTask, tags] = await getUserTasks(userId);
+  return { list: tasks, selected: selectedTask, availableTags: tags };
 };
 
 export default startTask;

@@ -1,35 +1,16 @@
-import verifyToken from '../authentication/verifyToken';
+import jwt from 'express-jwt';
+import jwks from 'jwks-rsa';
 
-const authenticationMiddleware = async (req, res, next) => {
-  const authorization = req.get('Authorization');
+const authentication = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: 'https://dev-empxgoi7.eu.auth0.com/.well-known/jwks.json',
+  }),
+  audience: 'https://api.zmartr.com',
+  issuer: 'https://dev-empxgoi7.eu.auth0.com/',
+  algorithms: ['RS256'],
+});
 
-  if (!authorization) {
-    req.isAuth = false;
-    return next();
-  }
-
-  const token = authorization.split(' ')[1];
-  if (!token || token === '') {
-    req.isAuth = false;
-    return next();
-  }
-
-  try {
-    const verification = await verifyToken(token);
-    const userId = verification.data;
-    if (userId === '') {
-      req.isAuth = false;
-      next();
-    } else {
-      req.isAuth = true;
-      req.userId = userId;
-      next();
-    }
-  } catch (error) {
-    req.isAuth = false;
-    return next();
-  }
-
-};
-
-export default authenticationMiddleware;
+export default authentication;

@@ -4,11 +4,9 @@ import MuiCardContent from './MuiCardContent';
 import MuiCardHeader from './MuiCardHeader';
 import MuiChip from './MuiChip';
 import MuiIconButton from './MuiIconButton';
-import MuiInputBase from './MuiInputBase';
 import MuiLinearProgress from './MuiLinearProgress';
 import MuiListItem from './MuiListItem';
 import MuiListItemIcon from './MuiListItemIcon';
-import MuiOutlinedInput from './MuiOutlinedInput';
 import MuiPaper from './MuiPaper';
 import MuiTableCell from './MuiTableCell';
 import MuiTableHead from './MuiTableHead';
@@ -23,11 +21,11 @@ export default {
   MuiCardHeader,
   MuiChip,
   MuiIconButton,
-  MuiInputBase,
+  // MuiInputBase,
   MuiLinearProgress,
   MuiListItem,
   MuiListItemIcon,
-  MuiOutlinedInput,
+  // MuiOutlinedInput,
   MuiPaper,
   MuiTableCell,
   MuiTableHead,

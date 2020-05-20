@@ -1,66 +1,64 @@
 import axios from 'axios';
-import { createMessage } from './message';
 
+const { REACT_APP_API_URL } = process.env;
+
+export const UPDATE_SEARCH_STRING = 'UPDATE_SEARCH_STRING';
 export const GET_TASKS = 'GET_TASKS';
-export const ADD_TASK = 'ADD_TASK';
+export const CREATE_TASK = 'CREATE_TASK';
 export const START_TASK = 'START_TASK';
 export const STOP_TASK = 'STOP_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
 export const FINISH_TASK = 'FINISH_TASK';
 export const ARCHIVE_TASK = 'ARCHIVE_TASK';
 export const ORDER_TASKS = 'ORDER_TASKS';
 
 export const getData = (url, headers, actionType) => ({
-  type: actionType, payload: axios.get(url, { headers }),
+  type: actionType, payload: axios.get(`${REACT_APP_API_URL}/${url}`, { headers }),
 });
 
 export const postData = (url, data, headers, actionType) => ({
-  type: actionType, payload: axios.post(url, data, { headers }),
+  type: actionType, payload: axios.post(`${REACT_APP_API_URL}/${url}`, data, { headers }),
 });
 
-export const getTasks = () => (dispatch, getState) => {
-  const { token } = getState().authentication;
+export const updateSearchString = (text) => ({
+  type: UPDATE_SEARCH_STRING, payload: { text },
+});
+
+export const getTasks = (token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  dispatch(getData('/api/getTasks', headers, GET_TASKS));
+  return getData('api/getTasks', headers, GET_TASKS);
 };
 
-export const createTask = (newTask) => (dispatch, getState) => {
-  if (newTask.length < 10) {
-    dispatch(createMessage('Task description is to short', 'warning'));
-  } else if (newTask.length > 1000) {
-    dispatch(createMessage('Task description is to long', 'warning'));
-  } else {
-    const { token } = getState().authentication;
-    const headers = { Authorization: `Bearer ${token}` };
-    dispatch(postData('/api/createTask', { newTask }, headers, ADD_TASK));
-  }
+export const createTask = () => ({
+  type: CREATE_TASK,
+});
+
+export const updateTaskTitle = (taskId, title, token) => {
+  const headers = { Authorization: `Bearer ${token}` };
+  return postData('api/updateTaskTitle', { taskId, title }, headers, UPDATE_TASK);
 };
 
-export const startTask = (taskId) => (dispatch, getState) => {
-  const { token } = getState().authentication;
+export const startTask = (taskId, token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  dispatch(postData('/api/startTask', { taskId }, headers, START_TASK));
+  return postData('api/startTask', { taskId }, headers, START_TASK);
 };
 
-export const stopTask = (taskId) => (dispatch, getState) => {
-  const { token } = getState().authentication;
+export const stopTask = (taskId, token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  dispatch(postData('/api/stopTask', { taskId }, headers, STOP_TASK));
+  return postData('api/stopTask', { taskId }, headers, STOP_TASK);
 };
 
-export const finishTask = (taskId) => (dispatch, getState) => {
-  const { token } = getState().authentication;
+export const finishTask = (taskId, token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  dispatch(postData('/api/finishTask', { taskId }, headers, FINISH_TASK));
+  return postData('api/finishTask', { taskId }, headers, FINISH_TASK);
 };
 
-export const archiveTask = (taskId) => (dispatch, getState) => {
-  const { token } = getState().authentication;
+export const archiveTask = (taskId, token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  dispatch(postData('/api/archiveTask', { taskId }, headers, ARCHIVE_TASK));
+  return postData('api/archiveTask', { taskId }, headers, ARCHIVE_TASK);
 };
 
-export const orderTasks = (taskIds) => (dispatch, getState) => {
-  const { token } = getState().authentication;
+export const orderTasks = (taskIds, token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  dispatch(postData('/api/orderTasks', { taskIds }, headers, ORDER_TASKS));
+  return postData('api/orderTasks', { taskIds }, headers, ORDER_TASKS);
 };

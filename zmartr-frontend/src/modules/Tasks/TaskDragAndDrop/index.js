@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress } from '@material-ui/core';
 import { orderTasks } from '../../../redux/actions/tasks';
-import Task from './Task';
+import Task from './TaskItem';
+import { useAuth0 } from '../../../auth0/react-auth0-spa';
 
 const useStyles = makeStyles({
   taskContainer: {
     flex: 1,
-    maxWidth: '900px',
+    marginTop: '20px',
   },
   loaderContainer: {
     flex: 1,
@@ -20,9 +20,10 @@ const useStyles = makeStyles({
   },
 });
 
-const TaskDragAndDrop = ({ tasks, saveOrder, isLoading }) => {
+const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
   const classes = useStyles();
   const taskList = Array.from(tasks);
+  const { getTokenSilently } = useAuth0();
 
   const onDragEnd = (result) => {
     if (!result.destination) {
@@ -33,32 +34,27 @@ const TaskDragAndDrop = ({ tasks, saveOrder, isLoading }) => {
     const endIndex = result.destination.index;
     const [removed] = taskList.splice(startIndex, 1);
     taskList.splice(endIndex, 0, removed);
-    saveOrder(taskList.map((task) => task._id));
+    saveOrder(taskList.map((task) => task._id), getTokenSilently);
   };
 
-  const displayTasks = () => {
-    if (isLoading) {
-      return (
-        <div className={classes.loaderContainer}>
-          <CircularProgress />
+  const displayTasks = () => (
+    <Droppable droppableId="droppable">
+      {(provided) => (
+        <div
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+          className={classes.taskContainer}
+        >
+          {taskList.filter((task) => {
+            const titleIncludes = task.title.toLowerCase().includes(searchString)
+            const tagIncludes = task.tags.filter((tag) => (tag.tag.includes(searchString))).length > 0
+            return titleIncludes || tagIncludes;
+          }).map((task, index) => <Task key={task._id} task={task} index={index} />)}
+          {provided.placeholder}
         </div>
-      );
-    }
-    return (
-      <Droppable droppableId="droppable">
-        {(provided) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className={classes.taskContainer}
-          >
-            {taskList.map((task, index) => <Task key={task._id} task={task} index={index} />)}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    );
-  };
+      )}
+    </Droppable>
+  );
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -67,22 +63,27 @@ const TaskDragAndDrop = ({ tasks, saveOrder, isLoading }) => {
   );
 };
 
-TaskDragAndDrop.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.exact({
-    _id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    selected: PropTypes.bool.isRequired,
-  })).isRequired,
-  saveOrder: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-};
+// TaskDragAndDrop.propTypes = {
+//   tasks: PropTypes.arrayOf(PropTypes.exact({
+//     _id: PropTypes.string.isRequired,
+//     title: PropTypes.string.isRequired,
+//     selected: PropTypes.bool.isRequired,
+//   })).isRequired,
+//   saveOrder: PropTypes.func.isRequired,
+//   searchString: PropTypes.string.isRequired,
+// };
 
 const mapStateToProps = (state) => ({
+  tasks: state.tasks.list,
   isLoading: state.tasks.loading,
+  searchString: state.tasks.searchString,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveOrder: (taskIds) => dispatch(orderTasks(taskIds)),
+  saveOrder: async (taskIds, getToken) => {
+    const token = await getToken();
+    dispatch(orderTasks(taskIds, token));
+  },
 });
 
 export default connect(

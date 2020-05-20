@@ -1,21 +1,23 @@
-import { Schema } from 'mongoose'
+import { Schema } from 'mongoose';
 
-export const ActionSchema = new Schema({
-   
-    type: {
-        type: String,
-        enum: ['Started', 'Stopped', 'Finished', 'Archived'],
-        required: true
-    },
+const ActionSchema = new Schema({
 
-    date: {
-        type: Date,
-        required: true
-    },
+  type: {
+    type: String,
+    enum: ['Started', 'Stopped', 'Completed', 'Dismissed', 'Delegated'],
+    required: true,
+  },
 
-    user: {
-        type: Schema.Types.ObjectId,
-        // required: true
-    }
+  date: {
+    type: Date,
+    required: true,
+  },
 
-},{ _id : false })
+  user: {
+    type: Schema.Types.ObjectId,
+    // required: true
+  },
+
+}, { _id: false });
+
+export default ActionSchema;

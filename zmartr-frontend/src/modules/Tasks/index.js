@@ -2,26 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Selected from './Selected';
 import List from './List';
+import SideBar from './SideBar';
 import { getTasks } from '../../redux/actions/tasks';
+import { useAuth0 } from '../../auth0/react-auth0-spa';
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flex: 1,
+    background: theme.palette.background.white,
   },
 }));
 
-const Tasks = ({ selectedTask, loadTasks }) => {
+const Tasks = ({ loadTasks }) => {
   const classes = useStyles();
+  const { getTokenSilently } = useAuth0();
 
   const renderView = () => {
-    if (selectedTask) {
-      return <Selected task={selectedTask} />;
-    }
-    loadTasks();
-    return <List />;
+    loadTasks(getTokenSilently);
+    return (
+      <div className={classes.container}>
+        <List />
+        <SideBar />
+      </div>
+    );
   };
 
   return (
@@ -31,24 +37,18 @@ const Tasks = ({ selectedTask, loadTasks }) => {
   );
 };
 
-Tasks.propTypes = {
-  selectedTask: PropTypes.exact({
-    _id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    selected: PropTypes.bool.isRequired,
-  }).isRequired,
-  loadTasks: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  selectedTask: state.tasks.selected,
-});
+// Tasks.propTypes = {
+//   loadTasks: PropTypes.func.isRequired,
+// };
 
 const mapDispatchToProps = (dispatch) => ({
-  loadTasks: () => dispatch(getTasks()),
+  loadTasks: async (getToken) => {
+    const token = await getToken();
+    dispatch(getTasks(token));
+  },
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(Tasks);

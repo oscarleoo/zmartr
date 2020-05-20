@@ -5,13 +5,13 @@ import { createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 // import { StripeProvider } from 'react-stripe-elements';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import storage from 'redux-persist/lib/storage';
 import promise from 'redux-promise-middleware';
+import { BrowserRouter } from 'react-router-dom';
 import theme from './theme';
 import rootReducer from './redux/rootReducer';
 import Zmartr from './modules/Zmartr';
-import { BrowserRouter } from 'react-router-dom';
 
 const App = () => {
   const persistConfig = { key: 'root', storage };

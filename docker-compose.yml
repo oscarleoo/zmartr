@@ -1,0 +1,48 @@
+version: '3'
+
+
+services:
+
+  frontend:
+    build: 
+      context: ./zmartr-frontend
+      dockerfile: Dockerfile-dev
+    ports:
+      - '3000:3000'
+    working_dir: /usr/src/app
+    volumes:
+      - ./zmartr-frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    command: "npm start"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+
+  api:
+    build: ./zmartr-api
+    restart: always
+    environment: 
+      TASKS_MICROSERVICE: "tasks"
+    working_dir: /usr/src/app
+    volumes:
+      - ./zmartr-api:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - '5000:5000'
+    command: 'npm start'
+
+  tasks:
+    build: ./zmartr-tasks
+    restart: always
+    environment: 
+      MONGO_USERNAME: "dcrowd"
+      MONGO_PASSWORD: "Wuc0IlUXzxBCEpTK"
+    working_dir: /usr/src/app
+    volumes:
+      - ./zmartr-tasks:/usr/src/app/
+      - /usr/src/app/node_modules
+    ports:
+      - '80:80'
+    command: 'npm start'
+
+
+
