@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import Task from '../documents/Task';
 
-const updateTaskTitle = (taskId, title, userId) => {
+const updateTaskTitle = async (taskId, title, userId) => {
   if (taskId === 'tempId') {
     return Task({
       title, created: Date.now(), order: 1000, userId,
@@ -10,8 +10,8 @@ const updateTaskTitle = (taskId, title, userId) => {
   return Task.findOneAndUpdate(
     { _id: ObjectId(taskId), userId },
     { title },
-    { runValidators: true },
-  );
+    { runValidators: true, new: true },
+  ).populate('tags');
 };
 
 export default updateTaskTitle;

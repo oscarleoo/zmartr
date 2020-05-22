@@ -70,9 +70,9 @@ const TagsEditor = ({ open, task, availableTags, closeEditor, createNewTag }) =>
       <MuiDialogContent dividers className={classes.content}>
         {availableTags.map((tag) => {
           if (currentTagsIds.includes(tag._id)) {
-            return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={removeTagFromTask} opacity="0.8" />;
+            return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={removeTagFromTask} opacity="0.9" />;
           }
-          return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={addTagToTask} opacity="0.5" />;
+          return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={addTagToTask} opacity="0.7" />;
         })}
       </MuiDialogContent>
       <MuiDialogActions className={classes.createNewTagContainer}>

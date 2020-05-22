@@ -43,20 +43,20 @@ app.post('/startTask', handleError(async (req, res) => {
 
 app.post('/stopTask', handleError(async (req, res) => {
   const { taskId, userId } = req.body;
-  const tasks = await stopTask(taskId, userId);
-  res.send(tasks);
+  const task = await stopTask(taskId, userId);
+  res.send(task);
 }));
 
 app.post('/finishTask', handleError(async (req, res) => {
   const { taskId, userId } = req.body;
-  const tasks = await finishTask(taskId, userId);
-  res.send(tasks);
+  await finishTask(taskId, userId);
+  res.send(taskId);
 }));
 
 app.post('/archiveTask', handleError(async (req, res) => {
   const { taskId, userId } = req.body;
-  const tasks = await archiveTask(taskId, userId);
-  res.send(tasks);
+  await archiveTask(taskId, userId);
+  res.send(taskId);
 }));
 
 app.post('/orderTasks', handleError(async (req, res) => {

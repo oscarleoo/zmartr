@@ -62,7 +62,6 @@ const List = ({ createEmptyTask }) => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="h4">Active Task</Typography>
       <SelectedTask />
       <Button
         onClick={handleClick}

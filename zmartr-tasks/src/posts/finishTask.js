@@ -1,11 +1,13 @@
-import getUserTasks from '../utils/getUserTasks';
-import updateUserTasks from '../utils/updateUserTasks';
+import { ObjectId } from 'mongodb';
+import Task from '../documents/Task';
 
-const finishTask = async (taskId, userId) => {
-  await updateUserTasks(userId, taskId, 'Finished');
 
-  const [tasks, selectedTask, tags] = await getUserTasks(userId);
-  return { list: tasks, selected: selectedTask, availableTags: tags };
-};
+const finishTask = (taskId, userId) => Task.updateOne(
+  { _id: ObjectId(taskId), userId },
+  {
+    selected: false,
+    $push: { actions: { type: 'Finished', date: Date.now() } },
+  },
+);
 
 export default finishTask;

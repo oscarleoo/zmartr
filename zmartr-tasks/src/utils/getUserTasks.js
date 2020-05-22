@@ -6,7 +6,7 @@ const getUserTasks = (userId) => Promise.all([
   Task.find({ userId, 'actions.type': { $nin: ['Finished', 'Archived'] } })
     .sort({ order: 1 })
     .populate('tags'),
-  Task.findOne({ userId, selected: true }),
+  Task.findOne({ userId, selected: true }).populate('tags'),
   Tag.find({ userId }),
 ]);
 

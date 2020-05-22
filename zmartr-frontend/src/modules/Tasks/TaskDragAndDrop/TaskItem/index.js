@@ -2,8 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core';
+import PlayIcon from '@material-ui/icons/PlayCircleOutline';
+import DismissIcon from '@material-ui/icons/NotInterested';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import TaskItem from './TaskItem';
+import TaskAction from '../../../../components/Actions/TaskAction';
+import { startTask, archiveTask } from '../../../../redux/actions/tasks';
 
 const useStyles = makeStyles((theme) => ({
   taskItem: {
@@ -66,7 +70,10 @@ const Task = ({ task, index }) => {
             >
               <DragIndicatorIcon />
             </div>
-            <TaskItem task={task} />
+            <TaskItem task={task}>
+              <TaskAction taskId={task._id} action={startTask} Icon={PlayIcon} />
+              <TaskAction taskId={task._id} action={archiveTask} Icon={DismissIcon} />
+            </TaskItem>
           </div>
         </div>
       )}

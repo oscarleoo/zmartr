@@ -1,11 +1,14 @@
-import getUserTasks from '../utils/getUserTasks';
-import updateUserTasks from '../utils/updateUserTasks';
+import { ObjectId } from 'mongodb';
+import Task from '../documents/Task';
 
-const stopTask = async (taskId, userId) => {
-  await updateUserTasks(userId, taskId, 'Stopped');
+const stopTask = (taskId, userId) => Task.findOneAndUpdate(
+  { _id: ObjectId(taskId), userId, selected: true },
+  {
+    selected: false,
+    $push: { actions: { type: 'Stopped', date: Date.now() } },
+  },
+  { new: true },
+).populate('tags');
 
-  const [tasks, selectedTask, tags] = await getUserTasks(userId);
-  return { list: tasks, selected: selectedTask, availableTags: tags };
-};
 
 export default stopTask;

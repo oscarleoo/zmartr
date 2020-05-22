@@ -9,19 +9,21 @@ import {
   UPDATE_TASK,
 } from '../actions/tasks';
 import { UPDATE_TAGS } from '../actions/tags';
-
-const initialState = {
-  list: [],
-  selected: null,
-  loading: false,
-  searchString: '',
-};
+import updateListWithItem from './utils/updateListWithItem';
+import updateListWithList from './utils/updateListWithList';
+import removeFromList from './utils/removeFromList';
 
 const emptyTask = {
   _id: 'tempId',
   title: '',
   tags: [],
   actions: [],
+};
+
+const initialState = {
+  list: [],
+  loading: false,
+  searchString: '',
 };
 
 const tasksReducer = (state = initialState, action) => {
@@ -42,14 +44,7 @@ const tasksReducer = (state = initialState, action) => {
     case `${UPDATE_TASK}_FULFILLED`: {
       return {
         ...state,
-        list: state.list.map((task) => {
-          if (task._id === action.payload.data._id) {
-            return {
-              ...action.payload.data,
-            };
-          }
-          return task;
-        }),
+        list: updateListWithItem(state.list, action.payload.data),
       };
     }
     case `${GET_TASKS}_PENDING`: {
@@ -62,49 +57,37 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload.data.list,
-        selected: action.payload.data.selected,
         loading: false,
       };
     }
     case `${START_TASK}_FULFILLED`: {
       return {
         ...state,
-        list: action.payload.data.list,
-        selected: action.payload.data.selected,
+        list: updateListWithList(state.list, action.payload.data),
       };
     }
     case `${STOP_TASK}_FULFILLED`: {
       return {
         ...state,
-        list: action.payload.data.list,
-        selected: action.payload.data.selected,
+        list: updateListWithItem(state.list, action.payload.data),
       };
     }
     case `${FINISH_TASK}_FULFILLED`: {
       return {
         ...state,
-        list: action.payload.data.list,
-        selected: action.payload.data.selected,
+        list: removeFromList(state.list, action.payload.data),
       };
     }
     case `${ARCHIVE_TASK}_FULFILLED`: {
       return {
         ...state,
-        list: action.payload.data.list,
-        selected: action.payload.data.selected,
+        list: removeFromList(state.list, action.payload.data),
       };
     }
     case `${UPDATE_TAGS}_FULFILLED`: {
       return {
         ...state,
-        list: state.list.map((task) => {
-          if (task._id === action.payload.data._id) {
-            return {
-              ...action.payload.data,
-            };
-          }
-          return task;
-        }),
+        list: updateListWithItem(state.list, action.payload.data),
       };
     }
     default:

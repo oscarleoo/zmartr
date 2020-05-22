@@ -66,6 +66,7 @@ const TaskTextField = ({ taskId, taskText, updateTask }) => {
           <TextField
             id="standard-basic"
             variant="outlined"
+            autoComplete="off"
             defaultValue={text}
             onKeyDown={editTaskEvent}
             fullWidth
@@ -98,7 +99,6 @@ const TaskTextField = ({ taskId, taskText, updateTask }) => {
 TaskTextField.propTypes = {
   taskId: PropTypes.string.isRequired,
   taskText: PropTypes.string.isRequired,
-  isEditing: PropTypes.bool.isRequired,
   updateTask: PropTypes.func.isRequired,
 };
 

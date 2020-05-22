@@ -1,53 +1,65 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { makeStyles, Typography, Checkbox } from '@material-ui/core';
+import { makeStyles, Checkbox, Typography } from '@material-ui/core';
+import PausIcon from '@material-ui/icons/PauseCircleOutline';
+import DismissIcon from '@material-ui/icons/NotInterested';
+import CircleChecked from '@material-ui/icons/CheckCircleOutline';
+import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import TaskItem from './TaskDragAndDrop/TaskItem/TaskItem';
+import { stopTask, archiveTask, finishTask } from '../../redux/actions/tasks';
+import TaskAction from '../../components/Actions/TaskAction';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    margin: '20px 0 40px 0',
-    border: '3px dashed #c0c0c0',
-    padding: '30px 0 30px 10px',
+  taskItem: {
     display: 'flex',
-    justifyContent: 'flex-start',
+    padding: '10px 0',
+    justifyContent: 'space-between',
+    margin: '10px 0 40px 0',
     alignItems: 'center',
+    '&:hover': {
+      '& $iconContainer': {
+        color: theme.palette.background.gray,
+        transition: 'color 100ms linear',
+      },
+    },
   },
-  taskText: {
-    fontSize: '18px',
-    marginLeft: '5px',
+  flexChild: {
+    flex: 1,
+    marginRight: '50px',
+    marginLeft: '20px',
+  },
+  checkBox: {
+    padding: '0',
   },
 }));
 
 
-const SelectedTask = ({ selectedTask }) => {
+const SelectedTask = ({ tasks, completeTask }) => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(false);
   const { getTokenSilently } = useAuth0();
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
-
-  const renderText = () => {
-    if (selectedTask) {
-      return selectedTask.title;
-    }
-    return "Haven't selected any task to focus on...";
-  };
+  const selectedTasks = tasks.filter((task) => {return task.selected});
 
   return (
-    <div className={classes.container}>
-      { selectedTask && (
-        <Checkbox
-          checked={checked}
-          onChange={handleChange}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-      )}
-      <Typography variant="subtitle1" className={classes.taskText}>
-        {renderText()}
-      </Typography>
+    <div className={classes.selectedTasks}>
+      {selectedTasks.length > 0 && <Typography variant="h4">Active Task</Typography>}
+      {selectedTasks.map((task, index) => {
+        return (
+          <div className={classes.taskItem} key={task._id}>
+            <Checkbox
+              icon={<CircleUnchecked />}
+              checkedIcon={<CircleChecked />}
+              inputProps={{ 'aria-label': 'primary checkbox' }}
+              className={classes.checkBox}
+              onChange={completeTask(task._id, getTokenSilently)}
+            />
+            <TaskItem task={task}>
+              <TaskAction taskId={task._id} action={stopTask} Icon={PausIcon} />
+              <TaskAction taskId={task._id} action={archiveTask} Icon={DismissIcon} />
+            </TaskItem>
+          </div>
+        );
+      })}
     </div>
   );
 };
@@ -61,17 +73,17 @@ const SelectedTask = ({ selectedTask }) => {
 // };
 
 const mapStateToProps = (state) => ({
-  selectedTask: state.tasks.selected,
+  tasks: state.tasks.list,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   focusOnTask: (taskId, getToken) => async () => {
-//     const token = await getToken();
-//     dispatch(startTask(taskId, token));
-//   },
-// });
+const mapDispatchToProps = (dispatch) => ({
+  completeTask: (taskId, getToken) => async () => {
+    const token = await getToken();
+    dispatch(finishTask(taskId, token));
+  },
+});
 
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(SelectedTask);

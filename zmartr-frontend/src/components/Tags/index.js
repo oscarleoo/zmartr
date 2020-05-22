@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.light,
     background: theme.palette.background.gray,
     height: '14px',
-    padding: '0 10px',
+    padding: '2px 10px',
     marginRight: '8px',
     borderRadius: '8px',
     opacity: '0.5',
@@ -54,7 +54,7 @@ const Tags = ({ task, openEditor }) => {
     <div className={classes.tags}>
       <div className={classes.currentTags}>
         {task.tags.map((tag) => (
-          <div className={classes.tag} key={tag._id}>
+          <div className={classes.tag} style={{ background: tag.color }} key={tag._id}>
             <Typography variant="caption">{tag.tag}</Typography>
           </div>
         ))}
