@@ -13,11 +13,11 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Getting source-code
-        uses: actions/checkout@v2
       - name: Login to registry
         run: doctl registry login
+      - name: Getting source-code
+        uses: actions/checkout@v2
       - name: Build image
-        run: docker build -t registry.digitalocean.com/oscarleo/zmartr-frontend -f zmartr-frontend/Dockerfile
+        run: docker build -t registry.digitalocean.com/oscarleo/zmartr-frontend -f zmartr-frontend/Dockerfile .
       - name: Push image
         run: docker push registry.digitalocean.com/oscarleo/zmartr-frontend
