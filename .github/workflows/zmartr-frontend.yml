@@ -1,0 +1,33 @@
+name: CI Zmartr Frontend
+
+on:
+  push:
+    branches: [ master ]
+#     paths:
+#     - 'zmartr-frontend/**'
+
+jobs:
+  build_frontend:
+    runs-on: ubuntu-latest
+    name: 'Building Zmartr Frontend'
+    steps:
+      - name: Installing doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Login to registry
+        run: doctl registry login
+      - name: Getting source-code
+        uses: actions/checkout@v2
+      - name: Build image
+        run: docker build -t registry.digitalocean.com/oscarleo/zmartr-frontend ./zmartr-frontend
+      - name: Push image
+        run: docker push registry.digitalocean.com/oscarleo/zmartr-frontend
+      - name: Login to kubernetes
+        run: doctl auth init
+      - name: Get kubectl configurations
+        run: doctl kubernetes cluster kubeconfig save zmartr-kubernetes-cluster
+      - name: Apply k8s
+        run: kubectl apply -f k8s/frontend
+        
+
