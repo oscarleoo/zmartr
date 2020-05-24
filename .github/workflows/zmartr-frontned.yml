@@ -1,8 +1,10 @@
-name: Docker
+name: CI Zmartr Frontend
 
 on:
   push:
     branches: [ master ]
+    paths:
+    - 'zmartr-frontend/**'
 
 jobs:
   build_frontend:
