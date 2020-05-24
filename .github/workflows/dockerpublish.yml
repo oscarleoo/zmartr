@@ -9,7 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Building Zmartr Frontend'
     steps:
-      - uses: digitalocean/action-doctl@v2
+      - name: Installing doctl
+        uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - uses: actions/checkout@v2
+      - name: Getting source-code
+        uses: actions/checkout@v2
+      - name: Login to registry
+        run: doctl registry login
