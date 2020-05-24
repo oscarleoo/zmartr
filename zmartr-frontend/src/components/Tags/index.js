@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 10px',
     marginRight: '8px',
     borderRadius: '8px',
-    opacity: '0.5',
     display: 'flex',
     alignItems: 'center',
   },

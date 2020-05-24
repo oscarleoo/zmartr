@@ -1,13 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Router } from 'react-router-dom';
-import Message from '../../components/Message';
+import { Router, Switch } from 'react-router-dom';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
 import Start from '../Start';
 import PrivateRoute from '../../components/PrivateRoute';
 import Loading from '../../components/Loading';
 import history from '../../utils/history';
 import Tasks from '../Tasks';
+import Stats from '../Stats';
 import TopBar from '../../components/TopBar';
 
 
@@ -39,7 +39,10 @@ const Zmartr = () => {
         <Router history={history}>
           <TopBar />
           <div className={classes.view}>
-            <PrivateRoute exact path="/*" component={Tasks} />
+            <Switch>
+              <PrivateRoute exact path="/stats" component={Stats} />
+              <PrivateRoute exact path="/*" component={Tasks} />
+            </Switch>
           </div>
         </Router>
       );

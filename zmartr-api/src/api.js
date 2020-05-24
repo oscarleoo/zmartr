@@ -3,7 +3,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import authentication from './middleware/authentication';
-import getTasks from './tasks/getTasks';
 import startTask from './tasks/startTask';
 import stopTask from './tasks/stopTask';
 import finishTask from './tasks/finishTask';
@@ -14,6 +13,8 @@ import updateTaskTitle from './tasks/updateTaskTitle';
 import addTagToTask from './tags/addTagToTask';
 import removeTagFromTask from './tags/removeTagFromTask';
 import createTag from './tags/createTag';
+import getActiveTasks from './tasks/getActiveTasks';
+import getAllTasks from './tasks/getAllTasks';
 
 const app = express();
 const port = 5000;
@@ -33,9 +34,15 @@ const handleError = (fn) => (req, res, next) => {
   });
 };
 
-app.get('/api/getTasks', handleError(async (req, res) => {
+app.get('/api/getActiveTasks', handleError(async (req, res) => {
   const userId = req.user.sub;
-  const tasks = await getTasks(userId);
+  const tasks = await getActiveTasks(userId);
+  res.send(tasks.data);
+}));
+
+app.get('/api/getAllTasks', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const tasks = await getAllTasks(userId);
   res.send(tasks.data);
 }));
 

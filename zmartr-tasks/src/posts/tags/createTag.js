@@ -1,8 +1,9 @@
 import Tag from '../../documents/Tag';
 
-const createTag = async (tag, color, userId) => {
-  await Tag({ tag, color, userId }).save();
-  return Tag.find({ userId });
-};
+const createTag = (tag, color, userId) => Tag.findOneAndUpdate(
+  { tag, userId },
+  { color },
+  { upsert: true, new: true },
+);
 
 export default createTag;

@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
-import getTasks from './gets/getTasks';
 import startTask from './posts/startTask';
 import stopTask from './posts/stopTask';
 import finishTask from './posts/finishTask';
@@ -12,6 +11,8 @@ import updateTaskTitle from './posts/updateTaskTitle';
 import addTagToTask from './posts/tags/addTagToTask';
 import removeTagFromTask from './posts/tags/removeTagFromTask';
 import createTag from './posts/tags/createTag';
+import getActiveTasks from './gets/getActiveTasks';
+import getAllTasks from './gets/getAllTasks';
 
 const { MONGO_USERNAME, MONGO_PASSWORD } = process.env;
 const app = express();
@@ -23,9 +24,15 @@ const handleError = (fn) => (req, res, next) => {
   fn(req, res).catch((error) => next(error));
 };
 
-app.get('/tasks', handleError(async (req, res) => {
+app.get('/getActiveTasks', handleError(async (req, res) => {
   const { userId } = req.query;
-  const tasks = await getTasks(userId);
+  const tasks = await getActiveTasks(userId);
+  res.send(tasks);
+}));
+
+app.get('/getAllTasks', handleError(async (req, res) => {
+  const { userId } = req.query;
+  const tasks = await getAllTasks(userId);
   res.send(tasks);
 }));
 
@@ -61,14 +68,15 @@ app.post('/archiveTask', handleError(async (req, res) => {
 
 app.post('/orderTasks', handleError(async (req, res) => {
   const { taskIds } = req.body;
-  const message = await orderTasks(taskIds);
-  res.send(message);
+  console.log(taskIds)
+  await orderTasks(taskIds);
+  res.send(taskIds);
 }));
 
 app.post('/createTag', handleError(async (req, res) => {
   const { tag, color, userId } = req.body;
-  const tags = await createTag(tag, color, userId);
-  res.send(tags);
+  const newTag = await createTag(tag, color, userId);
+  res.send(newTag);
 }));
 
 app.post('/addTagToTask', handleError(async (req, res) => {

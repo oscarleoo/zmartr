@@ -65,7 +65,6 @@ const List = ({ createEmptyTask }) => {
       <SelectedTask />
       <Button
         onClick={handleClick}
-        disableFocusRipple
         disableRipple
         style={{ backgroundColor: 'transparent' }}
         className={classes.backlog}

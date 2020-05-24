@@ -23,12 +23,12 @@ const radialBarChartData = (tasks) => {
   const tags = [].concat(...tasks.map((task) => task.tags));
   for (let i = 0; i < tags.length; i += 1) {
     if (tags[i].tag in data) {
-      data[tags[i].tag].count += (100 / tasks.length);
+      data[tags[i].tag].count += Math.round((100 / tasks.length));
     } else {
       data[tags[i].tag] = {
         fill: tags[i].color,
         name: tags[i].tag,
-        count: (100 / tasks.length),
+        count: Math.round((100 / tasks.length)),
       };
     }
   }
@@ -41,7 +41,8 @@ const SideBar = ({ tasks }) => {
 
   return (
     <div className={classes.container}>
-      <Typography className={classes.heading} variant="h4">Backlog Overview</Typography>
+      <Typography className={classes.heading} variant="h4">
+        Backlog Overview ({tasks.length} Tasks)</Typography>
       <ResponsiveContainer height={300}>
         <BarChart
           layout="vertical"
@@ -50,10 +51,10 @@ const SideBar = ({ tasks }) => {
           isAnimationActive={false}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis type="number" dataKey="count" domain={[0, 100]} />
+          <XAxis type="number" dataKey="count" domain={[0, 100]} unit="%" />
           <YAxis type="category" dataKey="name" width={120} />
-          <Tooltip cursor={{ fill: '#e0e0e0' }} />
-          <Bar dataKey="count" />
+          <Tooltip cursor={{ fill: '#eaeaea' }} />
+          <Bar dataKey="count" unit="%" />
         </BarChart>
       </ResponsiveContainer>
     </div>

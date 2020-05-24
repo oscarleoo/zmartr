@@ -1,24 +1,26 @@
 import { ObjectId } from 'mongodb';
 import Task from '../documents/Task';
 
-const startTask = (taskId, userId) => Promise.all([
-  Task.findOneAndUpdate(
+const startTask = async (taskId, userId) => {
+  const unSelected = await Task.findOneAndUpdate(
     { userId, selected: true },
     {
       selected: false,
       $push: { actions: { type: 'Stopped', date: Date.now() } },
     },
     { new: true },
-  ).populate('tags'),
-  Task.findOneAndUpdate(
+  ).populate('tags');
+
+  const selected = await Task.findOneAndUpdate(
     { _id: ObjectId(taskId) },
     {
       selected: true,
       $push: { actions: { type: 'Started', date: Date.now() } },
     },
     { new: true },
-  ).populate('tags'),
-]);
+  ).populate('tags');
 
+  return [unSelected, selected];
+};
 
 export default startTask;

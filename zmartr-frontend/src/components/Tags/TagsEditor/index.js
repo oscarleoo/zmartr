@@ -28,17 +28,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '20px 10px',
     width: '550px',
   },
-  tagContainer: {
-    margin: '5px',
-    padding: '5px 10px',
-    borderRadius: '10px',
-    cursor: 'pointer',
-    textTransform: 'none',
-  },
-  tagText: {
-    fontSize: '14px',
-    color: theme.palette.text.light,
-  },
   createNewTagContainer: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -70,9 +59,9 @@ const TagsEditor = ({ open, task, availableTags, closeEditor, createNewTag }) =>
       <MuiDialogContent dividers className={classes.content}>
         {availableTags.map((tag) => {
           if (currentTagsIds.includes(tag._id)) {
-            return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={removeTagFromTask} opacity="0.9" />;
+            return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={removeTagFromTask} selected />;
           }
-          return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={addTagToTask} opacity="0.7" />;
+          return <DisplayTag tag={tag} taskId={task._id} key={tag._id} tagFunction={addTagToTask} opacity="0.4" />;
         })}
       </MuiDialogContent>
       <MuiDialogActions className={classes.createNewTagContainer}>

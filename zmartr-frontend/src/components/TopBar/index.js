@@ -74,6 +74,7 @@ const TopBar = ({ filterTasks }) => {
             variant="outlined"
             size="small"
             onChange={handleSearchChange}
+            autoComplete="off"
             InputLabelProps={{
               className: classes.searchField,
             }}

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core/styles';
-import { orderTasks, startTask } from '../../../redux/actions/tasks';
+import { orderTasks } from '../../../redux/actions/tasks';
 import Task from './TaskItem';
 import { useAuth0 } from '../../../auth0/react-auth0-spa';
-import TaskAction from '../../../components/Actions/TaskAction';
 
 const useStyles = makeStyles({
   taskContainer: {
@@ -21,7 +20,8 @@ const useStyles = makeStyles({
   },
 });
 
-const TaskDragAndDrop = ({ tasks, searchString, selectedTask, saveOrder }) => {
+const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
+  console.log(tasks)
   const classes = useStyles();
   const taskList = Array.from(tasks);
   const { getTokenSilently } = useAuth0();
@@ -49,7 +49,7 @@ const TaskDragAndDrop = ({ tasks, searchString, selectedTask, saveOrder }) => {
           {taskList.filter((task) => {
             const titleIncludes = task.title.toLowerCase().includes(searchString);
             const tagIncludes = task.tags.filter((tag) => (tag.tag.includes(searchString))).length > 0;
-            return (titleIncludes || tagIncludes) && !task.selected;
+            return (titleIncludes || tagIncludes);
           }).map((task, index) => <Task key={task._id} task={task} index={index} />)}
           {provided.placeholder}
         </div>
@@ -76,7 +76,6 @@ const TaskDragAndDrop = ({ tasks, searchString, selectedTask, saveOrder }) => {
 
 const mapStateToProps = (state) => ({
   tasks: state.tasks.list,
-  selectedTask: state.tasks.selected,
   isLoading: state.tasks.loading,
   searchString: state.tasks.searchString,
 });

@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import List from './List';
 import SideBar from './SideBar';
-import { getTasks } from '../../redux/actions/tasks';
+import { getActiveTasks } from '../../redux/actions/tasks';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
 
 
@@ -44,7 +43,7 @@ const Tasks = ({ loadTasks }) => {
 const mapDispatchToProps = (dispatch) => ({
   loadTasks: async (getToken) => {
     const token = await getToken();
-    dispatch(getTasks(token));
+    dispatch(getActiveTasks(token));
   },
 });
 

@@ -1,67 +1,72 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { getAllTasks } from '../../redux/actions/tasks';
+import Filter from './Filter';
+import PieChart from './Charts/PieChart';
+import Metrics from './Charts/Metrics';
+import TimeLine from './Charts/TimeLine';
+import { useAuth0 } from '../../auth0/react-auth0-spa';
+
 
 const useStyles = makeStyles((theme) => ({
-  statsContainer: {
+  container: {
     flex: 1,
-    background: theme.palette.background.gray,
-    padding: '50px',
+    display: 'flex',
+    background: theme.palette.background.white,
   },
-  statsComponent: {
-    border: '2px dashed gray',
+  chartContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  topCharts: {
+    flex: 1,
+    display: 'flex',
+  },
+  bottomCharts: {
+    flex: 1,
+    display: 'flex',
   },
 }));
 
-const Stats = () => {
+const Stats = ({ loadTasks }) => {
   const classes = useStyles();
+  const { getTokenSilently } = useAuth0();
+
+  const renderView = () => {
+    loadTasks(getTokenSilently);
+    return (
+      <div className={classes.container}>
+        <Filter />
+        <div className={classes.chartContainer}>
+          <div className={classes.topCharts}>
+            <PieChart />
+            <Metrics />
+          </div>
+          <div className={classes.bottomCharts}>
+            <TimeLine />
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div className={classes.statsContainer}>
-      <Grid container spacing={3}>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={6}
-          lg={4}
-          xl={3}
-          className={classes.statsComponent}
-        />
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={6}
-          lg={4}
-          xl={3}
-          className={classes.statsComponent}
-        />
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={6}
-          lg={4}
-          xl={3}
-          className={classes.statsComponent}
-        />
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={6}
-          lg={4}
-          xl={3}
-          className={classes.statsComponent}
-        />
-      </Grid>
+    <div className={classes.container}>
+      {renderView()}
     </div>
   );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  loadTasks: async (getToken) => {
+    const token = await getToken();
+    dispatch(getAllTasks(token));
+  },
+});
+
 export default connect(
   null,
-  null,
+  mapDispatchToProps,
 )(Stats);

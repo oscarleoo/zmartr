@@ -4,7 +4,8 @@ import {
   UPDATE_TAGS,
   CREATE_TAG,
 } from '../actions/tags';
-import { GET_TASKS } from '../actions/tasks';
+import { GET_ACTIVE_TASKS } from '../actions/tasks';
+import updateOrAddToList from './utils/updateOrAddToList';
 
 const emptyTask = {
   _id: 'tempId',
@@ -24,7 +25,7 @@ const tagsReducer = (state = initialState, action) => {
     case `${CREATE_TAG}_FULFILLED`: {
       return {
         ...state,
-        availableTags: action.payload.data,
+        availableTags: updateOrAddToList(state.availableTags, action.payload.data),
       };
     }
     case `${UPDATE_TAGS}_FULFILLED`: {
@@ -47,7 +48,7 @@ const tagsReducer = (state = initialState, action) => {
         taskToEdit: emptyTask,
       };
     }
-    case `${GET_TASKS}_FULFILLED`: {
+    case `${GET_ACTIVE_TASKS}_FULFILLED`: {
       return {
         ...state,
         availableTags: action.payload.data.availableTags,

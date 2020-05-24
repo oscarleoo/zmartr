@@ -59,7 +59,7 @@ const Task = ({ task, index }) => {
             provided.draggableProps.style,
           )}
         >
-          <div className={classes.taskContainer}>
+          <div style={task.selected ? { display: 'None' } : {}} className={classes.taskContainer}>
             <div
               {...provided.dragHandleProps}
               className={classes.dragIcon}

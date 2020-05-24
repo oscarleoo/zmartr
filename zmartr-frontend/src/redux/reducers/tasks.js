@@ -1,12 +1,13 @@
 import {
   CREATE_TASK,
-  GET_TASKS,
+  GET_ACTIVE_TASKS,
   START_TASK,
   STOP_TASK,
   FINISH_TASK,
   ARCHIVE_TASK,
   UPDATE_SEARCH_STRING,
   UPDATE_TASK,
+  ORDER_TASKS,
 } from '../actions/tasks';
 import { UPDATE_TAGS } from '../actions/tags';
 import updateListWithItem from './utils/updateListWithItem';
@@ -47,13 +48,13 @@ const tasksReducer = (state = initialState, action) => {
         list: updateListWithItem(state.list, action.payload.data),
       };
     }
-    case `${GET_TASKS}_PENDING`: {
+    case `${GET_ACTIVE_TASKS}_PENDING`: {
       return {
         ...state,
         loading: true,
       };
     }
-    case `${GET_TASKS}_FULFILLED`: {
+    case `${GET_ACTIVE_TASKS}_FULFILLED`: {
       return {
         ...state,
         list: action.payload.data.list,
@@ -88,6 +89,14 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         list: updateListWithItem(state.list, action.payload.data),
+      };
+    }
+    case `${ORDER_TASKS}_FULFILLED`: {
+      return {
+        ...state,
+        list: state.list.slice().sort((a, b) => (
+          action.payload.data.indexOf(a._id) > action.payload.data.indexOf(b._id) ? 1 : -1
+        )),
       };
     }
     default:
