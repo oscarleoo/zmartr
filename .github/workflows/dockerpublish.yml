@@ -1,0 +1,19 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+
+jobs:
+  build_frontend:
+    runs-on: ubuntu-latest
+    name: 'Building Zmartr Frontend'
+    steps:
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
