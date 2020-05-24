@@ -15,7 +15,6 @@ spec:
       containers:
       - name: zmartr-frontend
         image: registry.digitalocean.com/oscarleo/zmartr-frontend
-        imagePullPolicy: "Never"
         resources:
           requests:
             memory: "512Mi"
