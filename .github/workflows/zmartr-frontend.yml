@@ -22,5 +22,12 @@ jobs:
       - name: Build image
         run: docker build -t registry.digitalocean.com/oscarleo/zmartr-frontend ./zmartr-frontend
       - name: Push image
-        run: docker push registry.digitalocean.com/oscarleo/zmartr-frontend 
+        run: docker push registry.digitalocean.com/oscarleo/zmartr-frontend
+      - name: Login to kubernetes
+        run: doctl auth init
+      - name: Get kubectl configurations
+        run: doctl kubernetes cluster kubeconfig save zmartr-kubernetes-cluster
+      - name: Apply k8s
+        run: kubectl apply -f k8s/frontend
+        
 
