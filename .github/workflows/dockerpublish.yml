@@ -17,9 +17,6 @@ jobs:
         run: doctl registry login
       - name: Getting source-code
         uses: actions/checkout@v2
-      - uses: docker/build-push-action@v1
-        with:
-          registry: registry.digitalocean.com
-          repository: oscarleo/zmartr-frontend
-          path: ./zmartr-frontend
+      - name: Build image
+        run: docker build -t registry.digitalocean.com/oscarleo/zmartr-frontend ./zmartr-frontend
 
