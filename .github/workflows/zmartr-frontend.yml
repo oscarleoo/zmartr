@@ -3,8 +3,8 @@ name: CI Zmartr Frontend
 on:
   push:
     branches: [ master ]
-#     paths:
-#     - 'zmartr-frontend/**'
+    paths:
+    - 'zmartr-frontend/**'
 
 jobs:
   build_frontend:
@@ -28,6 +28,6 @@ jobs:
       - name: Get kubectl configurations
         run: doctl kubernetes cluster kubeconfig save zmartr-kubernetes-cluster
       - name: Apply k8s
-        run: kubectl apply -f k8s/frontend
+        run: kubectl apply -f k8s/frontend -n zmartr
         
 
