@@ -3,8 +3,8 @@ name: CI Zmartr API
 on:
   push:
     branches: [ master ]
-    # paths:
-    # - 'zmartr-api/**'
+    paths:
+    - 'zmartr-api/**'
 
 jobs:
   build_frontend:

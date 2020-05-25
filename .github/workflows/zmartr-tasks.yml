@@ -3,8 +3,8 @@ name: CI Zmartr Tasks
 on:
   push:
     branches: [ master ]
-    # paths:
-    # - 'zmartr-tasks/**'
+    paths:
+    - 'zmartr-tasks/**'
 
 jobs:
   build_frontend:
