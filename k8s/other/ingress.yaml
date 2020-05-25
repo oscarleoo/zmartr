@@ -4,15 +4,16 @@ metadata:
   name: zmartr-api-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
   - hosts:
+    - zmartr.com
     - www.zmartr.com
     secretName: zmartr-tls
   rules:
-  - host: www.zmartr.com
-    http:
+  - host: zmartr.com
+    http: &http_rules
       paths:
       - path: /api
         backend:
@@ -22,3 +23,5 @@ spec:
         backend:
           serviceName: zmartr-frontend-cluster-ip
           servicePort: 80
+  - host: www.zmartr.com
+    http: *http_rules
