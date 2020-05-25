@@ -18,15 +18,13 @@ spec:
         imagePullPolicy: "Never"
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "125m"
+            memory: "256Mi"
+            cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: "256Mi"
             cpu: "250m"
         ports:
         - containerPort: 5000
         env:
         - name: TASKS_MICROSERVICE
           value: 'zmartr-tasks-cluster-ip'
-        - name: USERS_MICROSERVICE
-          value: 'zmartr-users-cluster-ip'

@@ -27,3 +27,5 @@ spec:
         env:
         - name: NODE_ENV
           value: "development"
+        - name: REACT_APP_API_URL
+          value: ""

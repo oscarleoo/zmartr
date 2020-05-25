@@ -1,15 +1,15 @@
-name: CI Zmartr Frontend
+name: CI Zmartr API
 
 on:
   push:
     branches: [ master ]
     # paths:
-    # - 'zmartr-frontend/**'
+    # - 'zmartr-api/**'
 
 jobs:
   build_frontend:
     runs-on: ubuntu-latest
-    name: 'Building Zmartr Frontend'
+    name: 'Building Zmartr API'
     steps:
       - name: Installing doctl
         uses: digitalocean/action-doctl@v2
@@ -20,14 +20,14 @@ jobs:
       - name: Getting source-code
         uses: actions/checkout@v2
       - name: Build image
-        run: docker build -t registry.digitalocean.com/oscarleo/zmartr-frontend ./zmartr-frontend
+        run: docker build -t registry.digitalocean.com/oscarleo/zmartr-api ./zmartr-api
       - name: Push image
-        run: docker push registry.digitalocean.com/oscarleo/zmartr-frontend
+        run: docker push registry.digitalocean.com/oscarleo/zmartr-api
       - name: Login to kubernetes
         run: doctl auth init
       - name: Get kubectl configurations
         run: doctl kubernetes cluster kubeconfig save zmartr-kubernetes-cluster
       - name: Apply k8s
-        run: kubectl apply -f k8s/frontend -n zmartr
+        run: kubectl apply -f k8s/api -n zmartr
         
 
