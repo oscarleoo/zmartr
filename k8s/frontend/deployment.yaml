@@ -25,7 +25,5 @@ spec:
         ports:
         - containerPort: 3000
         env:
-        - name: NODE_ENV
-          value: "development"
-        - name: REACT_APP_API_URL
+        - name: API_URL
           value: "/"
