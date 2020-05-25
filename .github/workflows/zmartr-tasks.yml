@@ -1,4 +1,4 @@
-name: CI Zmartr Frontend
+name: CI Zmartr Tasks
 
 on:
   push:
