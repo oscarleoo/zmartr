@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: zmartr-api
-        image: zmartr/api
+        image: registry.digitalocean.com/oscarleo/zmartr-api
         imagePullPolicy: "Never"
         resources:
           requests:

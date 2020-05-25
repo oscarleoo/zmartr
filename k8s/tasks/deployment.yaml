@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: zmartr-tasks
-        image: zmartr/tasks
+        image: registry.digitalocean.com/oscarleo/zmartr-tasks
         imagePullPolicy: "Never"
         resources:
           requests:
