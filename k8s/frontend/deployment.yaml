@@ -24,6 +24,3 @@ spec:
             cpu: "150m"
         ports:
         - containerPort: 3000
-        env:
-        - name: API_URL
-          value: "/"
