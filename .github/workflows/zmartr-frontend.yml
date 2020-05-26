@@ -28,6 +28,6 @@ jobs:
       - name: Get kubectl configurations
         run: doctl kubernetes cluster kubeconfig save zmartr-cluster
       - name: Apply k8s
-        run: kubectl apply -f k8s/frontend
+        run: kubectl rollout restart deployment zmartr-frontend-deployment
         
 
