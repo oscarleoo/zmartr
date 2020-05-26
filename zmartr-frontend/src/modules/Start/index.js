@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Start = () => {
   const classes = useStyles();
-  const { loginWithPopup } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
 
   return (
     <div className={classes.startContainer}>
@@ -53,7 +53,7 @@ const Start = () => {
       </Typography>
       <Typography variant="h1" align="center" className={classes.subHeading}>
         Click
-        <Fab className={classes.loginFab} onClick={loginWithPopup}>
+        <Fab className={classes.loginFab} onClick={loginWithRedirect}>
           <LoginIcon className={classes.loginIcon} />
         </Fab>
         to enter

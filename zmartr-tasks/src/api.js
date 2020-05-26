@@ -68,7 +68,6 @@ app.post('/archiveTask', handleError(async (req, res) => {
 
 app.post('/orderTasks', handleError(async (req, res) => {
   const { taskIds } = req.body;
-  console.log(taskIds)
   await orderTasks(taskIds);
   res.send(taskIds);
 }));
