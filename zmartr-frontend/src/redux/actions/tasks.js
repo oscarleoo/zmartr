@@ -1,6 +1,5 @@
-import axios from 'axios';
-
-// const { REACT_APP_API_URL } = process.env;
+import getData from './utils/getData';
+import postData from './utils/postData';
 
 export const UPDATE_SEARCH_STRING = 'UPDATE_SEARCH_STRING';
 export const GET_ACTIVE_TASKS = 'GET_ACTIVE_TASKS';
@@ -13,13 +12,6 @@ export const FINISH_TASK = 'FINISH_TASK';
 export const ARCHIVE_TASK = 'ARCHIVE_TASK';
 export const ORDER_TASKS = 'ORDER_TASKS';
 
-export const getData = (url, headers, actionType) => ({
-  type: actionType, payload: axios.get(url, { headers }),
-});
-
-export const postData = (url, data, headers, actionType) => ({
-  type: actionType, payload: axios.post(url, data, { headers }),
-});
 
 export const updateSearchString = (text) => ({
   type: UPDATE_SEARCH_STRING, payload: { text },

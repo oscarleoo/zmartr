@@ -1,14 +1,10 @@
-import axios from 'axios';
+import postData from './utils/postData';
 
-// const { REACT_APP_API_URL } = process.env;
 export const CREATE_TAG = 'CREATE_TAG';
 export const UPDATE_TAGS = 'UPDATE_TAGS';
 export const OPEN_TAG_EDITOR = 'OPEN_TAG_EDITOR';
 export const CLOSE_TAG_EDITOR = 'CLOSE_TAG_EDITOR';
 
-export const postData = (url, data, headers, actionType) => ({
-  type: actionType, payload: axios.post(url, data, { headers }),
-});
 
 export const createTag = (tag, color, token) => {
   const headers = { Authorization: `Bearer ${token}` };
