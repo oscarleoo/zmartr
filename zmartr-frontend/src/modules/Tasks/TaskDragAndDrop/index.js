@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 });
 
 const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
-  console.log(tasks)
   const classes = useStyles();
   const taskList = Array.from(tasks);
   const { getTokenSilently } = useAuth0();

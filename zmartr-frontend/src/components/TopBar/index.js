@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const TopBar = ({ filterTasks }) => {
+const TopBar = ({ currentSearch, filterTasks }) => {
   const classes = useStyles();
   const { isAuthenticated, logout } = useAuth0();
   const handleSearchChange = (event) => { filterTasks(event.target.value); };
@@ -73,6 +73,7 @@ const TopBar = ({ filterTasks }) => {
             id="standard-basic"
             variant="outlined"
             size="small"
+            defaultValue={currentSearch}
             onChange={handleSearchChange}
             autoComplete="off"
             InputLabelProps={{
@@ -101,11 +102,15 @@ const TopBar = ({ filterTasks }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  currentSearch: state.tasks.searchString,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   filterTasks: (searchString) => (dispatch(updateSearchString(searchString))),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(TopBar);
