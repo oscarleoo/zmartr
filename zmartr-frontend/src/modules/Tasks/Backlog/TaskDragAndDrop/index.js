@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core/styles';
-import { orderTasks } from '../../../redux/actions/tasks';
+import { orderTasks } from '../../../../redux/actions/tasks';
 import Task from './TaskItem';
-import { useAuth0 } from '../../../auth0/react-auth0-spa';
+import { useAuth0 } from '../../../../auth0/react-auth0-spa';
 
 const useStyles = makeStyles({
   taskContainer: {
@@ -22,7 +22,9 @@ const useStyles = makeStyles({
 
 const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
   const classes = useStyles();
-  const taskList = Array.from(tasks);
+  const taskList = tasks.filter((task) => (
+    task.actions.length === 0 || ['Finished', 'Archived'].indexOf(task.actions[task.actions.length - 1].type) < 0
+  ));
   const { getTokenSilently } = useAuth0();
 
   const onDragEnd = (result) => {

@@ -2,8 +2,7 @@ import getData from './utils/getData';
 import postData from './utils/postData';
 
 export const UPDATE_SEARCH_STRING = 'UPDATE_SEARCH_STRING';
-export const GET_ACTIVE_TASKS = 'GET_ACTIVE_TASKS';
-export const GET_ALL_TASKS = 'GET_ALL_TASKS';
+export const GET_TASKS = 'GET_TASKS';
 export const CREATE_TASK = 'CREATE_TASK';
 export const START_TASK = 'START_TASK';
 export const STOP_TASK = 'STOP_TASK';
@@ -17,14 +16,9 @@ export const updateSearchString = (text) => ({
   type: UPDATE_SEARCH_STRING, payload: { text },
 });
 
-export const getActiveTasks = (token) => {
+export const getTasks = (token) => {
   const headers = { Authorization: `Bearer ${token}` };
-  return getData('api/getActiveTasks', headers, GET_ACTIVE_TASKS);
-};
-
-export const getAllTasks = (token) => {
-  const headers = { Authorization: `Bearer ${token}` };
-  return getData('api/getAllTasks', headers, GET_ALL_TASKS);
+  return getData('api/getAllTasks', headers, GET_TASKS);
 };
 
 export const createTask = () => ({

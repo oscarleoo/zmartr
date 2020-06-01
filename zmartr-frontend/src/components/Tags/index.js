@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   tag: {
     color: theme.palette.text.light,
     background: theme.palette.background.gray,
-    height: '14px',
+    height: '13px',
     padding: '2px 10px',
     marginRight: '8px',
     borderRadius: '8px',

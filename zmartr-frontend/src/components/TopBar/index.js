@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { TextField, InputAdornment } from '@material-ui/core';
 import { connect } from 'react-redux';
-import SearchIcon from '@material-ui/icons/SearchOutlined';
+import SearchIcon from '@material-ui/icons/FilterList';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
 import SideBarItem from './SideBarItem';
 import { updateSearchString } from '../../redux/actions/tasks';
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   topBar: {
-    flex: '0 0 48px',
+    height: '44px',
     width: '100%',
     boxShadow: '0 0 0 0',
     background: theme.palette.background.gray,
@@ -33,8 +33,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 0,
   },
   searchField: {
-    height: '30px',
+    height: '26px',
     width: '300px',
+    fontSize: '14px',
     background: 'gray',
     borderColor: '#fff',
     marginLeft: '20px',
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   logo: {
-    height: '26px',
+    height: '22px',
   },
 }));
 
@@ -73,6 +74,7 @@ const TopBar = ({ currentSearch, filterTasks }) => {
             id="standard-basic"
             variant="outlined"
             size="small"
+            placeholder="Filter backlog..."
             defaultValue={currentSearch}
             onChange={handleSearchChange}
             autoComplete="off"
@@ -83,7 +85,7 @@ const TopBar = ({ currentSearch, filterTasks }) => {
               className: classes.searchField,
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon />
+                  <SearchIcon style={{ fontSize: '18px' }} />
                 </InputAdornment>
               ),
             }}

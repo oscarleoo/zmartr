@@ -1,6 +1,6 @@
 import {
   CREATE_TASK,
-  GET_ACTIVE_TASKS,
+  GET_TASKS,
   START_TASK,
   STOP_TASK,
   FINISH_TASK,
@@ -48,13 +48,13 @@ const tasksReducer = (state = initialState, action) => {
         list: updateListWithItem(state.list, action.payload.data),
       };
     }
-    case `${GET_ACTIVE_TASKS}_PENDING`: {
+    case `${GET_TASKS}_PENDING`: {
       return {
         ...state,
         loading: true,
       };
     }
-    case `${GET_ACTIVE_TASKS}_FULFILLED`: {
+    case `${GET_TASKS}_FULFILLED`: {
       return {
         ...state,
         list: action.payload.data.list,
@@ -76,13 +76,13 @@ const tasksReducer = (state = initialState, action) => {
     case `${FINISH_TASK}_FULFILLED`: {
       return {
         ...state,
-        list: removeFromList(state.list, action.payload.data),
+        list: updateListWithItem(state.list, action.payload.data),
       };
     }
     case `${ARCHIVE_TASK}_FULFILLED`: {
       return {
         ...state,
-        list: removeFromList(state.list, action.payload.data),
+        list: updateListWithItem(state.list, action.payload.data),
       };
     }
     case `${UPDATE_TAGS}_FULFILLED`: {

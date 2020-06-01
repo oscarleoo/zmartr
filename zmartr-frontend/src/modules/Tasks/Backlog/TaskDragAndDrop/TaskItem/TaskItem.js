@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
-import Tags from '../../../../components/Tags';
-import TaskTextField from '../../../../components/TaskTextField';
+import Tags from '../../../../../components/Tags';
+import TaskTextField from '../../../../../components/TaskTextField';
 
 const useStyles = makeStyles((theme) => ({
   taskItemContainer: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   taskItem: {
     flex: 1,
     display: 'flex',
-    padding: '10px 0',
+    padding: '12px 0',
     justifyContent: 'space-between',
     alignItems: 'center',
     '&:hover': {

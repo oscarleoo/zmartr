@@ -1,25 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Collapse, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { createTask } from '../../redux/actions/tasks';
+import { createTask } from '../../../redux/actions/tasks';
 import TaskDragAndDrop from './TaskDragAndDrop';
-import SelectedTask from './SelectedTask';
-import TagsEditor from '../../components/Tags/TagsEditor';
+
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    background: theme.palette.background.white,
-    justifyContent: 'flex-start',
-    margin: '50px 5%',
-  },
   actionBar: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -41,18 +31,19 @@ const useStyles = makeStyles((theme) => ({
   },
   addNewTask: {
     marginTop: '20px',
-    marginBottom: '20px',
+    marginBottom: '0',
     marginLeft: '35px',
     display: 'flex',
     alignItems: 'center',
     textTransform: 'none',
+    padding: '15px 30px 15px 20px',
   },
   addNewTaskText: {
     marginLeft: '10px',
   },
 }));
 
-const List = ({ createEmptyTask }) => {
+const Backlog = ({ createEmptyTask }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -60,9 +51,9 @@ const List = ({ createEmptyTask }) => {
     setOpen(!open);
   };
 
+
   return (
-    <div className={classes.container}>
-      <SelectedTask />
+    <div>
       <Button
         onClick={handleClick}
         disableRipple
@@ -85,10 +76,10 @@ const List = ({ createEmptyTask }) => {
           </Typography>
         </Button>
       </Collapse>
-      <TagsEditor />
     </div>
   );
 };
+
 
 const mapDispatchToProps = (dispatch) => ({
   createEmptyTask: async () => {
@@ -99,4 +90,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   null,
   mapDispatchToProps,
-)(List);
+)(Backlog);

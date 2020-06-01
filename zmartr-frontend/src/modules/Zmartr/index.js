@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Router, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
 import Start from '../Start';
 import PrivateRoute from '../../components/PrivateRoute';
@@ -9,6 +10,7 @@ import history from '../../utils/history';
 import Tasks from '../Tasks';
 import Stats from '../Stats';
 import TopBar from '../../components/TopBar';
+import { getTasks } from '../../redux/actions/tasks';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Zmartr = () => {
+const Zmartr = ({ loadTasks }) => {
   const classes = useStyles();
-  const { loading, isAuthenticated } = useAuth0();
+  const { loading, isAuthenticated, getTokenSilently } = useAuth0();
 
   const renderRoutes = () => {
     if (loading) {
@@ -35,6 +37,7 @@ const Zmartr = () => {
     }
 
     if (isAuthenticated) {
+      loadTasks(getTokenSilently);
       return (
         <Router history={history}>
           <TopBar />
@@ -60,5 +63,14 @@ const Zmartr = () => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  loadTasks: async (getToken) => {
+    const token = await getToken();
+    dispatch(getTasks(token));
+  },
+});
 
-export default Zmartr;
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Zmartr);

@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core';
 import PlayIcon from '@material-ui/icons/PlayCircleOutline';
-import DismissIcon from '@material-ui/icons/NotInterested';
+import DismissIcon from '@material-ui/icons/DeleteOutline';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
+import ActionIcon from '@material-ui/icons/ListAltRounded';
+import StatsIcon from '@material-ui/icons/EqualizerOutlined';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import TaskItem from './TaskItem';
-import TaskAction from '../../../../components/Actions/TaskAction';
-import { startTask, archiveTask } from '../../../../redux/actions/tasks';
+import TaskAction from '../../../../../components/Actions/TaskAction';
+import { startTask, archiveTask } from '../../../../../redux/actions/tasks';
 
 const useStyles = makeStyles((theme) => ({
   taskItem: {
@@ -73,6 +76,7 @@ const Task = ({ task, index }) => {
             <TaskItem task={task}>
               <TaskAction taskId={task._id} action={startTask} Icon={PlayIcon} />
               <TaskAction taskId={task._id} action={archiveTask} Icon={DismissIcon} />
+              <TaskAction taskId={task._id} Icon={InfoIcon} />
             </TaskItem>
           </div>
         </div>

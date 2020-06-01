@@ -5,7 +5,7 @@ import PausIcon from '@material-ui/icons/PauseCircleOutline';
 import DismissIcon from '@material-ui/icons/NotInterested';
 import CircleChecked from '@material-ui/icons/CheckCircleOutline';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import TaskItem from './TaskDragAndDrop/TaskItem/TaskItem';
+import TaskItem from './Backlog/TaskDragAndDrop/TaskItem/TaskItem';
 import { stopTask, archiveTask, finishTask } from '../../redux/actions/tasks';
 import TaskAction from '../../components/Actions/TaskAction';
 import { useAuth0 } from '../../auth0/react-auth0-spa';

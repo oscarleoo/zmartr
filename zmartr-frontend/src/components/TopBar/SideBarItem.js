@@ -2,10 +2,11 @@ import React from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   buttonLeaf: {
-    padding: '11px 0px',
+    padding: '8px 0px',
     width: '100px',
     marginTop: '3px',
     justifyContent: 'center',
@@ -28,11 +29,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
   },
   active: {
-    color: '#ffffff',
-    borderBottom: '3px solid #ffffff',
+    color: '#fafafa',
+    borderBottom: '3px solid #fafafa',
     '& $icon': {
-      color: '#ffffff',
+      color: '#fafafa',
     },
+  },
+  text: {
+    color: '#fafafa',
+    fontSize: '14px',
   },
 }));
 
@@ -53,7 +58,7 @@ const SideBarItem = ({ title, href, icon: Icon, onClickFunction }) => {
       onClick={onClickFunction}
     >
       {Icon && <Icon className={classes.icon} />}
-      {title}
+      <Typography className={classes.text}>{title}</Typography>
     </ListItem>
   );
 };

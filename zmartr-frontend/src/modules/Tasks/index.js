@@ -1,10 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import List from './List';
 import SideBar from './SideBar';
-import { getActiveTasks } from '../../redux/actions/tasks';
-import { useAuth0 } from '../../auth0/react-auth0-spa';
+import SelectedTask from './SelectedTask';
+import Backlog from './Backlog';
+import TagsEditor from '../../components/Tags/TagsEditor';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -13,41 +12,32 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     background: theme.palette.background.white,
   },
+  tasksContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    background: theme.palette.background.white,
+    justifyContent: 'flex-start',
+    margin: '50px 200px 50px 5%',
+    paddingRight: '5%',
+  },
 }));
 
-const Tasks = ({ loadTasks }) => {
-  const classes = useStyles();
-  const { getTokenSilently } = useAuth0();
 
-  const renderView = () => {
-    loadTasks(getTokenSilently);
-    return (
-      <div className={classes.container}>
-        <List />
-        <SideBar />
-      </div>
-    );
-  };
+const Tasks = () => {
+  const classes = useStyles();
 
   return (
     <div className={classes.container}>
-      {renderView()}
+      <div className={classes.tasksContainer}>
+        <SelectedTask />
+        <Backlog />
+        <TagsEditor />
+      </div>
+      <SideBar />
     </div>
   );
 };
 
-// Tasks.propTypes = {
-//   loadTasks: PropTypes.func.isRequired,
-// };
 
-const mapDispatchToProps = (dispatch) => ({
-  loadTasks: async (getToken) => {
-    const token = await getToken();
-    dispatch(getActiveTasks(token));
-  },
-});
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(Tasks);
+export default Tasks;

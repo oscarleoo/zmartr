@@ -4,7 +4,7 @@ import {
   UPDATE_TAGS,
   CREATE_TAG,
 } from '../actions/tags';
-import { GET_ACTIVE_TASKS } from '../actions/tasks';
+import { GET_TASKS } from '../actions/tasks';
 import updateOrAddToList from './utils/updateOrAddToList';
 
 const emptyTask = {
@@ -48,7 +48,7 @@ const tagsReducer = (state = initialState, action) => {
         taskToEdit: emptyTask,
       };
     }
-    case `${GET_ACTIVE_TASKS}_FULFILLED`: {
+    case `${GET_TASKS}_FULFILLED`: {
       return {
         ...state,
         availableTags: action.payload.data.availableTags,

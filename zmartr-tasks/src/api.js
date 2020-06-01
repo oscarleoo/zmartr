@@ -56,14 +56,14 @@ app.post('/stopTask', handleError(async (req, res) => {
 
 app.post('/finishTask', handleError(async (req, res) => {
   const { taskId, userId } = req.body;
-  await finishTask(taskId, userId);
-  res.send(taskId);
+  const task = await finishTask(taskId, userId);
+  res.send(task);
 }));
 
 app.post('/archiveTask', handleError(async (req, res) => {
   const { taskId, userId } = req.body;
-  await archiveTask(taskId, userId);
-  res.send(taskId);
+  const task = await archiveTask(taskId, userId);
+  res.send(task);
 }));
 
 app.post('/orderTasks', handleError(async (req, res) => {
