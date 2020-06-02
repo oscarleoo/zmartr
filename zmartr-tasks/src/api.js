@@ -15,7 +15,7 @@ import getActiveTasks from './gets/getActiveTasks';
 import getAllTasks from './gets/getAllTasks';
 
 const { MONGO_CONNECTION_STRING } = process.env;
-console.log(MONGO_CONNECTION_STRING)
+console.log('MONGO_CONNECTION_STRING ==>', MONGO_CONNECTION_STRING)
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
