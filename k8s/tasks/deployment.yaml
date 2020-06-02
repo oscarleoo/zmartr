@@ -25,7 +25,8 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: MONGO_USERNAME
-          value: "dcrowd"
-        - name: MONGO_PASSWORD
-          value: "Wuc0IlUXzxBCEpTK"
+        - name: MONGO_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: secrets
+              key: mongo-connection
