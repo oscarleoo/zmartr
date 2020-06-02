@@ -13,8 +13,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '30px',
   },
   number: {
-    fontSize: '40px',
+    fontSize: '30px',
     marginBottom: '20px',
+    color: 'gray',
   },
   description: {
     color: 'gray',

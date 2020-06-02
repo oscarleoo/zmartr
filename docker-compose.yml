@@ -34,8 +34,7 @@ services:
     build: ./zmartr-tasks
     restart: always
     environment: 
-      MONGO_USERNAME: "dcrowd"
-      MONGO_PASSWORD: "Wuc0IlUXzxBCEpTK"
+      MONGO_CONNECTION_STRING: "mongodb+srv://dcrowd:Wuc0IlUXzxBCEpTK@dcrowd-gk9yg.mongodb.net/zmartr-tasks?retryWrites=true&w=majority"
     working_dir: /usr/src/app
     volumes:
       - ./zmartr-tasks:/usr/src/app/

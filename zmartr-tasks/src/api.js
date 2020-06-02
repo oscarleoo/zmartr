@@ -14,7 +14,7 @@ import createTag from './posts/tags/createTag';
 import getActiveTasks from './gets/getActiveTasks';
 import getAllTasks from './gets/getAllTasks';
 
-const { MONGO_USERNAME, MONGO_PASSWORD } = process.env;
+const { MONGO_CONNECTION_STRING } = process.env;
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -90,10 +90,10 @@ app.post('/removeTagFromTask', handleError(async (req, res) => {
   res.send(task);
 }));
 
-mongoose.connect(`mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@dcrowd-gk9yg.mongodb.net/zmartr-tasks?retryWrites=true&w=majority`, { useUnifiedTopology: true })
+mongoose.connect(MONGO_CONNECTION_STRING, { useUnifiedTopology: true })
   .then(() => {
     app.listen(80, () => {
-      console.log('Tasks microservice ready!');
+      console.log('Tasks microservice ready! :)');
     });
   })
   .catch((err) => { console.log(err); });

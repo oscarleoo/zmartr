@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Checkbox } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import FilterCheckBox from '../../components/Actions/FilterCheckBox';
 import { addToStatus, removeFromStatus, addToTags, removeFromTags } from '../../redux/actions/stats';
 
@@ -32,8 +32,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Filter = ({ availableTags, tagFilter, statusFilter }) => {
-  console.log(tagFilter)
-  console.log(statusFilter)
   const classes = useStyles();
   const statuses = ['Started', 'Stopped', 'Finished', 'Archived'];
 

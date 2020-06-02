@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core/styles';
 import { orderTasks } from '../../../../redux/actions/tasks';
@@ -76,7 +75,6 @@ const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
 // };
 
 const mapStateToProps = (state) => ({
-  tasks: state.tasks.list,
   isLoading: state.tasks.loading,
   searchString: state.tasks.searchString,
 });

@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Backlog = ({ createEmptyTask }) => {
+const Backlog = ({ tasks, createEmptyTask }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -64,7 +64,7 @@ const Backlog = ({ createEmptyTask }) => {
         {open ? <ExpandLess className={classes.icon} /> : <ExpandMore className={classes.icon} />}
       </Button>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <TaskDragAndDrop />
+        <TaskDragAndDrop tasks={tasks} />
         <Button
           onClick={createEmptyTask}
           disableRipple
@@ -88,6 +88,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(
-  null,
   mapDispatchToProps,
 )(Backlog);

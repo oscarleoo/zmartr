@@ -72,10 +72,6 @@ const SelectedTask = ({ tasks, completeTask }) => {
 //   }).isRequired,
 // };
 
-const mapStateToProps = (state) => ({
-  tasks: state.tasks.list,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   completeTask: (taskId, getToken) => async () => {
     const token = await getToken();
@@ -84,6 +80,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(SelectedTask);

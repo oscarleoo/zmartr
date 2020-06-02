@@ -12,7 +12,6 @@ import {
 import { UPDATE_TAGS } from '../actions/tags';
 import updateListWithItem from './utils/updateListWithItem';
 import updateListWithList from './utils/updateListWithList';
-import removeFromList from './utils/removeFromList';
 
 const emptyTask = {
   _id: 'tempId',
@@ -28,7 +27,6 @@ const initialState = {
 };
 
 const tasksReducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case UPDATE_SEARCH_STRING: {
       return {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import SideBar from './SideBar';
 import SelectedTask from './SelectedTask';
@@ -24,14 +25,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Tasks = () => {
+const Tasks = ({ tasks }) => {
   const classes = useStyles();
+  const selectedTasks = tasks.filter((task) => (task.selected));
+  const activeTasks = tasks.filter((task) => (
+    task.actions.length === 0 || ['Finished', 'Archived'].indexOf(task.actions[task.actions.length - 1].type) < 0
+  ));
 
   return (
     <div className={classes.container}>
       <div className={classes.tasksContainer}>
-        <SelectedTask />
-        <Backlog />
+        <SelectedTask tasks={selectedTasks} />
+        <Backlog tasks={activeTasks} />
         <TagsEditor />
       </div>
       <SideBar />
@@ -39,5 +44,11 @@ const Tasks = () => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  tasks: state.tasks.list,
+});
 
-export default Tasks;
+export default connect(
+  mapStateToProps,
+  null,
+)(Tasks);
