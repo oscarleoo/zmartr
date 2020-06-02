@@ -15,7 +15,6 @@ import getActiveTasks from './gets/getActiveTasks';
 import getAllTasks from './gets/getAllTasks';
 
 const { MONGO_CONNECTION_STRING } = process.env;
-console.log('MONGO_CONNECTION_STRING ==>', MONGO_CONNECTION_STRING)
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -94,7 +93,7 @@ app.post('/removeTagFromTask', handleError(async (req, res) => {
 mongoose.connect(MONGO_CONNECTION_STRING, { useUnifiedTopology: true })
   .then(() => {
     app.listen(80, () => {
-      console.log('Tasks microservice ready! :)');
+      console.log('Tasks microservice ready!');
     });
   })
   .catch((err) => { console.log(err); });
