@@ -85,7 +85,7 @@ const TimeLine = ({ tasks, tagFilter, statusFilter }) => {
 };
 
 const mapStateToProps = (state) => ({
-  tasks: state.stats.tasks,
+  tasks: state.tasks.list,
   tagFilter: state.stats.tagFilter,
   statusFilter: state.stats.statusFilter,
 });
