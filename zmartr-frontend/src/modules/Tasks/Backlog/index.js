@@ -82,11 +82,12 @@ const Backlog = ({ tasks, createEmptyTask }) => {
 
 
 const mapDispatchToProps = (dispatch) => ({
-  createEmptyTask: async () => {
+  createEmptyTask: () => {
     dispatch(createTask());
   },
 });
 
 export default connect(
+  null,
   mapDispatchToProps,
 )(Backlog);
