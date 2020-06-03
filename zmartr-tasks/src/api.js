@@ -93,7 +93,7 @@ app.post('/removeTagFromTask', handleError(async (req, res) => {
 mongoose.connect(MONGO_CONNECTION_STRING, { useUnifiedTopology: true })
   .then(() => {
     app.listen(80, () => {
-      console.log('Tasks microservice ready!');
+      console.log('Tasks microservice ready!!');
     });
   })
   .catch((err) => { console.log(err); });

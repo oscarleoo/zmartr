@@ -36,6 +36,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const isValid = (tag, color) => {
+  if (tag === '') {
+    return false;
+  }
+  if (color.length !== 7) {
+    return false;
+  }
+  if (color[0] !== '#') {
+    return false;
+  }
+  for (let i = 1; i < 7; i += 1) {
+    if ('0123456789abcdef'.indexOf(color[i].toLowerCase()) < 0) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const renderText = (tag, availableTags) => {
+  if (availableTags.filter((t) => t.tag === tag).length > 0) {
+    return 'Update Tag';
+  }
+
+  return 'Create Tag';
+};
+
 const TagsEditor = ({ open, task, availableTags, closeEditor, createNewTag }) => {
   const classes = useStyles();
   const { getTokenSilently } = useAuth0();
@@ -66,9 +93,9 @@ const TagsEditor = ({ open, task, availableTags, closeEditor, createNewTag }) =>
       </MuiDialogContent>
       <MuiDialogActions className={classes.createNewTagContainer}>
         <TextField id="standard-basic" placeholder="Tag" autoComplete="off" onChange={updateTag} />
-        <TextField id="standard-basic" placeholder="Color" autoComplete="off" onChange={updateColor} />
-        <Button color="primary" variant="contained" onClick={createOrUpdateTag}>
-          Create Tag
+        <TextField id="standard-basic" placeholder="Color (hex)" autoComplete="off" onChange={updateColor} />
+        <Button color="primary" variant="contained" onClick={createOrUpdateTag} disabled={!isValid(tagTitle, color)}>
+          {renderText(tagTitle, availableTags)}
         </Button>
       </MuiDialogActions>
     </Dialog>
