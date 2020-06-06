@@ -9,7 +9,7 @@ const addTagToTask = async (taskId, tagId, userId) => {
 
   return Task.findOne(
     { _id: ObjectId(taskId), userId },
-  ).populate('tags');
+  );
 };
 
 export default addTagToTask;

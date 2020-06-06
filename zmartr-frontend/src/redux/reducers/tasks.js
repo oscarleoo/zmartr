@@ -11,6 +11,7 @@ import {
 } from '../actions/tasks';
 import updateListWithItem from './utils/updateListWithItem';
 import updateListWithList from './utils/updateListWithList';
+import { UPDATE_TAGS } from '../actions/tags';
 
 const emptyTask = {
   _id: 'tempId',
@@ -26,7 +27,6 @@ const initialState = {
 };
 
 const tasksReducer = (state = initialState, action) => {
-  console.log(action)
   switch (action.type) {
     case UPDATE_SEARCH_STRING: {
       return {
@@ -89,6 +89,12 @@ const tasksReducer = (state = initialState, action) => {
         list: state.list.slice().sort((a, b) => (
           action.payload.data.indexOf(a._id) > action.payload.data.indexOf(b._id) ? 1 : -1
         )),
+      };
+    }
+    case `${UPDATE_TAGS}_FULFILLED`: {
+      return {
+        ...state,
+        list: updateListWithItem(state.list, action.payload.data),
       };
     }
     default:

@@ -9,7 +9,7 @@ const removeTagFromTask = async (taskId, tagId, userId) => {
 
   return Task.findOne(
     { _id: ObjectId(taskId), userId },
-  ).populate('tags');
+  );
 };
 
 export default removeTagFromTask;

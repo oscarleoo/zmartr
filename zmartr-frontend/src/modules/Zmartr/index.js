@@ -45,7 +45,6 @@ const Zmartr = ({ loadTasks }) => {
           <div className={classes.view}>
             <Switch>
               <PrivateRoute exact path="/stats" component={Stats} />
-              <PrivateRoute exact path="/settings" component={Settings} />
               <PrivateRoute exact path="/*" component={Tasks} />
             </Switch>
           </div>
