@@ -9,6 +9,6 @@ const archiveTask = (taskId, userId) => Task.findOneAndUpdate(
     $push: { actions: { type: 'Archived', date: Date.now() } },
   },
   { new: true },
-).populate('tags');
+);
 
 export default archiveTask;

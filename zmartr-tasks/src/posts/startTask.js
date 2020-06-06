@@ -9,7 +9,7 @@ const startTask = async (taskId, userId) => {
       $push: { actions: { type: 'Stopped', date: Date.now() } },
     },
     { new: true },
-  ).populate('tags');
+  );
 
   const selected = await Task.findOneAndUpdate(
     { _id: ObjectId(taskId) },
@@ -18,7 +18,7 @@ const startTask = async (taskId, userId) => {
       $push: { actions: { type: 'Started', date: Date.now() } },
     },
     { new: true },
-  ).populate('tags');
+  );
 
   return [unSelected, selected];
 };

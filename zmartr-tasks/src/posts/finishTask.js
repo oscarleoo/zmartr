@@ -9,6 +9,6 @@ const finishTask = (taskId, userId) => Task.findOneAndUpdate(
     $push: { actions: { type: 'Finished', date: Date.now() } },
   },
   { new: true },
-).populate('tags');
+);
 
 export default finishTask;

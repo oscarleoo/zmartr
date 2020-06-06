@@ -13,8 +13,10 @@ import updateTaskTitle from './tasks/updateTaskTitle';
 import addTagToTask from './tags/addTagToTask';
 import removeTagFromTask from './tags/removeTagFromTask';
 import createTag from './tags/createTag';
+import updateTag from './tags/updateTag';
 import getActiveTasks from './tasks/getActiveTasks';
 import getAllTasks from './tasks/getAllTasks';
+import hideTag from './tags/hideTag';
 
 const app = express();
 const port = 5000;
@@ -96,9 +98,16 @@ app.post('/api/orderTasks', handleError(async (req, res) => {
 
 app.post('/api/createTag', handleError(async (req, res) => {
   const userId = req.user.sub;
-  const { tag, color } = req.body;
-  const tags = await createTag(tag, color, userId);
-  res.send(tags.data);
+  const { text } = req.body;
+  const tag = await createTag(text, userId);
+  res.send(tag.data);
+}));
+
+app.post('/api/updateTag', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { tagId, text, color } = req.body;
+  const tag = await updateTag(tagId, text, color, userId);
+  res.send(tag.data);
 }));
 
 app.post('/api/addTagToTask', handleError(async (req, res) => {
@@ -113,6 +122,13 @@ app.post('/api/removeTagFromTask', handleError(async (req, res) => {
   const { taskId, tagId } = req.body;
   const tags = await removeTagFromTask(taskId, tagId, userId);
   res.send(tags.data);
+}));
+
+app.post('/api/hideTag', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { tagId } = req.body;
+  const tag = await hideTag(tagId, userId);
+  res.send(tag.data);
 }));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

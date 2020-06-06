@@ -11,8 +11,10 @@ import updateTaskTitle from './posts/updateTaskTitle';
 import addTagToTask from './posts/tags/addTagToTask';
 import removeTagFromTask from './posts/tags/removeTagFromTask';
 import createTag from './posts/tags/createTag';
+import updateTag from './posts/tags/updateTag';
 import getActiveTasks from './gets/getActiveTasks';
 import getAllTasks from './gets/getAllTasks';
+import hideTag from './posts/tags/hideTag';
 
 const { MONGO_CONNECTION_STRING } = process.env;
 const app = express();
@@ -73,9 +75,17 @@ app.post('/orderTasks', handleError(async (req, res) => {
 }));
 
 app.post('/createTag', handleError(async (req, res) => {
-  const { tag, color, userId } = req.body;
-  const newTag = await createTag(tag, color, userId);
-  res.send(newTag);
+  const { text, userId } = req.body;
+  const tag = await createTag(text, userId);
+  res.send(tag);
+}));
+
+app.post('/updateTag', handleError(async (req, res) => {
+  const {
+    tagId, text, color, userId,
+  } = req.body;
+  const tag = await updateTag(tagId, text, color, userId);
+  res.send(tag);
 }));
 
 app.post('/addTagToTask', handleError(async (req, res) => {
@@ -88,6 +98,12 @@ app.post('/removeTagFromTask', handleError(async (req, res) => {
   const { taskId, tagId, userId } = req.body;
   const task = await removeTagFromTask(taskId, tagId, userId);
   res.send(task);
+}));
+
+app.post('/hideTag', handleError(async (req, res) => {
+  const { tagId, userId } = req.body;
+  await hideTag(tagId, userId);
+  res.send(tagId);
 }));
 
 mongoose.connect(MONGO_CONNECTION_STRING, { useUnifiedTopology: true })

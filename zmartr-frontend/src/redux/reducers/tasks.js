@@ -9,7 +9,6 @@ import {
   UPDATE_TASK,
   ORDER_TASKS,
 } from '../actions/tasks';
-import { UPDATE_TAGS } from '../actions/tags';
 import updateListWithItem from './utils/updateListWithItem';
 import updateListWithList from './utils/updateListWithList';
 
@@ -27,6 +26,7 @@ const initialState = {
 };
 
 const tasksReducer = (state = initialState, action) => {
+  console.log(action)
   switch (action.type) {
     case UPDATE_SEARCH_STRING: {
       return {
@@ -78,12 +78,6 @@ const tasksReducer = (state = initialState, action) => {
       };
     }
     case `${ARCHIVE_TASK}_FULFILLED`: {
-      return {
-        ...state,
-        list: updateListWithItem(state.list, action.payload.data),
-      };
-    }
-    case `${UPDATE_TAGS}_FULFILLED`: {
       return {
         ...state,
         list: updateListWithItem(state.list, action.payload.data),

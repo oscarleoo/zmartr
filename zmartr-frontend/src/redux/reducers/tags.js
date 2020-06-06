@@ -1,23 +1,15 @@
 import {
-  OPEN_TAG_EDITOR,
-  CLOSE_TAG_EDITOR,
-  UPDATE_TAGS,
   CREATE_TAG,
+  HIDE_TAG,
+  UPDATE_TAG,
 } from '../actions/tags';
 import { GET_TASKS } from '../actions/tasks';
 import updateOrAddToList from './utils/updateOrAddToList';
-
-const emptyTask = {
-  _id: 'tempId',
-  title: '',
-  tags: [],
-  actions: [],
-};
+import updateListWithItem from './utils/updateListWithItem';
+import removeFromList from './utils/removeFromList';
 
 const initialState = {
   availableTags: [],
-  editorOpen: false,
-  taskToEdit: emptyTask,
 };
 
 const tagsReducer = (state = initialState, action) => {
@@ -28,30 +20,22 @@ const tagsReducer = (state = initialState, action) => {
         availableTags: updateOrAddToList(state.availableTags, action.payload.data),
       };
     }
-    case `${UPDATE_TAGS}_FULFILLED`: {
+    case `${UPDATE_TAG}_FULFILLED`: {
       return {
         ...state,
-        taskToEdit: action.payload.data,
-      };
-    }
-    case OPEN_TAG_EDITOR: {
-      return {
-        ...state,
-        editorOpen: true,
-        taskToEdit: action.payload.task,
-      };
-    }
-    case CLOSE_TAG_EDITOR: {
-      return {
-        ...state,
-        editorOpen: false,
-        taskToEdit: emptyTask,
+        availableTags: updateListWithItem(state.availableTags, action.payload.data),
       };
     }
     case `${GET_TASKS}_FULFILLED`: {
       return {
         ...state,
         availableTags: action.payload.data.availableTags,
+      };
+    }
+    case `${HIDE_TAG}_FULFILLED`: {
+      return {
+        ...state,
+        availableTags: removeFromList(state.availableTags, action.payload.data),
       };
     }
     default:

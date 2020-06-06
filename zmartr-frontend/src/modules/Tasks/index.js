@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import SideBar from './SideBar';
 import SelectedTask from './SelectedTask';
 import Backlog from './Backlog';
-import TagsEditor from '../../components/Tags/TagsEditor';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +36,6 @@ const Tasks = ({ tasks }) => {
       <div className={classes.tasksContainer}>
         <SelectedTask tasks={selectedTasks} />
         <Backlog tasks={activeTasks} />
-        <TagsEditor />
       </div>
       <SideBar />
     </div>

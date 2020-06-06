@@ -7,7 +7,7 @@ import { Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   buttonLeaf: {
     padding: '8px 0px',
-    width: '100px',
+    width: '80px',
     marginTop: '3px',
     justifyContent: 'center',
     textTransform: 'none',

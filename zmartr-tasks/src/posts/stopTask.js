@@ -8,7 +8,7 @@ const stopTask = (taskId, userId) => Task.findOneAndUpdate(
     $push: { actions: { type: 'Stopped', date: Date.now() } },
   },
   { new: true },
-).populate('tags');
+);
 
 
 export default stopTask;

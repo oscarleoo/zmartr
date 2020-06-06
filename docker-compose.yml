@@ -16,6 +16,7 @@ services:
     command: "npm start"
     environment:
       - REACT_APP_API_URL=http://localhost:5000
+    stdin_open: true
 
   api:
     build: ./zmartr-api

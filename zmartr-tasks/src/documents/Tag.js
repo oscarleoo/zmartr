@@ -17,6 +17,11 @@ const Tag = mongoose.model('Tag', new mongoose.Schema({
     required: true,
   },
 
+  hidden: {
+    type: Boolean,
+    default: false,
+  },
+
 }));
 
 export default Tag;

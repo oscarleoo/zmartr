@@ -11,7 +11,7 @@ const updateTaskTitle = async (taskId, title, userId) => {
     { _id: ObjectId(taskId), userId },
     { title },
     { runValidators: true, new: true },
-  ).populate('tags');
+  );
 };
 
 export default updateTaskTitle;

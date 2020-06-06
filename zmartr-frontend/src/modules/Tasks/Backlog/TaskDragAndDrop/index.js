@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
+const TaskDragAndDrop = ({ tasks, availableTags, searchString, saveOrder }) => {
   const classes = useStyles();
   const taskList = tasks.filter((task) => (
     task.actions.length === 0 || ['Finished', 'Archived'].indexOf(task.actions[task.actions.length - 1].type) < 0
@@ -48,8 +48,10 @@ const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
         >
           {taskList.filter((task) => {
             const titleIncludes = task.title.toLowerCase().includes(searchString);
-            const tagIncludes = task.tags.filter((tag) => (tag.tag.includes(searchString))).length > 0;
-            return (titleIncludes || tagIncludes);
+            const filteredTags = availableTags.filter((tag) => (tag.tag.includes(searchString)));
+            const tagIds = filteredTags.map((tag) => (tag._id));
+            const hasTag = task.tags.filter((tag) => (tagIds.indexOf(tag) >= 0)).length > 0;
+            return (titleIncludes || hasTag);
           }).map((task, index) => <Task key={task._id} task={task} index={index} />)}
           {provided.placeholder}
         </div>
@@ -77,6 +79,7 @@ const TaskDragAndDrop = ({ tasks, searchString, saveOrder }) => {
 const mapStateToProps = (state) => ({
   isLoading: state.tasks.loading,
   searchString: state.tasks.searchString,
+  availableTags: state.tags.availableTags,
 });
 
 const mapDispatchToProps = (dispatch) => ({
