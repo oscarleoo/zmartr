@@ -44,8 +44,8 @@ const Filter = ({ availableTags, tagFilter, statusFilter }) => {
           title={status}
           color="#3f3f44"
           isChecked={statusFilter.includes(status)}
-          addAction={addToStatus}
-          removeAction={removeFromStatus}
+          addAction={addToStatus(status)}
+          removeAction={removeFromStatus(status)}
         />
       ))}
       <Typography variant="h4" className={classes.heading}>Tags</Typography>
@@ -54,9 +54,9 @@ const Filter = ({ availableTags, tagFilter, statusFilter }) => {
           key={tag._id}
           title={tag.tag}
           color={tag.color}
-          isChecked={tagFilter.includes(tag.tag)}
-          addAction={addToTags}
-          removeAction={removeFromTags}
+          isChecked={tagFilter.includes(tag._id)}
+          addAction={addToTags(tag._id)}
+          removeAction={removeFromTags(tag._id)}
         />
       ))}
     </div>

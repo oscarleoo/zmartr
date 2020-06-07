@@ -12,7 +12,7 @@ const filterOnTags = (tasks, tagFilter) => {
   if (tagFilter.length > 0) {
     return tasks.filter((task) => {
       for (let i = 0; i < tagFilter.length; i += 1) {
-        if (task.tags.filter((tag) => (tag.tag === tagFilter[i])).length > 0) {
+        if (task.tags.filter((tag) => (tag === tagFilter[i])).length > 0) {
           return true;
         }
       }

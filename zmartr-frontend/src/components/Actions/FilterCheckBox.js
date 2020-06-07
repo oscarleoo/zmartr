@@ -22,9 +22,9 @@ const FilterCheckbox = ({ title, color, isChecked, addAction, removeAction, perf
   const classes = useStyles();
   const updateFilter = (text) => () => {
     if (isChecked) {
-      performAction(text, removeAction);
+      performAction(removeAction);
     } else {
-      performAction(text, addAction);
+      performAction( addAction);
     }
   };
 
@@ -44,8 +44,8 @@ const FilterCheckbox = ({ title, color, isChecked, addAction, removeAction, perf
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  performAction: (value, action) => (
-    dispatch(action(value))
+  performAction: (action) => (
+    dispatch(action())
   ),
 });
 
