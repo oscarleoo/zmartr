@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   metricContainer: {
     height: '130px',
-    width: '100px',
+    width: '130px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

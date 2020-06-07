@@ -35,7 +35,6 @@ const Stats = () => {
       <Filter />
       <div className={classes.chartContainer}>
         <div className={classes.topCharts}>
-          <PieChart />
           <Metrics />
         </div>
         <div className={classes.bottomCharts}>
