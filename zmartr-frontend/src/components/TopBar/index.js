@@ -95,6 +95,7 @@ const TopBar = ({ currentSearch, filterTasks }) => {
           <div className={classes.navigationItems}>
             <SideBarItem title="Tasks" href="/" />
             <SideBarItem title="Stats" href="/stats" />
+            <SideBarItem title="History" href="/history" />
             <SideBarItem title="Logout" href="/logout" onClickFunction={logout} />
           </div>
         )}

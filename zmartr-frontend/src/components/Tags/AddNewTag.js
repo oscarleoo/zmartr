@@ -49,6 +49,7 @@ const AddNewTag = ({ createTag }) => {
     if (event.keyCode === 13) {
       createTag(text, getTokenSilently);
       setEditText(false);
+      setText('');
     }
   };
 
@@ -58,7 +59,7 @@ const AddNewTag = ({ createTag }) => {
     <div>
       { editText ? (
         <TextField
-          style={{ background: '#a0a0a0', minWidth: '20px', width: text.length * 7 }}
+          style={{ background: '#a0a0a0', minWidth: '20px', width: text.length * 6 }}
           InputProps={{
             disableUnderline: true,
             style: {
