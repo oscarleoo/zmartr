@@ -20,7 +20,7 @@ const tagsReducer = (state = initialState, action) => {
         availableTags: updateOrAddToList(state.availableTags, action.payload.data),
       };
     }
-    case `${UPDATE_TAG}_FULFILLED`: {
+    case UPDATE_TAG || `${UPDATE_TAG}_FULFILLED`: {
       return {
         ...state,
         availableTags: updateListWithItem(state.availableTags, action.payload.data),

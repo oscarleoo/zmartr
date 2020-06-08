@@ -4,7 +4,7 @@ import { SketchPicker } from 'react-color';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Button, TextField } from '@material-ui/core';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
-import { hideTag, updateTag } from '../../redux/actions/tags';
+import { hideTag, updateTag, sendTagUpdate } from '../../redux/actions/tags';
 
 const useStyles = makeStyles((theme) => ({
   tagContainer: {
@@ -45,22 +45,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DisplayTag = ({
-  tag, taskId, tagFunction, addOrRemoveTag, hideTag, updateTag
+  tag, taskId, tagFunction, addOrRemoveTag, hideTag, updateTag, sendTagUpdate
 }) => {
   const classes = useStyles();
   const { getTokenSilently } = useAuth0();
   const [showColorPicker, setShowColorPicker] = React.useState(false);
   const [editText, setEditText] = React.useState(false);
 
-  const colorChange = (color) => { updateTag(tag._id, tag.tag, color.hex, getTokenSilently); };
+  const colorChange = (color) => { updateTag(tag, tag.tag, color.hex); };
   const colorClose = () => {
+    sendTagUpdate(tag._id, tag.tag, tag.color, getTokenSilently);
     setShowColorPicker(false);
   };
   const textChange = (event) => {
-    updateTag(tag._id, event.target.value, tag.color, getTokenSilently);
+    updateTag(tag, event.target.value, tag.color);
   };
   const textClose = (event) => {
     if (event.keyCode === 13) {
+      sendTagUpdate(tag._id, tag.tag, tag.color, getTokenSilently);
       setEditText(false);
     }
   };
@@ -133,9 +135,12 @@ const mapDispatchToProps = (dispatch) => ({
     const token = await getToken();
     dispatch(tagFunction(taskId, tagId, token));
   },
-  updateTag: async (tagId, text, color, getToken) => {
+  updateTag: (tag, text, color) => {
+    dispatch(updateTag(tag, text, color));
+  },
+  sendTagUpdate: async (tagId, text, color, getToken) => {
     const token = await getToken();
-    dispatch(updateTag(tagId, text, color, token));
+    dispatch(sendTagUpdate(tagId, text, color, token));
   },
   hideTag: async (tagId, getToken) => {
     const token = await getToken();

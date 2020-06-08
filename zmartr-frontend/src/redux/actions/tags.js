@@ -11,7 +11,12 @@ export const createTag = (text, token) => {
   return postData('api/createTag', { text }, headers, CREATE_TAG);
 };
 
-export const updateTag = (tagId, text, color, token) => {
+export const updateTag = (tag, text, color) => {
+  const updatedTag = { ...tag, tag: text, color };
+  return { payload: { data: updatedTag }, type: UPDATE_TAG };
+};
+
+export const sendTagUpdate = (tagId, text, color, token) => {
   const headers = { Authorization: `Bearer ${token}` };
   return postData('api/updateTag', { tagId, text, color }, headers, UPDATE_TAG);
 };
