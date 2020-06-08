@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
 
 const averageTime = (tasks) => {
   const completedTasks = tasks.filter((task) => (
-    task.actions[task.actions.length - 1].type === 'Finished'
+    task.actions.length !== 0 && task.actions[task.actions.length - 1].type === 'Finished'
   ));
 
-  const hmm = toTimeEachDay(completedTasks);
+  // const hmm = toTimeEachDay(completedTasks);
 
   return '1h';
 };

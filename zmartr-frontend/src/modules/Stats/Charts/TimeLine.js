@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
 const timeLineData = (tasks) => {
   const data = toTimeEachDay(tasks);
-  console.log(data)
   return Object.values(data).sort((a, b) => (a.date > b.date ? 1 : -1));
 };
 
