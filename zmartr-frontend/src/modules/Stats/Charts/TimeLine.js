@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import {
   ResponsiveContainer, CartesianGrid, LineChart, Legend, Line, XAxis, YAxis, Tooltip,
@@ -14,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    margin: '50px',
+    margin: '50px 50px 30px 50px',
   },
   chartContainer: {
     flex: 1,
@@ -27,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     left: 0,
   },
-  heading: {
-    marginBottom: '40px',
-  },
 }));
 
 
@@ -41,6 +37,7 @@ const timeLineData = (tasks) => {
 const TimeLine = ({ tasks, tagFilter, statusFilter }) => {
   const classes = useStyles();
   const filteredTasks = filterTasks(tasks, tagFilter, statusFilter);
+  const data = timeLineData(filteredTasks);
 
   return (
     <div className={classes.container}>
@@ -48,11 +45,11 @@ const TimeLine = ({ tasks, tagFilter, statusFilter }) => {
         <ResponsiveContainer className={classes.chartContent}>
           <LineChart
             barCategoryGap="10%"
-            data={timeLineData(filteredTasks)}
+            data={data}
             isAnimationActive={false}
           >
             <CartesianGrid strokeDasharray="5 5" />
-            <XAxis type="category" dataKey="day" tick={false} height={30} />
+            <XAxis type="category" dataKey="day" tick={false} />
             <YAxis yAxisId="left" domain={[0, 12]} />
             <YAxis yAxisId="right" orientation="right" domain={[0, 10]} />
             <Tooltip />
