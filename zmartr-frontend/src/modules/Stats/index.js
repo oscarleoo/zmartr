@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Filter from './Filter';
-import TimeLine from './Charts/TimeLine';
+import TimeLine from './TimeLine';
 
 
 const useStyles = makeStyles((theme) => ({

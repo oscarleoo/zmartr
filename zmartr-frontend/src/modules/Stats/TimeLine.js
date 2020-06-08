@@ -5,7 +5,7 @@ import {
   ResponsiveContainer, CartesianGrid, LineChart, Legend, Line, XAxis, YAxis, Tooltip,
 } from 'recharts';
 import filterTasks from './utils/filterTasks';
-import toTimeEachDay from '../../../utils/stats/toTimeEachDay';
+import toTimeEachDay from '../../utils/stats/toTimeEachDay';
 
 
 const useStyles = makeStyles((theme) => ({

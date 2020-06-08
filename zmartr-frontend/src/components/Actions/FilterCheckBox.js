@@ -9,11 +9,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginBottom: '14px',
+    marginBottom: '10px',
   },
   checkBox: {
     padding: '0',
     marginRight: '14px',
+    fontSize: '14px',
+  },
+  option: {
+    fontSize: '14px',
   },
 }));
 
@@ -32,13 +36,13 @@ const FilterCheckbox = ({ title, color, isChecked, addAction, removeAction, perf
     <div className={classes.tagContainer}>
       <Checkbox
         checked={isChecked}
-        icon={<CircleUnchecked style={{ color }} />}
-        checkedIcon={<CircleChecked style={{ color }} />}
+        icon={<CircleUnchecked style={{ color, fontSize: '20px' }} />}
+        checkedIcon={<CircleChecked style={{ color, fontSize: '20px' }} />}
         inputProps={{ 'aria-label': 'primary checkbox' }}
         className={classes.checkBox}
         onChange={updateFilter(title)}
       />
-      <Typography>{title}</Typography>
+      <Typography className={classes.option}>{title}</Typography>
     </div>
   );
 };
