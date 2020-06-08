@@ -33,12 +33,7 @@ const Stats = () => {
     <div className={classes.container}>
       <Filter />
       <div className={classes.chartContainer}>
-        <div className={classes.topCharts}>
-          <Metrics />
-        </div>
-        <div className={classes.bottomCharts}>
-          <TimeLine />
-        </div>
+        <TimeLine />
       </div>
     </div>
   );

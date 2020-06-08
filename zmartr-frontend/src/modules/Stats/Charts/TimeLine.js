@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    margin: '0 50px 30px 50px',
+    margin: '50px',
   },
   chartContainer: {
     flex: 1,
@@ -44,7 +44,6 @@ const TimeLine = ({ tasks, tagFilter, statusFilter }) => {
 
   return (
     <div className={classes.container}>
-      <Typography variant="h4" className={classes.heading}>TimeLine (Last 50 Days)</Typography>
       <div className={classes.chartContainer}>
         <ResponsiveContainer className={classes.chartContent}>
           <LineChart
