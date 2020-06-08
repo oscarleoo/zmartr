@@ -12,6 +12,7 @@ import { useAuth0 } from '../../auth0/react-auth0-spa';
 const useStyles = makeStyles((theme) => ({
   textContainer: {
     width: '100%',
+    height: '32px',
     display: 'flex',
     '&:hover': {
       '& $editButton': {
@@ -38,8 +39,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '20px',
   },
   editField: {
-    height: '35px',
     width: '100%',
+    fontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '21px',
+    letterSpacing: '0.00938em',
+    height: '28px',
   },
 }));
 
@@ -67,10 +72,12 @@ const TaskTextField = ({ taskId, taskText, updateTask }) => {
             id="standard-basic"
             variant="outlined"
             autoComplete="off"
+            autoFocus
             defaultValue={text}
             onKeyDown={editTaskEvent}
             fullWidth
             InputProps={{
+              // disableUnderline: true,
               className: classes.editField,
             }}
           />
