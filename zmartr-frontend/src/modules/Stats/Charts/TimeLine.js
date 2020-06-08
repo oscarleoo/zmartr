@@ -13,11 +13,14 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    margin: '50px 50px 30px 50px',
+    justifyContent: 'center',
+    // alignItems: 'center',
+    margin: '50px 7% 30px 7%',
   },
   chartContainer: {
     flex: 1,
     position: 'relative',
+    maxHeight: '550px',
   },
   chartContent: {
     position: 'absolute',

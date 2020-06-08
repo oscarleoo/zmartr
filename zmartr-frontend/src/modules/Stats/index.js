@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Filter from './Filter';
-import PieChart from './Charts/PieChart';
-import Metrics from './Charts/Metrics';
 import TimeLine from './Charts/TimeLine';
 
 
@@ -13,14 +11,6 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.white,
   },
   chartContainer: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  topCharts: {
-    display: 'flex',
-  },
-  bottomCharts: {
     flex: 1,
     display: 'flex',
   },
