@@ -52,12 +52,12 @@ const TimeLine = ({ tasks, tagFilter, statusFilter }) => {
             data={timeLineData(filteredTasks)}
             isAnimationActive={false}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="category" dataKey="day" />
-            <YAxis yAxisId="left" />
-            <YAxis yAxisId="right" orientation="right" />
+            <CartesianGrid strokeDasharray="5 5" />
+            <XAxis type="category" dataKey="day" tick={false} height={30} />
+            <YAxis yAxisId="left" domain={[0, 12]} />
+            <YAxis yAxisId="right" orientation="right" domain={[0, 10]} />
             <Tooltip />
-            <Legend />
+            <Legend verticalAlign="bottom" />
             <Line yAxisId="left" type="monotone" dataKey="time" stroke="#8884d8" strokeWidth={2} unit="h" />
             <Line yAxisId="right" type="monotone" dataKey="completed" stroke="#82ca9d" strokeWidth={2} />
           </LineChart>

@@ -1,10 +1,9 @@
 
-const createTimeObject = (startDate) => {
+const createTimeObject = (numberOfDays) => {
   const timeObject = {};
   const today = new Date();
-  const nDays = Math.ceil(today - startDate) / (24 * 3600 * 1000);
-  for (let i = 0; i < nDays; i += 1) {
-    const date = new Date(startDate.getTime() + i * 1000 * 3600 * 24);
+  for (let i = 0; i < numberOfDays; i += 1) {
+    const date = new Date(today.getTime() - i * 1000 * 3600 * 24);
     const day = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
     timeObject[day] = { day, date, time: 0, completed: 0 };
   }
@@ -14,9 +13,7 @@ const createTimeObject = (startDate) => {
 
 
 const mergeTimeLists = (timeLists) => {
-  const timeObject = createTimeObject(
-    new Date(Math.min.apply(null, timeLists.map((item) => (item.day)))),
-  );
+  const timeObject = createTimeObject(50);
 
   for (let i = 0; i < timeLists.length; i += 1) {
     const { day, time, actionType } = timeLists[i];

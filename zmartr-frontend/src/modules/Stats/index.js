@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   topCharts: {
-    flex: 1,
     display: 'flex',
   },
   bottomCharts: {
