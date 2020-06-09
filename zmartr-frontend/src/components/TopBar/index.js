@@ -66,7 +66,7 @@ const TopBar = ({ currentSearch, filterTasks }) => {
   const handleSearchChange = (event) => { filterTasks(event.target.value); };
 
   return (
-    <AppBar position="sticky" className={classes.topBar}>
+    <AppBar position="fixed" className={classes.topBar}>
       <Toolbar className={classes.toolBar}>
         <div className={classes.leftContainer}>
           <img className={classes.logo} src={logo} alt="logo" />
