@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   instructions: {
     display: 'flex',
     flexDirection: 'column',
+    marginTop: '10px',
   },
   instruction: {
     height: '27px',
