@@ -17,6 +17,7 @@ import updateTag from './tags/updateTag';
 import getActiveTasks from './tasks/getActiveTasks';
 import getAllTasks from './tasks/getAllTasks';
 import hideTag from './tags/hideTag';
+import getHistory from './history/getHistory';
 
 const app = express();
 const port = 5000;
@@ -129,6 +130,12 @@ app.post('/api/hideTag', handleError(async (req, res) => {
   const { tagId } = req.body;
   const tag = await hideTag(tagId, userId);
   res.send(tag.data);
+}));
+
+app.get('/api/getHistory', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const history = await getHistory(userId);
+  res.send(history.data);
 }));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

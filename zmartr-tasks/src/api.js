@@ -15,6 +15,7 @@ import updateTag from './posts/tags/updateTag';
 import getActiveTasks from './gets/getActiveTasks';
 import getAllTasks from './gets/getAllTasks';
 import hideTag from './posts/tags/hideTag';
+import getHistory from './gets/getHistory';
 
 const { MONGO_CONNECTION_STRING } = process.env;
 const app = express();
@@ -104,6 +105,12 @@ app.post('/hideTag', handleError(async (req, res) => {
   const { tagId, userId } = req.body;
   await hideTag(tagId, userId);
   res.send(tagId);
+}));
+
+app.get('/getHistory', handleError(async (req, res) => {
+  const { userId } = req.query;
+  const history = await getHistory(userId);
+  res.send(history);
 }));
 
 mongoose.connect(MONGO_CONNECTION_STRING, { useUnifiedTopology: true })
