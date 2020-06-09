@@ -6,8 +6,8 @@ import TimerOffIcon from '@material-ui/icons/TimerOff';
 import CreatedIcon from '@material-ui/icons/AddCircleOutline';
 import FinishedIcon from '@material-ui/icons/CheckCircleOutline';
 import ArchivedIcon from '@material-ui/icons/NotInterestedOutlined';
-import RevertIcon from '@material-ui/icons/HistoryOutlined';
-import EditIcon from '@material-ui/icons/Edit';
+import HistoryRevertIcon from './HistoryRevertIcon';
+import HistoryDateField from './HistoryDateField';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,35 +33,27 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginBottom: '10px',
   },
+  icon: {
+    fontSize: '18px',
+    color: '#3f3f44',
+  },
 }));
 
-const createDateString = (date) => {
-  const day = (`0${date.getDate()}`).slice(-2);
-  const month = (`0${date.getMonth()}`).slice(-2);
-  const year = date.getFullYear();
-
-  const hours = (`0${date.getHours()}`).slice(-2);
-  const minutes = (`0${date.getMinutes()}`).slice(-2);
-  const seconds = (`0${date.getSeconds()}`).slice(-2);
-
-  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-};
-
-const getIcon = (itemType) => {
-  if (itemType === 'Started') {
-    return TimerIcon;
+const getIcon = (item, classes) => {
+  if (item.type === 'Started') {
+    return <TimerIcon className={classes.icon} />;
   }
-  if (itemType === 'Stopped') {
-    return TimerOffIcon;
+  if (item.type === 'Stopped') {
+    return <TimerOffIcon className={classes.icon} />;
   }
-  if (itemType === 'Created') {
-    return CreatedIcon;
+  if (item.type === 'Created') {
+    return <CreatedIcon className={classes.icon} />;
   }
-  if (itemType === 'Finished') {
-    return FinishedIcon;
+  if (item.type === 'Finished') {
+    return <HistoryRevertIcon taskId={item._id} Icon={FinishedIcon} />;
   }
-  if (itemType === 'Archived') {
-    return ArchivedIcon;
+  if (item.type === 'Archived') {
+    return <HistoryRevertIcon taskId={item._id} Icon={ArchivedIcon} />;
   }
 
   return TimerOffIcon;
@@ -69,16 +61,14 @@ const getIcon = (itemType) => {
 
 const HistoryItem = ({ item, availableTags }) => {
   const classes = useStyles();
-  const date = new Date(item.date);
   const tags = availableTags.filter((tag) => (item.tags.indexOf(tag._id) >= 0));
-  const Icon = getIcon(item.type);
 
   return (
     <div className={classes.itemContainer}>
       <div className={classes.upperPart}>
         <div>
           <div className={classes.header}>
-            <Icon style={{ fontSize: '18px', color: '#3f3f44' }} />
+            {getIcon(item, classes)}
             <Typography style={{ marginLeft: '7px' }} className={classes.text}>{item.type}</Typography>
           </div>
           <Typography variant="caption" className={classes.tagId}>
@@ -89,7 +79,7 @@ const HistoryItem = ({ item, availableTags }) => {
           </Typography>
           <Typography variant="caption" className={classes.tagId}>
             tags: {tags.map((tag, index) => (
-              <div style={{ display: 'inline-block' }}>
+              <div key={tag.tag} style={{ display: 'inline-block' }}>
                 <Typography style={{ color: tag.color }} variant="caption">{tag.tag}</Typography>
                 { (index !== tags.length - 1) && <Typography variant="caption" style={{ marginRight: "5px" }}>,</Typography> }
               </div>
@@ -97,7 +87,7 @@ const HistoryItem = ({ item, availableTags }) => {
           </Typography>
         </div>
         <div>
-          <Typography className={classes.text}>{createDateString(date)}</Typography>
+          <HistoryDateField action={item} />
         </div>
       </div>
     </div>

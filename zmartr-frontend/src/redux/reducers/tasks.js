@@ -12,6 +12,7 @@ import {
 import updateListWithItem from './utils/updateListWithItem';
 import updateListWithList from './utils/updateListWithList';
 import { UPDATE_TAGS } from '../actions/tags';
+import { REVERT_ACTION } from '../actions/history';
 
 const emptyTask = {
   _id: 'tempId',
@@ -95,6 +96,18 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         list: updateListWithItem(state.list, action.payload.data),
+      };
+    }
+    case `${REVERT_ACTION}_FULFILLED`: {
+      return {
+        ...state,
+        list: state.list.map((task) => {
+          if (task._id === action.payload.data) {
+            task.actions.pop();
+          }
+
+          return task;
+        }),
       };
     }
     default:

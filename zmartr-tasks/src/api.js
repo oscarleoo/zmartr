@@ -16,6 +16,7 @@ import getActiveTasks from './gets/getActiveTasks';
 import getAllTasks from './gets/getAllTasks';
 import hideTag from './posts/tags/hideTag';
 import getHistory from './gets/getHistory';
+import revertAction from './posts/history/revertAction';
 
 const { MONGO_CONNECTION_STRING } = process.env;
 const app = express();
@@ -111,6 +112,12 @@ app.get('/getHistory', handleError(async (req, res) => {
   const { userId } = req.query;
   const history = await getHistory(userId);
   res.send(history);
+}));
+
+app.post('/revertAction', handleError(async (req, res) => {
+  const { taskId, userId } = req.body;
+  await revertAction(taskId, userId);
+  res.send(taskId);
 }));
 
 mongoose.connect(MONGO_CONNECTION_STRING, { useUnifiedTopology: true })

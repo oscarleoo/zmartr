@@ -19,6 +19,7 @@ const getHistory = async (userId) => {
         type: tasks[i].actions[j].type,
         title: tasks[i].title,
         tags: tasks[i].tags,
+        index: j,
       });
     }
   }

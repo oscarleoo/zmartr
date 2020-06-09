@@ -18,6 +18,8 @@ import getActiveTasks from './tasks/getActiveTasks';
 import getAllTasks from './tasks/getAllTasks';
 import hideTag from './tags/hideTag';
 import getHistory from './history/getHistory';
+import revertAction from './history/revertAction';
+import updateAction from './history/updateAction';
 
 const app = express();
 const port = 5000;
@@ -136,6 +138,20 @@ app.get('/api/getHistory', handleError(async (req, res) => {
   const userId = req.user.sub;
   const history = await getHistory(userId);
   res.send(history.data);
+}));
+
+app.post('/api/revertAction', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { taskId } = req.body;
+  await revertAction(taskId, userId);
+  res.send(taskId);
+}));
+
+app.post('/api/updateAction', handleError(async (req, res) => {
+  const userId = req.user.sub;
+  const { taskId, actionIndex, date } = req.body;
+  await updateAction(taskId, actionIndex, date, userId);
+  res.send(taskId);
 }));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
