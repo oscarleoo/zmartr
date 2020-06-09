@@ -26,14 +26,14 @@ const actionsToTimeEachDay = (actions, timeLists) => {
   }
 };
 
-const toTimeEachDay = (tasks) => {
+const toTimeEachDay = (tasks, nDays) => {
   const timeEachDay = [];
 
   for (let i = 0; i < tasks.length; i += 1) {
     actionsToTimeEachDay(tasks[i].actions, timeEachDay);
   }
 
-  return mergeTimeLists(timeEachDay);
+  return mergeTimeLists(timeEachDay, nDays);
 };
 
 export default toTimeEachDay;

@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const timeLineData = (tasks) => {
-  const data = toTimeEachDay(tasks);
+  const data = toTimeEachDay(tasks, 20);
   return Object.values(data).sort((a, b) => (a.date > b.date ? 1 : -1));
 };
 

@@ -12,8 +12,8 @@ const createTimeObject = (numberOfDays) => {
 };
 
 
-const mergeTimeLists = (timeLists) => {
-  const timeObject = createTimeObject(50);
+const mergeTimeLists = (timeLists, nDays) => {
+  const timeObject = createTimeObject(nDays);
 
   for (let i = 0; i < timeLists.length; i += 1) {
     const { day, time, actionType } = timeLists[i];
