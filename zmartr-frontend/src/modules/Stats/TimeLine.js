@@ -41,6 +41,8 @@ const TimeLine = ({ tasks, tagFilter, statusFilter }) => {
   const classes = useStyles();
   const filteredTasks = filterTasks(tasks, tagFilter, statusFilter);
   const data = timeLineData(filteredTasks);
+  const timeUpper = Math.ceil(Math.max(...data.map((day) => (day.time))));
+  const completedUpper = Math.max(...data.map((day) => (day.completed)));
 
   return (
     <div className={classes.container}>
@@ -53,8 +55,8 @@ const TimeLine = ({ tasks, tagFilter, statusFilter }) => {
           >
             <CartesianGrid strokeDasharray="5 5" />
             <XAxis type="category" dataKey="day" tick={false} />
-            <YAxis yAxisId="left" domain={[0, 12]} />
-            <YAxis yAxisId="right" orientation="right" domain={[0, 10]} />
+            <YAxis yAxisId="left" domain={[0, timeUpper]} unit="h" />
+            <YAxis yAxisId="right" orientation="right" domain={[0, completedUpper]} />
             <Tooltip />
             <Legend verticalAlign="bottom" />
             <Line yAxisId="left" type="monotone" dataKey="time" stroke="#8884d8" strokeWidth={2} unit="h" />
