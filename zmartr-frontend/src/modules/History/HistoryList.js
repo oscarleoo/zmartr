@@ -21,13 +21,14 @@ const HistoryList = ({ history, searchString, availableTags }) => {
     const filteredTags = availableTags.filter((tag) => (tag.tag.includes(searchString)));
     const tagIds = filteredTags.map((tag) => (tag._id));
     const hasTag = item.tags.filter((tag) => (tagIds.indexOf(tag) >= 0)).length > 0;
-    return (titleIncludes || hasTag);
+    const hasStatus = item.type.toLowerCase().includes(searchString);
+    return (titleIncludes || hasTag || hasStatus);
   });
 
   return (
     <div className={classes.container}>
       {filteredHistory.map((item) => (
-        <HistoryItem key={item.date} item={item} />
+        <HistoryItem key={item.date} item={item} availableTags={availableTags} />
       ))}
     </div>
   );
