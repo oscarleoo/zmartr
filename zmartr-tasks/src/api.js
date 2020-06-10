@@ -17,6 +17,7 @@ import getAllTasks from './gets/getAllTasks';
 import hideTag from './posts/tags/hideTag';
 import getHistory from './gets/getHistory';
 import revertAction from './posts/history/revertAction';
+import updateAction from './posts/history/updateAction';
 
 const { MONGO_CONNECTION_STRING } = process.env;
 const app = express();
@@ -118,6 +119,12 @@ app.post('/revertAction', handleError(async (req, res) => {
   const { taskId, userId } = req.body;
   await revertAction(taskId, userId);
   res.send(taskId);
+}));
+
+app.post('/updateAction', handleError(async (req, res) => {
+  const { taskId, actionIndex, date } = req.body;
+  await updateAction(taskId, actionIndex, date);
+  res.send({ taskId, actionIndex, date });
 }));
 
 mongoose.connect(MONGO_CONNECTION_STRING, { useUnifiedTopology: true })

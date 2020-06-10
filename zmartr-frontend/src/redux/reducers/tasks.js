@@ -12,7 +12,7 @@ import {
 import updateListWithItem from './utils/updateListWithItem';
 import updateListWithList from './utils/updateListWithList';
 import { UPDATE_TAGS } from '../actions/tags';
-import { REVERT_ACTION } from '../actions/history';
+import { REVERT_ACTION, UPDATE_ACTION } from '../actions/history';
 
 const emptyTask = {
   _id: 'tempId',
@@ -104,6 +104,24 @@ const tasksReducer = (state = initialState, action) => {
         list: state.list.map((task) => {
           if (task._id === action.payload.data) {
             task.actions.pop();
+          }
+
+          return task;
+        }),
+      };
+    }
+    case `${UPDATE_ACTION}_FULFILLED`: {
+      const { taskId, actionIndex, date } = action.payload.data;
+      return {
+        ...state,
+        list: state.list.map((task) => {
+          if (actionIndex && task._id === taskId) {
+            const { actions } = task;
+            actions[actionIndex].date = date;
+            return {
+              ...task,
+              actions,
+            };
           }
 
           return task;

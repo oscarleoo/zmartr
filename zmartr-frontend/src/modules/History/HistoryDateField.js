@@ -73,7 +73,7 @@ const HistoryDateField = ({ action, updateAction }) => {
     const newDate = event.target.value;
     if (event.keyCode === 13 && dateFormatIsValid(newDate)) {
       setCurrentDate(newDate);
-      updateAction(action._id, action.index, newDate, getTokenSilently);
+      updateAction(action._id, action.index, new Date(newDate), getTokenSilently);
       setEdit(false);
     } else if (event.keyCode === 13) {
       setEdit(false);

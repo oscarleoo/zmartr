@@ -1,4 +1,4 @@
-import { GET_HISTORY, REVERT_ACTION } from '../actions/history';
+import { GET_HISTORY, REVERT_ACTION, UPDATE_ACTION } from '../actions/history';
 import updateOnRevert from './utils/history/updateOnRevert';
 
 const initialState = {
@@ -17,6 +17,22 @@ const historyReducer = (state = initialState, action) => {
       return {
         ...state,
         list: updateOnRevert(state.list, action.payload.data),
+      };
+    }
+    case `${UPDATE_ACTION}_FULFILLED`: {
+      const { taskId, actionIndex, date } = action.payload.data;
+      return {
+        ...state,
+        list: state.list.map((listItem) => {
+          if (listItem._id === taskId && listItem.index === actionIndex) {
+            return {
+              ...listItem,
+              date,
+            };
+          }
+
+          return listItem;
+        }),
       };
     }
     default:

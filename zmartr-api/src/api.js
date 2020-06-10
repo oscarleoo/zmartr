@@ -151,7 +151,7 @@ app.post('/api/updateAction', handleError(async (req, res) => {
   const userId = req.user.sub;
   const { taskId, actionIndex, date } = req.body;
   await updateAction(taskId, actionIndex, date, userId);
-  res.send(taskId);
+  res.send({ taskId, actionIndex, date });
 }));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
