@@ -10,6 +10,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     background: theme.palette.background.white,
   },
+  outerChartContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '2%',
+  },
   chartContainer: {
     flex: 1,
     display: 'flex',
@@ -22,8 +28,15 @@ const Stats = () => {
   return (
     <div className={classes.container}>
       <Filter />
-      <div className={classes.chartContainer}>
-        <TimeLine />
+      <div className={classes.outerChartContainer}>
+        <div className={classes.chartContainer}>
+          <TimeLine />
+          <TimeLine />
+        </div>
+        <div className={classes.chartContainer}>
+          <TimeLine />
+          <TimeLine />
+        </div>
       </div>
     </div>
   );

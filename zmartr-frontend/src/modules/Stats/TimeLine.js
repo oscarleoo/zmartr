@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     // alignItems: 'center',
-    margin: '50px 7% 30px 7%',
+    margin: '2%',
   },
   chartContainer: {
     flex: 1,

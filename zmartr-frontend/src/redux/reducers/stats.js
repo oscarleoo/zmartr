@@ -1,12 +1,16 @@
 import {
   ADD_TO_TAGS,
   REMOVE_FROM_TAGS,
-  ADD_TO_STATUS, REMOVE_FROM_STATUS,
+  ADD_TO_STATUS, REMOVE_FROM_STATUS, ADD_METRIC, NEXT_METRIC, LAST_METRIC,
 } from '../actions/stats';
+import appendNewMetric from './utils/stats/appendNewMetric';
+import incrementMetric from './utils/stats/incrementMetric';
 
 const initialState = {
   tagFilter: [],
   statusFilter: [],
+  metrics: [],
+  charts: [],
 };
 
 const statsReducer = (state = initialState, action) => {
@@ -33,6 +37,24 @@ const statsReducer = (state = initialState, action) => {
       return {
         ...state,
         statusFilter: state.statusFilter.filter((tag) => tag !== action.payload),
+      };
+    }
+    case ADD_METRIC: {
+      return {
+        ...state,
+        metrics: appendNewMetric(state.metrics),
+      };
+    }
+    case NEXT_METRIC: {
+      return {
+        ...state,
+        metrics: incrementMetric(state.metrics, action.payload.index, 1),
+      };
+    }
+    case LAST_METRIC: {
+      return {
+        ...state,
+        metrics: incrementMetric(state.metrics, action.payload.index, -1),
       };
     }
     default:

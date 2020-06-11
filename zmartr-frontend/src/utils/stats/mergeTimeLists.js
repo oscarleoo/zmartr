@@ -18,9 +18,11 @@ const mergeTimeLists = (timeLists, nDays) => {
   for (let i = 0; i < timeLists.length; i += 1) {
     const { day, time, actionType } = timeLists[i];
     const dayString = `${day.getFullYear()}-${day.getMonth()}-${day.getDate()}`;
-    timeObject[dayString].time += time / 3600000;
-    if (actionType === 'Finished') {
-      timeObject[dayString].completed += 1;
+    if (dayString in timeObject) {
+      timeObject[dayString].time += time / 3600000;
+      if (actionType === 'Finished') {
+        timeObject[dayString].completed += 1;
+      }
     }
   }
 

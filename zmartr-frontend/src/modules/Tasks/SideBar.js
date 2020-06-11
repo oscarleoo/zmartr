@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+import EmptyMetric from '../../components/Metrics/EmptyMetric';
+import AddMetric from '../../components/Metrics/AddMetric';
 import MetricItem from '../../components/Metrics/MetricItem';
 
 
 const useStyles = makeStyles((theme) => ({
-  heading: {
-    marginBottom: '30px',
-  },
   container: {
     width: '200px',
     background: '#fafafa',
@@ -17,85 +16,37 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    padding: '50px 0',
+    padding: '3% 0',
+    '&:hover': {
+      '& $addWrapper': {
+        opacity: 1,
+        transition: 'opacity 100ms linear',
+      },
+    },
+  },
+  addWrapper: {
+    opacity: 0,
   },
 }));
 
-const nTasks = (tasks, nDays) => (
-  tasks.filter((task) => {
-    if (task.actions.length === 0) {
-      return false;
-    }
-
-    const lastAction = task.actions[task.actions.length - 1];
-    if (lastAction.type !== 'Finished') {
-      return false;
-    }
-
-    const today = new Date();
-    const afterDate = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-    ) - nDays * 24 * 3600 * 1000;
-
-    if (new Date(lastAction.date).getTime() < afterDate) {
-      return false;
-    }
-
-    return true;
-  }).length
-);
-
-const getCompletedTasks = (tasks) => (
-  tasks.filter((task) => {
-    if (task.actions.length === 0) {
-      return false;
-    }
-
-    const lastAction = task.actions[task.actions.length - 1];
-    if (['Finished', 'Archived'].indexOf(lastAction.type) < 0) {
-      return false;
-    }
-
-    const today = new Date();
-    const afterDate = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-    );
-
-    if (new Date(lastAction.date).getTime() < afterDate) {
-      return false;
-    }
-
-    return true;
-  })
-);
-
-
-const SideBar = ({ tasks }) => {
+const SideBar = ({ tasks, metrics }) => {
   const classes = useStyles();
-  const completedTasks = getCompletedTasks(tasks);
+  const nEmpty = Math.max(0, 4 - metrics.length);
 
   return (
     <div className={classes.container}>
-      <MetricItem description="Number of tasks completed today" score={nTasks(tasks, 0)} />
-      <MetricItem description="Number of tasks completed last 10 days" score={nTasks(tasks, 9)} />
-      { completedTasks.length > 0 && (
-        <MetricItem
-          description="Percentage of finished tasks this month"
-          score={Math.round(100 * (completedTasks.filter((task) => task.actions[task.actions.length - 1].type === 'Finished').length / completedTasks.length))}
-          unit="%"
-        />
-      )}
+      {metrics.map((metric, index) => (<MetricItem metric={metric} index={index} />))}
+      { metrics.length < 5 && <div className={classes.addWrapper}><AddMetric /></div> }
+      { [...Array(nEmpty)].map(() => <EmptyMetric />) }
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   tasks: state.tasks.list,
+  metrics: state.stats.metrics,
 });
 
 export default connect(

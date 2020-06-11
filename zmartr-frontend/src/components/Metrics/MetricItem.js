@@ -1,42 +1,94 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
+import LeftArrowIcon from '@material-ui/icons/ArrowBackIos';
+import RightArrowIcon from '@material-ui/icons/ArrowForwardIos';
+import tasksCompletedToday from './metrics/tasksCompletedToday';
+import tasksCompletedLastNDays from './metrics/tasksCompletedLastNDays';
+import { nextMetric, lastMetric } from '../../redux/actions/stats';
+import timeSpentToday from './metrics/timeSpentToday';
+import timeSpentLastNDays from './metrics/timeSpentLastNDays';
+import tasksCompletedLastNDaysAvg from './metrics/tasksCompletedLastNDaysAvg';
+import timeSpentLastNDaysAvg from './metrics/timeSpentLastNDaysAvg';
 
 const useStyles = makeStyles((theme) => ({
-  metricContainer: {
-    height: '130px',
-    width: '130px',
+  container: {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: '30px',
+    '&:hover': {
+      '& $arrow': {
+        opacity: 1,
+      },
+    },
   },
   number: {
-    fontSize: '30px',
-    marginBottom: '20px',
+    fontSize: '22px',
+    marginBottom: '10px',
     color: 'gray',
   },
   description: {
     color: 'gray',
   },
+  metricContainer: {
+    height: '100px',
+    width: '100px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  arrow: {
+    opacity: 0,
+    cursor: 'pointer',
+    color: 'lightgray',
+    '&:hover': {
+      color: 'gray',
+    },
+  },
 }));
 
+const metricLookup = {
+  0: tasksCompletedToday,
+  1: tasksCompletedLastNDays,
+  2: tasksCompletedLastNDaysAvg,
+  3: timeSpentToday,
+  4: timeSpentLastNDays,
+  5: timeSpentLastNDaysAvg,
+};
 
-const MetricItem = ({
-  description, score, unit,
-}) => {
+const MetricItem = ({ metric, index, tasks, rightMetric, leftMetric }) => {
   const classes = useStyles();
+  const { score, description } = metricLookup[metric.index](tasks, metric.settings);
 
   return (
-    <div className={classes.metricContainer}>
-      <Typography className={classes.number} align="center" variant="h2">
-        {score}
-        {unit}
-      </Typography>
-      <Typography className={classes.description} align="center" variant="caption">{description}</Typography>
+    <div className={classes.container}>
+      <LeftArrowIcon className={classes.arrow} onClick={leftMetric(index)} />
+      <div className={classes.metricContainer}>
+        <Typography className={classes.number} align="center" variant="h2">
+          {score}
+        </Typography>
+        <Typography className={classes.description} align="center" variant="caption">{description}</Typography>
+      </div>
+      <RightArrowIcon className={classes.arrow} onClick={rightMetric(index)} />
     </div>
   );
 };
 
-export default MetricItem;
+const mapStateToProps = (state) => ({
+  tasks: state.tasks.list,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  rightMetric: (index) => () => {
+    dispatch(nextMetric(index));
+  },
+  leftMetric: (index) => () => {
+    dispatch(lastMetric(index));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MetricItem);
