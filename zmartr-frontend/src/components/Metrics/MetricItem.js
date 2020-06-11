@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   number: {
     fontSize: '22px',
     marginBottom: '10px',
-    color: 'gray',
+    color: theme.palette.text.primary,
   },
   description: {
     color: 'gray',
