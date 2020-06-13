@@ -1,11 +1,12 @@
 import {
   ADD_TO_TAGS,
   REMOVE_FROM_TAGS,
-  ADD_TO_STATUS, REMOVE_FROM_STATUS, ADD_METRIC, NEXT_METRIC, LAST_METRIC, ADD_CHART, ADD_METRIC_SETTING,
+  ADD_TO_STATUS, REMOVE_FROM_STATUS, ADD_METRIC, NEXT_METRIC, LAST_METRIC, ADD_CHART, ADD_METRIC_SETTING, NEXT_CHART, LAST_CHART,
 } from '../actions/stats';
 import incrementMetric from './utils/stats/incrementMetric';
 import metricLookup from './utils/constants/metricLookup';
 import chartLookup from './utils/constants/chartLookup';
+import incrementChart from './utils/stats/incrementChart';
 
 const initialState = {
   tagFilter: [],
@@ -86,6 +87,18 @@ const statsReducer = (state = initialState, action) => {
 
           return chart;
         }),
+      };
+    }
+    case NEXT_CHART: {
+      return {
+        ...state,
+        charts: incrementChart(state.charts, action.payload.index, 1),
+      };
+    }
+    case LAST_CHART: {
+      return {
+        ...state,
+        charts: incrementChart(state.charts, action.payload.index, -1),
       };
     }
     default:

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
-import TimeLine from '../TimeLine';
+import { makeStyles, Grid } from '@material-ui/core';
 import ChartContainer from './ChartContainer';
 
 
@@ -16,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Charts = ({ charts }) => {
-  console.log(charts)
   const classes = useStyles();
 
   return (
@@ -37,5 +35,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  null
+  null,
 )(Charts);

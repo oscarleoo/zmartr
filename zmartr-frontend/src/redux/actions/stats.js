@@ -10,6 +10,7 @@ export const REMOVE_FROM_TAGS = 'REMOVE_FROM_TAGS';
 export const ADD_TO_STATUS = 'ADD_TO_STATUS';
 export const REMOVE_FROM_STATUS = 'REMOVE_FROM_STATUS';
 export const ADD_METRIC_SETTING = 'ADD_METRIC_SETTING';
+export const ADD_CHART_SETTING = 'ADD_CHART_SETTING';
 
 export const addToTags = (tagId) => () => ({
   type: ADD_TO_TAGS, payload: tagId,
@@ -53,4 +54,8 @@ export const nextChart = (index) => ({
 
 export const lastChart = (index) => ({
   type: LAST_CHART, payload: { index },
+});
+
+export const addChartSetting = (index, setting) => ({
+  type: ADD_CHART_SETTING, payload: { index, setting },
 });
