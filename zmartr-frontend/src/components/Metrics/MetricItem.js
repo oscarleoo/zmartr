@@ -12,6 +12,7 @@ import timeSpentLastNDays from './metrics/timeSpentLastNDays';
 import tasksCompletedLastNDaysAvg from './metrics/tasksCompletedLastNDaysAvg';
 import timeSpentLastNDaysAvg from './metrics/timeSpentLastNDaysAvg';
 import NumberEditField from './NumberEditField';
+import { useAuth0 } from '../../auth0/react-auth0-spa';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -61,6 +62,7 @@ const metricLookup = {
 };
 
 const MetricItem = ({ metric, index, tasks, rightMetric, leftMetric }) => {
+  console.log(metric)
   const classes = useStyles();
   const { score, description } = metricLookup[metric.key](tasks, metric.settings);
 

@@ -70,6 +70,7 @@ const NumberEditField = ({ index, number, variant, addMetricSetting }) => {
   return (
     <div style={{ display: 'inline-block' }}>
       {renderContent()}
+      &nbsp;
     </div>
   );
 };
