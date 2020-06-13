@@ -1,7 +1,7 @@
 import {
   ADD_TO_TAGS,
   REMOVE_FROM_TAGS,
-  ADD_TO_STATUS, REMOVE_FROM_STATUS, ADD_METRIC, NEXT_METRIC, LAST_METRIC, ADD_CHART,
+  ADD_TO_STATUS, REMOVE_FROM_STATUS, ADD_METRIC, NEXT_METRIC, LAST_METRIC, ADD_CHART, ADD_METRIC_SETTING,
 } from '../actions/stats';
 import incrementMetric from './utils/stats/incrementMetric';
 import metricLookup from './utils/constants/metricLookup';
@@ -62,6 +62,18 @@ const statsReducer = (state = initialState, action) => {
       return {
         ...state,
         metrics: incrementMetric(state.metrics, action.payload.index, -1),
+      };
+    }
+    case ADD_METRIC_SETTING: {
+      return {
+        ...state,
+        metrics: state.metrics.map((metric, index) => {
+          if (index === action.payload.index) {
+            return { ...metric, settings: { ...metric.settings, ...action.payload.setting } };
+          }
+
+          return metric;
+        }),
       };
     }
     case ADD_CHART: {

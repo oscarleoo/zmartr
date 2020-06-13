@@ -11,6 +11,7 @@ import timeSpentToday from './metrics/timeSpentToday';
 import timeSpentLastNDays from './metrics/timeSpentLastNDays';
 import tasksCompletedLastNDaysAvg from './metrics/tasksCompletedLastNDaysAvg';
 import timeSpentLastNDaysAvg from './metrics/timeSpentLastNDaysAvg';
+import NumberEditField from './NumberEditField';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -39,11 +40,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   arrow: {
+    padding: '5px',
+    fontSize: '20px',
     opacity: 0,
     cursor: 'pointer',
     color: 'lightgray',
     '&:hover': {
-      color: 'gray',
+      color: theme.palette.text.primary,
     },
   },
 }));
@@ -58,7 +61,6 @@ const metricLookup = {
 };
 
 const MetricItem = ({ metric, index, tasks, rightMetric, leftMetric }) => {
-  console.log(metric)
   const classes = useStyles();
   const { score, description } = metricLookup[metric.key](tasks, metric.settings);
 
@@ -69,7 +71,15 @@ const MetricItem = ({ metric, index, tasks, rightMetric, leftMetric }) => {
         <Typography className={classes.number} align="center" variant="h2">
           {score}
         </Typography>
-        <Typography className={classes.description} align="center" variant="caption">{description}</Typography>
+        <Typography className={classes.description} align="center" variant="caption">
+          {description.split(' ').map((word) => {
+            if (isNaN(word)) {
+              return `${word} `;
+            }
+
+            return <NumberEditField index={index} number={word} variant="caption" />;
+          })}
+        </Typography>
       </div>
       <RightArrowIcon className={classes.arrow} onClick={rightMetric(index)} />
     </div>
