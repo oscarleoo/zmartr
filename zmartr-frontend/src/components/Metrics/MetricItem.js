@@ -49,17 +49,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const metricLookup = {
-  0: tasksCompletedToday,
-  1: tasksCompletedLastNDays,
-  2: tasksCompletedLastNDaysAvg,
-  3: timeSpentToday,
-  4: timeSpentLastNDays,
-  5: timeSpentLastNDaysAvg,
+  TasksCompletedToday: tasksCompletedToday,
+  TasksCompletedLastNDays: tasksCompletedLastNDays,
+  TasksCompletedLastNDaysAvg: tasksCompletedLastNDaysAvg,
+  TimeSpentToday: timeSpentToday,
+  TimeSpentLastNDays: timeSpentLastNDays,
+  TimeSpentLastNDaysAvg: timeSpentLastNDaysAvg,
 };
 
 const MetricItem = ({ metric, index, tasks, rightMetric, leftMetric }) => {
+  console.log(metric)
   const classes = useStyles();
-  const { score, description } = metricLookup[metric.index](tasks, metric.settings);
+  const { score, description } = metricLookup[metric.key](tasks, metric.settings);
 
   return (
     <div className={classes.container}>

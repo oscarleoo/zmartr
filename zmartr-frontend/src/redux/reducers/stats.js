@@ -1,16 +1,17 @@
 import {
   ADD_TO_TAGS,
   REMOVE_FROM_TAGS,
-  ADD_TO_STATUS, REMOVE_FROM_STATUS, ADD_METRIC, NEXT_METRIC, LAST_METRIC,
+  ADD_TO_STATUS, REMOVE_FROM_STATUS, ADD_METRIC, NEXT_METRIC, LAST_METRIC, ADD_CHART,
 } from '../actions/stats';
-import appendNewMetric from './utils/stats/appendNewMetric';
 import incrementMetric from './utils/stats/incrementMetric';
+import metricLookup from './utils/constants/metricLookup';
+import chartLookup from './utils/constants/chartLookup';
 
 const initialState = {
   tagFilter: [],
   statusFilter: [],
-  metrics: [],
-  charts: [],
+  metrics: [{ key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }],
+  charts: [{ key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }],
 };
 
 const statsReducer = (state = initialState, action) => {
@@ -42,7 +43,13 @@ const statsReducer = (state = initialState, action) => {
     case ADD_METRIC: {
       return {
         ...state,
-        metrics: appendNewMetric(state.metrics),
+        metrics: state.metrics.map((metric, index) => {
+          if (index === action.payload.index) {
+            return { key: metricLookup[1], settings: {} };
+          }
+
+          return metric;
+        }),
       };
     }
     case NEXT_METRIC: {
@@ -55,6 +62,18 @@ const statsReducer = (state = initialState, action) => {
       return {
         ...state,
         metrics: incrementMetric(state.metrics, action.payload.index, -1),
+      };
+    }
+    case ADD_CHART: {
+      return {
+        ...state,
+        charts: state.charts.map((chart, index) => {
+          if (index === action.payload.index) {
+            return { key: chartLookup[1], settings: {} };
+          }
+
+          return chart;
+        }),
       };
     }
     default:

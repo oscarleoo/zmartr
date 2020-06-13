@@ -1,18 +1,21 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
-import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { addMetric } from '../../redux/actions/stats';
+import { makeStyles, Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import { addChart } from '../../../redux/actions/stats';
+
 
 const useStyles = makeStyles((theme) => ({
-  addMetricContainer: {
-    height: '100px',
-    width: '100px',
+  container: {
+    opacity: 0,
+    background: '#f0f0f0',
+    height: '100%',
+    width: '100%',
     borderRadius: '14px',
     border: '3px dashed lightgray',
     cursor: 'pointer',
     '&:hover': {
+      opacity: 1,
       border: '3px dashed gray',
       '& $addIcon': {
         color: 'gray',
@@ -25,23 +28,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AddMetric = ({ index, addMetric }) => {
+const EmptyChart = ({ index, addChart }) => {
   const classes = useStyles();
 
   return (
-    <Button className={classes.addMetricContainer} onClick={addMetric(index)}>
+    <Button className={classes.container} onClick={addChart(index)}>
       <AddIcon fontSize="large" className={classes.addIcon} />
     </Button>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addMetric: (index) => () => {
-    dispatch(addMetric(index));
+  addChart: (index) => () => {
+    dispatch(addChart(index));
   },
 });
 
 export default connect(
   null,
   mapDispatchToProps,
-)(AddMetric);
+)(EmptyChart);

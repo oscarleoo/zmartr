@@ -1,4 +1,7 @@
 
+export const ADD_CHART = 'ADD_CHART';
+export const NEXT_CHART = 'NEXT_CHART';
+export const LAST_CHART = 'LAST_CHART';
 export const ADD_METRIC = 'ADD_METRIC';
 export const NEXT_METRIC = 'NEXT_METRIC';
 export const LAST_METRIC = 'LAST_METRIC';
@@ -23,8 +26,8 @@ export const removeFromStatus = (status) => () => ({
   type: REMOVE_FROM_STATUS, payload: status,
 });
 
-export const addMetric = () => ({
-  type: ADD_METRIC,
+export const addMetric = (index) => ({
+  type: ADD_METRIC, payload: { index },
 });
 
 export const nextMetric = (index) => ({
@@ -33,4 +36,16 @@ export const nextMetric = (index) => ({
 
 export const lastMetric = (index) => ({
   type: LAST_METRIC, payload: { index },
+});
+
+export const addChart = (index) => ({
+  type: ADD_CHART, payload: { index },
+});
+
+export const nextChart = (index) => ({
+  type: NEXT_CHART, payload: { index },
+});
+
+export const lastChart = (index) => ({
+  type: LAST_CHART, payload: { index },
 });

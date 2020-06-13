@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Filter from './Filter';
-import TimeLine from './TimeLine';
+import Charts from './Charts';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -9,16 +9,6 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     display: 'flex',
     background: theme.palette.background.white,
-  },
-  outerChartContainer: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '2%',
-  },
-  chartContainer: {
-    flex: 1,
-    display: 'flex',
   },
 }));
 
@@ -28,16 +18,7 @@ const Stats = () => {
   return (
     <div className={classes.container}>
       <Filter />
-      <div className={classes.outerChartContainer}>
-        <div className={classes.chartContainer}>
-          <TimeLine />
-          <TimeLine />
-        </div>
-        <div className={classes.chartContainer}>
-          <TimeLine />
-          <TimeLine />
-        </div>
-      </div>
+      <Charts />
     </div>
   );
 };

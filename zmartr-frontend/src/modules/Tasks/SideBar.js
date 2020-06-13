@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import EmptyMetric from '../../components/Metrics/EmptyMetric';
 import AddMetric from '../../components/Metrics/AddMetric';
 import MetricItem from '../../components/Metrics/MetricItem';
 
@@ -33,13 +32,16 @@ const useStyles = makeStyles((theme) => ({
 
 const SideBar = ({ tasks, metrics }) => {
   const classes = useStyles();
-  const nEmpty = Math.max(0, 4 - metrics.length);
 
   return (
     <div className={classes.container}>
-      {metrics.map((metric, index) => (<MetricItem metric={metric} index={index} />))}
-      { metrics.length < 5 && <div className={classes.addWrapper}><AddMetric /></div> }
-      { [...Array(nEmpty)].map(() => <EmptyMetric />) }
+      {metrics.map((metric, index) => {
+        if (metric.key === 'Empty') {
+          return <div className={classes.addWrapper}><AddMetric index={index} /></div>;
+        }
+
+        return <MetricItem metric={metric} index={index} />;
+      })}
     </div>
   );
 };
