@@ -1,26 +1,39 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Filter from './Filter';
-import Charts from './Charts';
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core';
+import ChartContainer from './Charts/ChartContainer';
 
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    flex: 1,
+  chartsWrapper: {
+    height: '100%',
+    width: '100%',
     display: 'flex',
-    background: theme.palette.background.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
   },
 }));
 
-const Stats = () => {
+
+const Charts = ({ charts }) => {
   const classes = useStyles();
+  const currentIndex = 0;
 
   return (
-    <div className={classes.container}>
-      <Filter />
-      <Charts />
+    <div className={classes.chartsWrapper}>
+      <ChartContainer chart={charts[currentIndex]} index={currentIndex} />
     </div>
   );
 };
 
-export default Stats;
+
+const mapStateToProps = (state) => ({
+  charts: state.stats.charts,
+});
+
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Charts);

@@ -94,7 +94,7 @@ const TopBar = ({ currentSearch, filterTasks }) => {
         {isAuthenticated && (
           <div className={classes.navigationItems}>
             <SideBarItem title="Tasks" href="/" />
-            <SideBarItem title="Stats" href="/stats" />
+            <SideBarItem title="Charts" href="/charts" />
             <SideBarItem title="History" href="/history" />
             <SideBarItem title="Logout" href="/logout" onClickFunction={logout} />
           </div>
