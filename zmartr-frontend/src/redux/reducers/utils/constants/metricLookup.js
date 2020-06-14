@@ -7,4 +7,5 @@ export default {
   4: 'TimeSpentToday',
   5: 'TimeSpentLastNDays',
   6: 'TimeSpentLastNDaysAvg',
+  7: 'TimeInvestedInBacklog',
 };

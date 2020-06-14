@@ -7,12 +7,13 @@ import RightArrowIcon from '@material-ui/icons/ArrowForwardIos';
 import tasksCompletedToday from './metrics/tasksCompletedToday';
 import tasksCompletedLastNDays from './metrics/tasksCompletedLastNDays';
 import { nextMetric, lastMetric } from '../../redux/actions/stats';
-import timeSpentToday from './metrics/timeSpentToday';
-import timeSpentLastNDays from './metrics/timeSpentLastNDays';
+import timeInvestedToday from './metrics/timeInvestedToday';
+import timeInvestedLastNDays from './metrics/timeInvestedLastNDays';
 import tasksCompletedLastNDaysAvg from './metrics/tasksCompletedLastNDaysAvg';
-import timeSpentLastNDaysAvg from './metrics/timeSpentLastNDaysAvg';
+import timeInvestedLastNDaysAvg from './metrics/timeInvestedLastNDaysAvg';
 import NumberEditField from './NumberEditField';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
+import timeInvestedInBacklog from './metrics/timeInvestedInBacklog';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -56,13 +57,13 @@ const metricLookup = {
   TasksCompletedToday: tasksCompletedToday,
   TasksCompletedLastNDays: tasksCompletedLastNDays,
   TasksCompletedLastNDaysAvg: tasksCompletedLastNDaysAvg,
-  TimeSpentToday: timeSpentToday,
-  TimeSpentLastNDays: timeSpentLastNDays,
-  TimeSpentLastNDaysAvg: timeSpentLastNDaysAvg,
+  TimeSpentToday: timeInvestedToday,
+  TimeSpentLastNDays: timeInvestedLastNDays,
+  TimeSpentLastNDaysAvg: timeInvestedLastNDaysAvg,
+  TimeInvestedInBacklog: timeInvestedInBacklog,
 };
 
 const MetricItem = ({ metric, index, tasks, rightMetric, leftMetric }) => {
-  console.log(metric)
   const classes = useStyles();
   const { score, description } = metricLookup[metric.key](tasks, metric.settings);
 
