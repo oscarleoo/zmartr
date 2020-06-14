@@ -25,9 +25,9 @@ const CompletedEachDay = ({ tasks, tagFilter, statusFilter }) => {
       >
         <CartesianGrid strokeDasharray="5 5" />
         <XAxis type="category" dataKey="day" tick={false} height={5} />
-        <YAxis yAxisId="left" domain={[0, completedUpper]} width={40} />
+        <YAxis domain={[0, completedUpper]} width={40} />
         <Tooltip />
-        <Bar yAxisId="left" type="monotone" dataKey="completed" stroke="#8884d8" strokeWidth={2} unit="h" />
+        <Bar fill="#82ca9d" dataKey="completed" />
       </BarChart>
     </ResponsiveContainer>
   );

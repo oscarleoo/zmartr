@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
   chartTitle: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   arrow: {
-    padding: '5px',
+    padding: '5px 20px',
     fontSize: '20px',
     opacity: 0,
     cursor: 'pointer',
