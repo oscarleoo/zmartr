@@ -22,7 +22,8 @@ const HistoryList = ({ history, searchString, availableTags }) => {
     const tagIds = filteredTags.map((tag) => (tag._id));
     const hasTag = item.tags.filter((tag) => (tagIds.indexOf(tag) >= 0)).length > 0;
     const hasStatus = item.type.toLowerCase().includes(searchString);
-    return (titleIncludes || hasTag || hasStatus);
+    const hasId = item._id.toLowerCase().includes(searchString);
+    return (titleIncludes || hasTag || hasStatus || hasId);
   });
 
   return (

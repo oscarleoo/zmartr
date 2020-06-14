@@ -74,7 +74,7 @@ const TopBar = ({ currentSearch, filterTasks }) => {
             id="standard-basic"
             variant="outlined"
             size="small"
-            placeholder="Filter backlog..."
+            placeholder="Filter..."
             defaultValue={currentSearch}
             onChange={handleSearchChange}
             autoComplete="off"

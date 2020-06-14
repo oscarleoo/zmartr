@@ -27,7 +27,7 @@ const CompletedEachDay = ({ tasks, tagFilter, statusFilter }) => {
         <XAxis type="category" dataKey="day" tick={false} height={5} />
         <YAxis domain={[0, completedUpper]} width={40} />
         <Tooltip />
-        <Bar gitfill="#82ca9d" dataKey="completed" />
+        <Bar fill="#82ca9d" dataKey="completed" />
       </BarChart>
     </ResponsiveContainer>
   );
