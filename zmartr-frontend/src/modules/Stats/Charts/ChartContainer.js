@@ -54,7 +54,7 @@ const chartLookup = {
 };
 
 
-const ChartContainer = ({ index, chart, leftChart, rightChart }) => {
+const ChartContainer = ({ timeList, index, chart, leftChart, rightChart }) => {
   const classes = useStyles();
 
   const renderContent = () => {
@@ -71,7 +71,7 @@ const ChartContainer = ({ index, chart, leftChart, rightChart }) => {
           <RightArrowIcon className={classes.arrow} onClick={rightChart(index)} />
         </div>
         <div className={classes.chart}>
-          <Chart />
+          <Chart timeList={timeList} />
         </div>
       </div>
     );

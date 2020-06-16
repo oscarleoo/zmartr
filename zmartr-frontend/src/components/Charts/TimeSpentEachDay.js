@@ -1,19 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import {
-  ResponsiveContainer, CartesianGrid, LineChart, Legend, Line, XAxis, YAxis, Tooltip,
+  ResponsiveContainer, CartesianGrid, LineChart, Line, XAxis, YAxis, Tooltip,
 } from 'recharts';
-import toTimeEachDay from '../../utils/stats/toTimeEachDay';
-import filterTasks from '../../modules/Stats/utils/filterTasks';
+import mergeTimeLists from '../../utils/stats/mergeTimeLists';
 
-const timeLineData = (tasks) => {
-  const data = toTimeEachDay(tasks, 20);
-  return Object.values(data).sort((a, b) => (a.date > b.date ? 1 : -1));
-};
 
-const TimeSpentEachDay = ({ tasks, tagFilter, statusFilter }) => {
-  const filteredTasks = filterTasks(tasks, tagFilter, statusFilter);
-  const data = timeLineData(filteredTasks);
+const TimeSpentEachDay = ({ timeList }) => {
+  const data = mergeTimeLists(timeList, 20);
   const timeUpper = Math.ceil(Math.max(...data.map((day) => (day.time))));
 
   return (
@@ -25,7 +18,7 @@ const TimeSpentEachDay = ({ tasks, tagFilter, statusFilter }) => {
       >
         <CartesianGrid strokeDasharray="5 5" />
         <XAxis type="category" dataKey="day" tick={false} height={5} />
-        <YAxis yAxisId="left" domain={[0, timeUpper]} unit="h" width={40} />
+        <YAxis yAxisId="left" domain={[0, timeUpper]} unit="h" width={40} allowDecimals={false} />
         <Tooltip />
         <Line yAxisId="left" type="monotone" dataKey="time" stroke="#8884d8" strokeWidth={2} unit="h" />
       </LineChart>
@@ -33,13 +26,4 @@ const TimeSpentEachDay = ({ tasks, tagFilter, statusFilter }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  tasks: state.tasks.list,
-  tagFilter: state.stats.tagFilter,
-  statusFilter: state.stats.statusFilter,
-});
-
-export default connect(
-  mapStateToProps,
-  null,
-)(TimeSpentEachDay);
+export default TimeSpentEachDay;

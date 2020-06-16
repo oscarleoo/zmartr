@@ -8,14 +8,14 @@ import { addChart } from '../../../redux/actions/stats';
 const useStyles = makeStyles((theme) => ({
   container: {
     opacity: 0,
-    background: '#f0f0f0',
+    background: '#fff',
     height: '100%',
     width: '100%',
     borderRadius: '14px',
     border: '3px dashed lightgray',
     cursor: 'pointer',
     '&:hover': {
-      opacity: 1,
+      opacity: 0.5,
       border: '3px dashed gray',
       '& $addIcon': {
         color: 'gray',
@@ -32,7 +32,10 @@ const EmptyChart = ({ index, addChart }) => {
   const classes = useStyles();
 
   return (
-    <Button className={classes.container} onClick={addChart(index)}>
+    <Button
+      className={classes.container}
+      onClick={addChart(index)}
+    >
       <AddIcon fontSize="large" className={classes.addIcon} />
     </Button>
   );

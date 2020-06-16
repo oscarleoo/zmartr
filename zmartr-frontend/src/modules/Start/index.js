@@ -5,6 +5,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
 import backlogVideo from '../../static/videos/backlog-video-1080.mov';
 import historyVideo from '../../static/videos/history-video-1080.mov';
+import metricVideo from '../../static/videos/metric-video-1080.mov';
 
 const useStyles = makeStyles((theme) => ({
   startContainer: {
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 const chartImages = [
   { title: 'Create and tag your tasks, just like in any other task management application. Select the task you want to work on right now and make some progress! :D', video: backlogVideo },
-  { title: 'Select your most relevant metrics to create a backlog view that is prefect for you and that helps you stay on track with your goals.', video: historyVideo },
+  { title: 'Select your most relevant metrics to create a backlog view that is prefect for you and that helps you stay on track with your goals.', video: metricVideo },
   { title: 'Create your own dashboard to get an overview of your progress. Filter the dashboards on tags or status for additional details.', video: historyVideo },
   { title: 'Go back in time and look at your action history to see exactly what you did in the past. You can edit or remove certain activities if necessary', video: historyVideo },
 ];
