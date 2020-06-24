@@ -1,11 +1,14 @@
 import React from 'react';
-import { makeStyles, MobileStepper, Typography, CardMedia } from '@material-ui/core';
+import { makeStyles, MobileStepper, Typography, CardMedia, Button } from '@material-ui/core';
+import EnterIcon from '@material-ui/icons/ExitToApp';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { useAuth0 } from '../../auth0/react-auth0-spa';
 import backlogVideo from '../../static/videos/backlog-video-1080.mov';
 import historyVideo from '../../static/videos/history-video-1080.mov';
 import metricVideo from '../../static/videos/metric-video-1080.mov';
+import statsVideo from '../../static/videos/stats-video-1080.mov';
+
 
 const useStyles = makeStyles((theme) => ({
   startContainer: {
@@ -30,9 +33,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   image: {
-    width: '90%',
-    maxWidth: '1000px',
-    border: '4px solid #3f3f44',
+    height: '500px',
+    // border: '4px solid #3f3f44',
   },
   stepper: {
     marginTop: '10px',
@@ -57,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 const chartImages = [
   { title: 'Create and tag your tasks, just like in any other task management application. Select the task you want to work on right now and make some progress! :D', video: backlogVideo },
   { title: 'Select your most relevant metrics to create a backlog view that is prefect for you and that helps you stay on track with your goals.', video: metricVideo },
-  { title: 'Create your own dashboard to get an overview of your progress. Filter the dashboards on tags or status for additional details.', video: historyVideo },
+  { title: 'Create your own dashboard to get an overview of your progress. Filter the dashboards on tags or status for additional details.', video: statsVideo },
   { title: 'Go back in time and look at your action history to see exactly what you did in the past. You can edit or remove certain activities if necessary', video: historyVideo },
 ];
 
@@ -97,7 +99,16 @@ const Start = () => {
           <KeyboardArrowLeft onClick={handleBack} className={classes.arrow} />
         }
       />
-      <KeyboardArrowLeft onClick={loginWithRedirect} className={classes.arrow} />
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        onClick={loginWithRedirect}
+        style={{ marginTop: '30px', padding: '14px 30px' }}
+        startIcon={<EnterIcon />}
+      >
+        Enter
+      </Button>
     </div>
   );
 };

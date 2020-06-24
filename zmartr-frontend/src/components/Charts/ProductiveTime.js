@@ -73,6 +73,7 @@ const ProductiveTime = ({ timeList }) => {
               <ScatterChart margin={{ top: 10, right: 0, bottom: 0, left: 0 }}>
                 <XAxis type="category" height={xHeight} dataKey="hour" interval={0} tick={index !== days.length - 1 ? { fontSize: 0 } : { fontSize: 12 }} tickLine={{ transform: 'translate(0, -6)' }} />
                 <YAxis type="number" dataKey="index" name={day} height={10} width={50} tick={false} tickLine={false} axisLine={false} label={{ fontSize: 14, value: day, position: 'insideRight' }} />
+                <Tooltip />
                 <ZAxis type="number" dataKey="value" range={range} />
                 <Scatter data={data[day]} fill="#8884d8" />
               </ScatterChart>
