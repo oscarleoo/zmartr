@@ -8,7 +8,6 @@ import CompletedEachDay from '../../../components/Charts/CompletedEachDay';
 import TimeSpentEachDay from '../../../components/Charts/TimeSpentEachDay';
 import { nextChart, lastChart } from '../../../redux/actions/stats';
 import ProductiveTime from '../../../components/Charts/ProductiveTime';
-import TagPercentChart from '../../../components/Charts/TagPercentChart';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,8 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const chartLookup = {
   CompletedEachDay: { Chart: CompletedEachDay, title: 'Completed Tasks Per Day' },
   TimeSpentEachDay: { Chart: TimeSpentEachDay, title: 'Total Time Spent Per Day' },
-  TagPercentChart: { Chart: TagPercentChart, title: 'Percentage of time spent on tags' },
-  ProductiveTime: { Chart: ProductiveTime, title: 'When you complete your tasks' },
+  ProductiveTime: { Chart: ProductiveTime, title: 'When I complete my tasks' },
 };
 
 
@@ -65,10 +63,6 @@ const ChartContainer = ({ timeList, index, chart, leftChart, rightChart }) => {
   const classes = useStyles();
 
   const renderContent = () => {
-    if (chart.key === 'Empty') {
-      return <EmptyChart index={index} />;
-    }
-
     const { Chart, title } = chartLookup[chart.key];
     return (
       <div className={classes.chartContainer}>

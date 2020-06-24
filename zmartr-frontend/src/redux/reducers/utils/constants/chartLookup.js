@@ -1,8 +1,6 @@
 
 export default {
-  0: 'Empty',
-  1: 'CompletedEachDay',
-  2: 'TimeSpentEachDay',
-  3: 'TagPercentChart',
-  4: 'ProductiveTime',
+  0: 'CompletedEachDay',
+  1: 'TimeSpentEachDay',
+  2: 'ProductiveTime',
 };

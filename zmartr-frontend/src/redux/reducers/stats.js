@@ -12,7 +12,7 @@ const initialState = {
   tagFilter: [],
   statusFilter: [],
   metrics: [{ key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }, { key: 'Empty' }],
-  charts: [{ key: 'Empty' }],
+  charts: [{ key: 'CompletedEachDay' }],
 };
 
 const statsReducer = (state = initialState, action) => {
