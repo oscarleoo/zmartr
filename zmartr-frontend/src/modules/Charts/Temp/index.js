@@ -8,11 +8,10 @@ import toTimeEachDay from '../../../utils/stats/toTimeEachDay';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    flex: 1,
     padding: '2%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  chartContainer: {
+    padding: '2%',
   },
 }));
 
@@ -24,9 +23,12 @@ const Charts = ({ charts, tasks, tagFilter, statusFilter }) => {
 
 
   return (
-    <div className={classes.container}>
+    <Grid container className={classes.container}>
       <ChartContainer timeList={timeList} index={0} chart={charts[0]} />
-    </div>
+      <ChartContainer timeList={timeList} index={1} chart={charts[1]} />
+      <ChartContainer timeList={timeList} index={2} chart={charts[2]} />
+      <ChartContainer timeList={timeList} index={3} chart={charts[3]} />
+    </Grid>
   );
 };
 

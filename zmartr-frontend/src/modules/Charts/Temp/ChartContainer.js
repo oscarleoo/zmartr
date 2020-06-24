@@ -13,10 +13,7 @@ import TagPercentChart from '../../../components/Charts/TagPercentChart';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    height: '80%',
-    width: '80%',
-    maxHeight: '550px',
-    maxWidth: '1100px',
+    padding: '2% 3%',
   },
   chartContainer: {
     position: 'relative',
@@ -30,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chart: {
     position: 'absolute',
-    top: '80px',
+    top: '15%',
     left: 0,
     right: 0,
     bottom: 0,
@@ -74,7 +71,7 @@ const ChartContainer = ({ timeList, index, chart, leftChart, rightChart }) => {
       <div className={classes.chartContainer}>
         <div className={classes.chartTitle}>
           <LeftArrowIcon className={classes.arrow} onClick={leftChart(index)} />
-          <Typography variant="h3" align="center">{title}</Typography>
+          <Typography variant="h4" align="center">{title}</Typography>
           <RightArrowIcon className={classes.arrow} onClick={rightChart(index)} />
         </div>
         <div className={classes.chart}>
@@ -85,9 +82,9 @@ const ChartContainer = ({ timeList, index, chart, leftChart, rightChart }) => {
   };
 
   return (
-    <div className={classes.container}>
+    <Grid className={classes.container} item xs={6}>
       {renderContent()}
-    </div>
+    </Grid>
   );
 };
 
