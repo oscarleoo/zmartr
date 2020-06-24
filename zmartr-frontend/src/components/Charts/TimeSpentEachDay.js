@@ -4,7 +4,6 @@ import {
 } from 'recharts';
 import mergeTimeLists from '../../utils/stats/mergeTimeLists';
 
-
 const TimeSpentEachDay = ({ timeList }) => {
   const data = mergeTimeLists(timeList, 20);
   const timeUpper = Math.ceil(Math.max(...data.map((day) => (day.time))));
