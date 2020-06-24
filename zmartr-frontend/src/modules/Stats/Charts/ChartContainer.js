@@ -7,11 +7,15 @@ import EmptyChart from './EmptyChart';
 import CompletedEachDay from '../../../components/Charts/CompletedEachDay';
 import TimeSpentEachDay from '../../../components/Charts/TimeSpentEachDay';
 import { nextChart, lastChart } from '../../../redux/actions/stats';
+import ProductiveTime from '../../../components/Charts/ProductiveTime';
 
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: '2% 3%',
+    height: '80%',
+    width: '80%',
+    maxHeight: '550px',
+    maxWidth: '1100px',
   },
   chartContainer: {
     position: 'relative',
@@ -25,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chart: {
     position: 'absolute',
-    top: '15%',
+    top: '80px',
     left: 0,
     right: 0,
     bottom: 0,
@@ -51,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const chartLookup = {
   CompletedEachDay: { Chart: CompletedEachDay, title: 'Completed Tasks Per Day' },
   TimeSpentEachDay: { Chart: TimeSpentEachDay, title: 'Total Time Spent Per Day' },
+  ProductiveTime: { Chart: ProductiveTime, title: 'When I complete my tasks' },
 };
 
 
@@ -58,16 +63,12 @@ const ChartContainer = ({ timeList, index, chart, leftChart, rightChart }) => {
   const classes = useStyles();
 
   const renderContent = () => {
-    if (chart.key === 'Empty') {
-      return <EmptyChart index={index} />;
-    }
-
     const { Chart, title } = chartLookup[chart.key];
     return (
       <div className={classes.chartContainer}>
         <div className={classes.chartTitle}>
           <LeftArrowIcon className={classes.arrow} onClick={leftChart(index)} />
-          <Typography variant="h4" align="center">{title}</Typography>
+          <Typography variant="h3" align="center">{title}</Typography>
           <RightArrowIcon className={classes.arrow} onClick={rightChart(index)} />
         </div>
         <div className={classes.chart}>
@@ -78,9 +79,9 @@ const ChartContainer = ({ timeList, index, chart, leftChart, rightChart }) => {
   };
 
   return (
-    <Grid className={classes.container} item xs={6}>
+    <div className={classes.container}>
       {renderContent()}
-    </Grid>
+    </div>
   );
 };
 

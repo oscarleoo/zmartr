@@ -1,6 +1,6 @@
 
 export default {
-  0: 'Empty',
-  1: 'CompletedEachDay',
-  2: 'TimeSpentEachDay',
+  0: 'CompletedEachDay',
+  1: 'TimeSpentEachDay',
+  2: 'ProductiveTime',
 };
